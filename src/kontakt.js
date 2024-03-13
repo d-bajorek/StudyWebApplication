@@ -1,2 +1,3 @@
-import { sum } from "./sum";
-console.log(`Wynik dodawania ${sum(3, 4)}`);
+// import { sum } from "./sum";
+// console.log(`Wynik dodawania ${sum(3, 4)}`);
+

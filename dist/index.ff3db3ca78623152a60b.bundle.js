@@ -1,10 +1,10 @@
 /******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ([
 /* 0 */,
 /* 1 */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 // extracted by mini-css-extract-plugin
 
@@ -13,32 +13,7 @@ __webpack_require__.r(__webpack_exports__);
 /* 2 */
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-"use strict";
 module.exports = __webpack_require__.p + "28808fe017a3f4f1bd21.png";
-
-/***/ }),
-/* 3 */
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "sum2": () => (/* binding */ sum2)
-/* harmony export */ });
-function sum2(a, b) {
-  return a + b;
-}
-
-/***/ }),
-/* 4 */
-/***/ ((module) => {
-
-function sum(a, b) {
-  return a + b;
-}
-module.exports = {
-  sum: sum
-};
 
 /***/ })
 /******/ 	]);
@@ -68,18 +43,6 @@ module.exports = {
 /******/ 	}
 /******/ 	
 /************************************************************************/
-/******/ 	/* webpack/runtime/define property getters */
-/******/ 	(() => {
-/******/ 		// define getter functions for harmony exports
-/******/ 		__webpack_require__.d = (exports, definition) => {
-/******/ 			for(var key in definition) {
-/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
-/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
-/******/ 				}
-/******/ 			}
-/******/ 		};
-/******/ 	})();
-/******/ 	
 /******/ 	/* webpack/runtime/global */
 /******/ 	(() => {
 /******/ 		__webpack_require__.g = (function() {
@@ -90,11 +53,6 @@ module.exports = {
 /******/ 				if (typeof window === 'object') return window;
 /******/ 			}
 /******/ 		})();
-/******/ 	})();
-/******/ 	
-/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
-/******/ 	(() => {
-/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/make namespace object */
@@ -130,35 +88,84 @@ module.exports = {
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _css_index_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var _assets_img_bag_seedling_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
-/* harmony import */ var _sum2__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
 
 
 
-var sum = (__webpack_require__(4).sum);
-console.log("Hello World");
-console.log(sum(2, 3));
-console.log((0,_sum2__WEBPACK_IMPORTED_MODULE_2__.sum2)(2, 3));
+/////////////////////////////////////////////
 
-////////////////////////////////////////////
+document.getElementById("toggleLoginBtn").addEventListener("click", function () {
+  // Przełączanie klasy show na kontenerze formularza logowania
+  document.getElementById("loginContainer").classList.toggle("show");
+});
 
-var heading = document.querySelector("#demo"),
-  sumValue = sum(10, 5);
-heading.innerHTML = "10 + 5 = ".concat(sumValue);
+// const selectElement = document.querySelector("select");
+// const table = document.querySelector("table");
 
-////////////////////////////////////////////
+// fetch ("https://api.tvmaze.com/shows/1/images")
+//   .then((response) => response.json())
+//   .then((data) => {
+//     data.forEach((country) => {
+//       const option = document.createElement("option");
+//       option.text = country.name;
+//       selectElement.add(option);
+//     });
+//   });
 
-var myIcon = new Image(); // odpowiednik <img>
-myIcon.src = _assets_img_bag_seedling_png__WEBPACK_IMPORTED_MODULE_1__;
-document.querySelector("div").appendChild(myIcon);
-document.querySelector("div").classList.add("change");
+// Pobierz dane ze wskazanego URL
+// Pobierz dane ze wskazanego URL
+fetch('https://api.tvmaze.com/shows/1/images').then(function (response) {
+  return response.json();
+}) // Przekształć odpowiedź na format JSON
+.then(function (data) {
+  // Przetwórz otrzymane dane
+  var carouselInner = document.querySelector('.carousel-inner');
+  data.forEach(function (image, index) {
+    // Pobierz URL obrazu w rozmiarze medium
+    var imageUrl = image.resolutions.medium.url;
+
+    // Utwórz element <div> dla każdego obrazu i dodaj odpowiednie klasy CSS
+    var carouselItem = document.createElement('div');
+    carouselItem.classList.add('carousel-item');
+    if (index === 0) {
+      carouselItem.classList.add('active');
+    }
+
+    // Utwórz element <img> dla każdego obrazu i ustaw atrybut src
+    var imgElement = document.createElement('img');
+    imgElement.src = imageUrl;
+    imgElement.classList.add('d-block', 'w-5');
+
+    // Dodaj <img> do <div> dla slidu
+    carouselItem.appendChild(imgElement);
+
+    // Dodaj <div> dla slidu do kontenera dla slidu
+    carouselInner.appendChild(carouselItem);
+  });
+
+  // Ustaw wskaźniki dla slidu
+  var carouselIndicators = document.querySelector('.carousel-indicators');
+  data.forEach(function (_, index) {
+    // Utwórz element <li> dla każdego obrazu i dodaj odpowiednie atrybuty
+    var indicator = document.createElement('li');
+    indicator.setAttribute('data-bs-target', '#carouselExampleIndicators');
+    indicator.setAttribute('data-bs-slide-to', index);
+    if (index === 0) {
+      indicator.classList.add('active');
+    }
+
+    // Dodaj <li> do listy wskaźników
+    carouselIndicators.appendChild(indicator);
+  });
+})["catch"](function (error) {
+  console.error('Wystąpił błąd podczas pobierania danych:', error);
+});
 })();
 
 /******/ })()
 ;
-//# sourceMappingURL=index.fdc18456351c0b692930.bundle.js.map
+//# sourceMappingURL=index.ff3db3ca78623152a60b.bundle.js.map

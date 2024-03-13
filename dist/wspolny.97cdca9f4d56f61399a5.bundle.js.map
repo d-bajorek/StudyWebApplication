@@ -1,1 +1,0 @@
-{"version":3,"file":"wspolny.97cdca9f4d56f61399a5.bundle.js","mappings":";;AAAAA,OAAO,CAACC,GAAG,CAAC,wBAAwB,CAAC,C","sources":["webpack://kurswebpack/./src/wspolny.js"],"sourcesContent":["console.log(\"Jestem wspólną częścią\")"],"names":["console","log"],"sourceRoot":""}

@@ -7,7 +7,8 @@ module.exports = {
   entry: {
     index: "./src/index.js",
     kontakt: "./src/kontakt.js",
-    wspolny: "./src/wspolny.js",
+    koszyk: "./src/koszyk.js",
+    wypozyczalnia: "./src/wypozyczalnia.js",
   },
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -66,6 +67,12 @@ module.exports = {
       inject: true,
       chunks: ["kontakt"],
       filename: "kontakt.html",
+    }),
+    new HtmlWebpackPlugin({
+      template: "./src/koszyk.html",
+      inject: true,
+      chunks: ["koszyk"],
+      filename: "koszyk.html",
     }),
     new MiniCssExtractPlugin(),
     new CopyWebpackPlugin({
