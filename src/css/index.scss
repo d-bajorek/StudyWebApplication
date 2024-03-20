@@ -1,9 +1,16 @@
 body {
-  //background-color: bisque;
+  font-family: 'Roboto', sans-serif;
+$color1: #FED8F7;
+$color2: #FFCFFB;
+$color3: #FFFFFC;
+$color4: #DDE8FF;
+$color5: #C4DDFE;
+
+background: linear-gradient(to bottom, $color1, $color2, $color3, $color4, $color5);
+
   h1 {
     color: blueviolet;
   }
-  background: url("../assets/img/bag-seedling.png");
   .change {
     background-color: yellow;
     padding: 10px;

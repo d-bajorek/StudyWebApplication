@@ -96,6 +96,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 /////////////////////////////////////////////
 
 document.getElementById("toggleLoginBtn").addEventListener("click", function () {
@@ -103,42 +104,64 @@ document.getElementById("toggleLoginBtn").addEventListener("click", function () 
   document.getElementById("loginContainer").classList.toggle("show");
 });
 
-// const selectElement = document.querySelector("select");
-// const table = document.querySelector("table");
+// TOP TEN FILMS
+fetch('https://api.tvmaze.com/shows').then(function (blob) {
+  return blob.json();
+}).then(function (json) {
+  var topTenShows = json.filter(function (show) {
+    return show.rating.average;
+  }).sort(function (a, b) {
+    return a.rating.average > b.rating.average ? -1 : 1;
+  }).slice(0, 9); // tar element 0-9 i arrayen
 
-// fetch ("https://api.tvmaze.com/shows/1/images")
-//   .then((response) => response.json())
-//   .then((data) => {
-//     data.forEach((country) => {
-//       const option = document.createElement("option");
-//       option.text = country.name;
-//       selectElement.add(option);
-//     });
-//   });
+  return topTenShows;
+}).then(function (shows) {
+  var topTen = document.getElementById('topTen');
 
+  // Tworzymy div z klasą "row" dla Bootstrap Grid
+  var rowDiv = document.createElement('div');
+  rowDiv.classList.add('row');
+
+  // Iterujemy przez wszystkie programy i dodajemy je jako kolumny w siatce Bootstrapa
+  shows.forEach(function (show) {
+    // Tworzymy div z klasą "col" dla każdego programu
+    var colDiv = document.createElement('div');
+    colDiv.classList.add('col-sm-4'); // Możesz dostosować szerokość kolumny wg potrzeb, np. col-sm-4 dla małych ekranów
+
+    // Tworzymy treść HTML dla każdego programu
+    colDiv.innerHTML = "\n          <div class=\"movie-content\">\n              <img src=\"".concat(show.image.medium, "\">\n              <div class=\"movie-info\">\n                  <h5>").concat(show.name, "</h5>\n                  <span>Rating: ").concat(show.rating.average, "</span>\n                  <br />\n                  <span>Rating: ").concat(show.genres, "</span>\n              </div>\n          </div>\n      ");
+
+    // Dodajemy kolumnę do wiersza
+    rowDiv.appendChild(colDiv);
+  });
+
+  // Dodajemy wiersz do kontenera topTen
+  topTen.appendChild(rowDiv);
+});
+
+// SLIDER
 // Pobierz dane ze wskazanego URL
-// Pobierz dane ze wskazanego URL
-fetch('https://api.tvmaze.com/shows/1/images').then(function (response) {
+fetch("https://api.tvmaze.com/shows/1/images").then(function (response) {
   return response.json();
 }) // Przekształć odpowiedź na format JSON
 .then(function (data) {
   // Przetwórz otrzymane dane
-  var carouselInner = document.querySelector('.carousel-inner');
+  var carouselInner = document.querySelector(".carousel-inner");
   data.forEach(function (image, index) {
     // Pobierz URL obrazu w rozmiarze medium
     var imageUrl = image.resolutions.medium.url;
 
     // Utwórz element <div> dla każdego obrazu i dodaj odpowiednie klasy CSS
-    var carouselItem = document.createElement('div');
-    carouselItem.classList.add('carousel-item');
+    var carouselItem = document.createElement("div");
+    carouselItem.classList.add("carousel-item");
     if (index === 0) {
-      carouselItem.classList.add('active');
+      carouselItem.classList.add("active");
     }
 
     // Utwórz element <img> dla każdego obrazu i ustaw atrybut src
-    var imgElement = document.createElement('img');
+    var imgElement = document.createElement("img");
     imgElement.src = imageUrl;
-    imgElement.classList.add('d-block', 'w-5');
+    imgElement.classList.add("d-block", "w-5");
 
     // Dodaj <img> do <div> dla slidu
     carouselItem.appendChild(imgElement);
@@ -148,24 +171,24 @@ fetch('https://api.tvmaze.com/shows/1/images').then(function (response) {
   });
 
   // Ustaw wskaźniki dla slidu
-  var carouselIndicators = document.querySelector('.carousel-indicators');
+  var carouselIndicators = document.querySelector(".carousel-indicators");
   data.forEach(function (_, index) {
     // Utwórz element <li> dla każdego obrazu i dodaj odpowiednie atrybuty
-    var indicator = document.createElement('li');
-    indicator.setAttribute('data-bs-target', '#carouselExampleIndicators');
-    indicator.setAttribute('data-bs-slide-to', index);
+    var indicator = document.createElement("li");
+    indicator.setAttribute("data-bs-target", "#carouselExampleIndicators");
+    indicator.setAttribute("data-bs-slide-to", index);
     if (index === 0) {
-      indicator.classList.add('active');
+      indicator.classList.add("active");
     }
 
     // Dodaj <li> do listy wskaźników
     carouselIndicators.appendChild(indicator);
   });
 })["catch"](function (error) {
-  console.error('Wystąpił błąd podczas pobierania danych:', error);
+  console.error("Wystąpił błąd podczas pobierania danych:", error);
 });
 })();
 
 /******/ })()
 ;
-//# sourceMappingURL=index.ff3db3ca78623152a60b.bundle.js.map
+//# sourceMappingURL=index.dcbe90b9a1b3c97707f4.bundle.js.map

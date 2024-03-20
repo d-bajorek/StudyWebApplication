@@ -1,5 +1,6 @@
 body {
-  background: url(28808fe017a3f4f1bd21.png);
+  font-family: "Roboto", sans-serif;
+  background: linear-gradient(to bottom, #FED8F7, #FFCFFB, #FFFFFC, #DDE8FF, #C4DDFE);
 }
 body h1 {
   color: blueviolet;

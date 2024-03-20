@@ -4,225 +4,325 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Projekt zaliczeniowy</title>
-     <!-- Linki do arkuszy stylów -->
+    <!-- Linki do arkuszy stylów -->
     <link href="index.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
     <script defer src="index.fdc18456351c0b692930.bundle.js"></script>
     <script defer src="kontakt.16353a9ae17a661bca69.bundle.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">
-    </script>
-  <script defer src="index.ff3db3ca78623152a60b.bundle.js"></script><script defer src="kontakt.a9aaa91deb3db371fcba.bundle.js"></script><script defer src="koszyk.8baf63c6cae60a9482e1.bundle.js"></script><script defer src="wypozyczalnia.1d3afdf1e0fd7bc14fe0.bundle.js"></script><link href="index.css" rel="stylesheet"></head>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+      integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+      crossorigin="anonymous"
+    ></script>
+  <script defer src="index.dcbe90b9a1b3c97707f4.bundle.js"></script><script defer src="kontakt.d1a36ec02f4d1ac308f9.bundle.js"></script><script defer src="koszyk.8baf63c6cae60a9482e1.bundle.js"></script><script defer src="wypozyczalnia.1d3afdf1e0fd7bc14fe0.bundle.js"></script><script defer src="main.142f34eb45c628880394.bundle.js"></script><link href="index.css" rel="stylesheet"></head>
+  <!-------------------------------------------------------------------->
   <body>
     <div class="container">
-    <header class="p-3 mb-3 border-bottom">
-      <!-- Pasek nawigacyjny -->
-      <div class="container">
-        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-          <!-- Menu Logo -->
-          <a href="./index.html"></a>
+      <header class="p-3 mb-3 border-bottom">
+        <!-- Pasek nawigacyjny -->
+        <div class="container">
+          <div
+            class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"
+          >
+            <!-- Menu Logo -->
+            <!-- <a href="./index.html"></a>
             <img class="bi me-2" width="40" height="32" role="img" src="./assets/img/bag-seedling.png" alt="Strona Główna">
-          </a>
-          <!-- Navbar - Wypozyczalnia -->
-          <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-            <li class="nav-item dropdown">
-              <a href="./wypozyczalnia.html" class="nav-link px-2 link-secondary">Wypożyczalnia</a>
-            </li>
-          <!-- Nowa sekcja navbar -->
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Next Steps
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Historic</a>
-                <a class="dropdown-item" href="#">Subscribe to the blog</a>
-                <a class="dropdown-item" href="#">Sign up for our newsletter</a>
-              </div>
-            </li>
-            <!-- Dodaj do ulubionych -->
-            <li>
-              <input type=button class="nav-link px-2 link-secondary" onClick="location.href='.kontakt.html'"
-                value='Add to favorites'>
-            </li>
-            <!-- Wypożyczalnia -->
-            <li>
-              <button onclick="search()" class="nav-link px-2 link-body-emphasis">Wyszukaj film</button>
-              <p id="outputSearch"></p>
-            </li>
-          </ul>
-          <!-- Wyszukiwanie -->
-          <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-secondary" type="submit">Search</button>
-          </form>
-
-          <!-- Przycisk do wyświetlenia formularza -->
-          <a href="#" id="toggleLoginBtn" class="btn btn-link link-secondary">Toggle Login</a>
-          <!-- Kontener formularza logowania -->
-          <div id="loginContainer" class="login-form-container">
-              <form class="p-4">
-                  <h2 class="mb-4">Login</h2>
-                  <div class="mb-3">
-                      <label for="inputEmail" class="form-label">Email address</label>
-                      <input type="email" class="form-control" id="inputEmail" placeholder="name@example.com">
-                  </div>
-                  <div class="mb-3">
-                      <label for="inputPassword" class="form-label">Password</label>
-                      <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-                  </div>
-                  <button type="submit" class="btn btn-secondary">Sign in</button>
-              </form>
-          </div>
-          <!-- Skrypty formularza logowania JavaScript -->
-          <script src="index.js"></script>
-          <!-- Koszyk -->
-          <div class="empty-basket">
-            <a href="./koszyk.html" title="Koszyk">
-              <span class="countlabel">
-                <img class="bi me-2" width="40" height="22" role="img" src="./assets/img/basket.svg" onClick="location.href='koszyk.html'" alt="Koszyk">
-                <!-- <span>Koszyk:</span> -->
-                <b>
-                  <b class="sum">0,00&nbsp;zł</b>
-                  <b class="count"><span>0</span></b>
-                </b>
-              </span>
-            </a>
-          </div>
-        </div>
-      </div>
-    </header>
-    </div>
-    <!--  -->
-    <div class="container">
-      <div class="wrap rwd">
-      <header class="row">
-        <div class="top-row-container">
-            <span class="fonts-size-btn">A+</span>
-          </div>
-          <div class="logo-bar-row-container">
-            <a href="/" title="Strona Główna">
-            <!-- <img src="wstaw zdjęcie logo.svg" alt="Wypożyczalnia filmów" /> -->
-            </a>
-          <div class="search-container">
-            <input
-              type="text" 
-              id="search"
-              autocomplete="off"
-              placeholder="Czego potrzebujesz?"
-            />
-            <button onclick="search()">Wyszukaj film</button>
-          </div>
-          <div class="login-bar">
-            <ul class="links">
-              <li class="login">
-                <input type=button onClick="location.href='kontakt.html';"
-                value="Login">
-              </li>
-              <li class="register">
+          </a> -->
+            <!-- Navbar - Wypozyczalnia -->
+            <ul
+              class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
+            >
+              <li class="nav-item dropdown">
                 <a
-                  href="link do rejestracji"
-                  title="Zarejestruj się"
-                  class="register"
-                  >Zarejestruj się
+                  href="./wypozyczalnia.html"
+                  class="nav-link px-2 link-secondary"
+                  >Wypożyczalnia</a
+                >
+              </li>
+              <!-- Nowa sekcja navbar -->
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="navbarDropdown"
+                  role="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Next Steps
                 </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="#">Historic</a>
+                  <a class="dropdown-item" href="#">Subscribe to the blog</a>
+                  <a class="dropdown-item" href="#"
+                    >Sign up for our newsletter</a
+                  >
+                </div>
+              </li>
+              <!-- Dodaj do ulubionych -->
+              <li>
+                <input
+                  type="button"
+                  class="nav-link px-2 link-secondary"
+                  onClick="location.href='.kontakt.html'"
+                  value="Add to favorites"
+                />
+              </li>
+              <!-- Wypożyczalnia -->
+              <li>
+                <button
+                  onclick="search()"
+                  class="nav-link px-2 link-body-emphasis"
+                >
+                  Wyszukaj film
+                </button>
+                <p id="outputSearch"></p>
               </li>
             </ul>
-          </div>
-          <!-- Koszyk pełny -->
-          <div class="basket-contain">
-            <div class="basket-products">
-              <ul class="basket-products-list"></ul>
+            <!-- Wyszukiwanie -->
+            <form class="d-flex">
+              <input
+                class="form-control me-2"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+              />
+              <button class="btn btn-secondary" type="submit">Search</button>
+            </form>
+
+            <!-- Przycisk do wyświetlenia formularza -->
+            <a href="#" id="toggleLoginBtn" class="btn btn-link link-secondary"
+              >Login</a
+            >
+            <!-- Kontener formularza logowania -->
+            <div id="loginContainer" class="login-form-container">
+              <form class="p-4">
+                <h2 class="mb-4">Login</h2>
+                <div class="mb-3">
+                  <label for="inputEmail" class="form-label"
+                    >Email address</label
+                  >
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="inputEmail"
+                    placeholder="name@example.com"
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="inputPassword" class="form-label">Password</label>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="inputPassword"
+                    placeholder="Password"
+                  />
+                </div>
+                <button type="submit" class="btn btn-secondary">Sign in</button>
+              </form>
             </div>
-            <div class="basket-summery">
-              <a href="./koszyk.html">Do kasy</a>
-              <span class="basket-price">
-                <span class="price-total">
-                  <span>Suma:</span>
-                  <b class="price-products">0,00&nbsp;zł</b>
+            <!-- Skrypty formularza logowania JavaScript -->
+            <script src="index.js"></script>
+            <!-- Koszyk -->
+            <div class="empty-basket">
+              <a href="./koszyk.html" title="Koszyk">
+                <span class="countlabel">
+                  <img
+                    class="bi me-2"
+                    width="40"
+                    height="22"
+                    role="img"
+                    src="./assets/img/basket.svg"
+                    onClick="location.href='koszyk.html'"
+                    alt="Koszyk"
+                  />
+                  <!-- <span>Koszyk:</span> -->
+                  <b>
+                    <b class="sum">0,00&nbsp;zł</b>
+                    <b class="count"><span>0</span></b>
+                  </b>
                 </span>
-              </span>
+              </a>
             </div>
           </div>
         </div>
       </header>
-      <div class="menu-row">
-        <nav class="menu-row-conainer">
-          <ul class="menu-list-large">
-            <li class="home-link-menu-li">
-              <a href="/index.html" title="Strona główna"
-                >
-                <!-- <img
+      <!------------------------------------------------------------------------------->
+    </div>
+    <!--  -->
+    <div class="container">
+      <div class="wrap rwd">
+        <header class="row">
+          <div class="top-row-container">
+            <span class="fonts-size-btn">A+</span>
+          </div>
+          <div class="logo-bar-row-container">
+            <a href="/" title="Strona Główna">
+              <!-- <img src="wstaw zdjęcie logo.svg" alt="Wypożyczalnia filmów" /> -->
+            </a>
+            <div class="search-container">
+              <input
+                type="text"
+                id="search"
+                autocomplete="off"
+                placeholder="Czego potrzebujesz?"
+              />
+              <button onclick="search()">Wyszukaj film</button>
+            </div>
+            <div class="login-bar">
+              <ul class="links">
+                <li class="login">
+                  <input
+                    type="button"
+                    onClick="location.href='kontakt.html';"
+                    value="Login"
+                  />
+                </li>
+                <li class="register">
+                  <a
+                    href="link do rejestracji"
+                    title="Zarejestruj się"
+                    class="register"
+                    >Zarejestruj się
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <!-- Koszyk pełny -->
+            <div class="basket-contain">
+              <div class="basket-products">
+                <ul class="basket-products-list"></ul>
+              </div>
+              <div class="basket-summery">
+                <a href="./koszyk.html">Do kasy</a>
+                <span class="basket-price">
+                  <span class="price-total">
+                    <span>Suma:</span>
+                    <b class="price-products">0,00&nbsp;zł</b>
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </header>
+        <div class="menu-row">
+          <nav class="menu-row-conainer">
+            <ul class="menu-list-large">
+              <li class="home-link-menu-li">
+                <a href="/index.html" title="Strona główna">
+                  <!-- <img
                   src="zdjecie logo moze byc gif ale nie wiem"
                   alt="Strona główna"
               />-->
-            </a> 
-            </li>
-            <li class="link-submenu-sklep">
-              <a href="link do strony sklepu ale nie nie wiem" title="Sklep">
-                <span>Sklep</span>
-              </a>
-            </li>
-            <li>
-              <a href="link do promocji" title="Promocje">
-                <span>Promocje</span>
-              </a>
-            </li>
-            <li>
-              <a href="link do podstrony o nas">
-                <span>O nas</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
+                </a>
+              </li>
+              <li class="link-submenu-sklep">
+                <a href="link do strony sklepu ale nie nie wiem" title="Sklep">
+                  <span>Sklep</span>
+                </a>
+              </li>
+              <li>
+                <a href="link do promocji" title="Promocje">
+                  <span>Promocje</span>
+                </a>
+              </li>
+              <li>
+                <a href="link do podstrony o nas">
+                  <span>O nas</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
       </div>
     </div>
-  </div>
-  <!-- Slider 2 -->
-  <div class="slider2"></div>
-  <!-- Slider -->
+<!-- TOP TEN FILMS START-->
+    <div class="container">
+      <div class="row" id="topTen">
+
+      </div>
+    </div>
+<!-- TOP TEN FILMS END-->
+    <!-- Slider -->
     <div class="container">
       <div class="row">
         <div class="col-md-12">
-          <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+          <div
+            id="carouselExampleIndicators"
+            class="carousel slide"
+            data-bs-ride="carousel"
+          >
             <ol class="carousel-indicators">
-              <li data-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
-              <li data-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
+              <li
+                data-target="#carouselExampleIndicators"
+                data-bs-slide-to="0"
+                class="active"
+              ></li>
+              <li
+                data-target="#carouselExampleIndicators"
+                data-bs-slide-to="1"
+              ></li>
             </ol>
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <div class="row">
-                    <div class="col-md-4">
-                      <div class="single-box">
-                        <div class="img-area">
-                          <div class="slider" id="carouselSlider">Slider</div>
-                        </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="single-box">
+                      <div class="img-area">
+                        <div class="slider" id="carouselSlider">Slider</div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
     <!-- Footer -->
     <div class="container">
-      <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+      <footer
+        class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top"
+      >
         <div class="col-md-4 d-flex align-items-center">
-          <img class="bi me-2" width="40" height="32" role="img" src="./assets/img/bag-seedling.png" alt="Strona Główna">
+          <img
+            class="bi me-2"
+            width="40"
+            height="32"
+            role="img"
+            src="./assets/img/bag-seedling.png"
+            alt="Strona Główna"
+          />
           <span class="text-muted">© 2024 Projekt, Inc</span>
         </div>
         <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
           <li class="ms-3">
             <a class="text-muted" href="./index.html">
-              <img class="bi me-2" role="img" src="./assets/img/facebook.svg" alt="Facebook">
+              <img
+                class="bi me-2"
+                role="img"
+                src="./assets/img/facebook.svg"
+                alt="Facebook"
+              />
             </a>
           </li>
           <li class="ms-3">
             <a class="text-muted" href="./index.html">
-              <img src="./assets/img/instagram.svg" alt="Instagram">
+              <img src="./assets/img/instagram.svg" alt="Instagram" />
             </a>
           </li>
         </ul>
