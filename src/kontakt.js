@@ -9,10 +9,9 @@ const app = Vue.createApp({
   },
   methods: {
       fetchTopTenShows() {
-          fetch('https://api.tvmaze.com/shows')
-              .then(response => response.json())
-              .then(data => {
-                  const topTenShows = data
+          let request = axios.get('https://api.tvmaze.com/shows');
+              request.then((response) =>  {
+                  const topTenShows = response.data
                       .filter(show => show.rating.average)
                       .sort((a, b) => b.rating.average - a.rating.average)
                       .slice(0, 9);

@@ -6,15 +6,16 @@
     <title>Projekt WSB</title>
 
     <link rel="stylesheet" href="/dist/index.css" />
-    
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
-    
+
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -26,14 +27,14 @@
       integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
       crossorigin="anonymous"
     ></script>
-  <script defer src="main.142f34eb45c628880394.bundle.js"></script></head>
+  <script defer src="main.28008c2b67d21536fc83.bundle.js"></script></head>
 
   <body>
     <div id="app">
-<!-- NAVBAR START-->
+      <!-- NAVBAR START-->
       <div class="container">
         <header class="p-3 mb-3 border-bottom">
-          <div class="container">
+          <div class="container-fluid">
             <nav class="navbar navbar-expand-lg navbar-light">
               <div class="container-fluid">
                 <img
@@ -138,100 +139,210 @@
         </header>
       </div>
 
-      <!-- category menu START-->
+      
+      <!----->
+      <!-- Zaczynam zmiany filtoreania -->
+      <!-- CATEGORIES MENU START -->
       <div class="container">
         <div class="row">
-          <div class="col-9">
+          <div class="col-12">
             <div class="p-3 mb-3 border-bottom">
               <h5>All Categories</h5>
-              <ul class="list-group">
-                <li class="list-group-item" @click="filterFilms('All')">All</li>
-                <li class="list-group-item">
-                  {{ category }}
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="flex flex-col p-8">
-            <input/>
-
-            <div class="flex justify-center gap-2 mt-2">
-              <div>{{letter}}</div>
-            </div>
-          </div>
-
-          <div class="container"></div>
-          <div class="container">
-            <div class="card-body">
-              <span>{{ message }}</span>
+              <div class="d-flex flex-wrap">
+                <button
+                  v-for="genre in genres"
+                  :key="genre"
+                  @click="filterFilms(genre)"
+                  type="button"
+                  class="btn btn-secondary mx-2 my-2 btn-transparent"
+                >
+                  {{ genre }}
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!------------------------------------------------------------>
+      <!-- CATEGORIES MENU END-->
+      <!-- ALL SHOW WITH PAGINATION START-->
 
-      <div class="container">
-        <div class="row">
-          <!-- Menu boczne -->
-          <div class="col-lg-2 sidebar" style="background-color: powderblue">
-            <div class="col-lg-10" style="background-color: yellow">
-              <h3>Genres</h3>
-              <ul class="list-group">
-                <!---wypisz wszystkie kategorie według app-->
-                <li>Adventure</li>
-                <li>Drama</li>
-                <li>Adventure</li>
-                <li>Drama</li>
-              </ul>
+      <div id="allShows">
+        <div class="container">
+          <!-- Wyszukiwarka -->
+          <div class="row mb-4">
+            <div class="col">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Search for shows..."
+                v-model="searchQuery"
+                @input="searchShows"
+              />
             </div>
-            <!-- Twój kod dla menu bocznego -->
           </div>
-          <!-- Sekcja z filmami -->
-          <div class="col-lg-9 film-section" style="background-color: red">
-            <h3>Sekcja z filmami</h3>
-            <!-- Twój kod dla wyświetlania filmów z API -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 p-8">
-              <div v-for="film of films" :key="film.id" :alt="id">
-                <img />
-                <h3>{{ film.name }}</h3>
-                <div>
-                  <button>{{Przycisk}}</button>
-                  <button>{{Przycisk2}}</button>
+
+
+
+          <!--Zmiana-->
+
+          <div class="container">
+            <div class="row">
+              <div class="col-12">
+                <div class="p-3 mb-3 border-bottom">
+                  <h5>{{ selectedCategory }}</h5>
+                  <button v-if="selectedCategory !== 'All'" @click="resetCategory" type="button" class="btn-close"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+<!-- Szczegóły po kliknięciu na film-->
+          <div class="modal fade" id="showDetailsModal" tabindex="-1" aria-labelledby="showDetailsModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 v-if="showDetails" class="modal-title" id="showDetailsModalLabel">{{ showDetails.name }}</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <img v-if="showDetails && showDetails.image" :src="showDetails.image.medium" alt="Show Poster" class="img-fluid mb-3" />
+                  <!-- Render summary using v-html directive -->
+        <div v-if="showDetails && showDetails.summary" v-html="showDetails.summary"></div>
+                  <div v-if="showDetails">
+                    <span v-if="showDetails.type"><strong>Type:</strong> {{ showDetails.type }}</span>
+                    <br />
+                    <span v-if="showDetails.language"><strong>Language:</strong> {{ showDetails.language }}</span>
+                    <br />
+                    <span v-if="showDetails.premiered"><strong>Premiered:</strong> {{ showDetails.premiered }}</span>
+                    <br />
+                    <span v-if="showDetails.ended"><strong>Ended:</strong> {{ showDetails.ended }}</span>
+                    <br />
+                    <span v-if="showDetails.network"><strong>Network:</strong> {{ showDetails.network.name }}</span>
+                    <br />
+                    <span v-if="showDetails.schedule"><strong>Schedule:</strong> {{ showDetails.schedule.days.join(', ') }} at {{ showDetails.schedule.time }}</span>
+                    <br />
+                    <span v-if="showDetails.runtime"><strong>Runtime:</strong> {{ showDetails.runtime }} min</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Wyświetlanie seriali -->
+          <div class="row">
+            <div
+              v-for="(show, index) in paginatedShows"
+              :key="index"
+              class="col-sm-6 col-md-4 col-lg-3 mb-4"
+            >
+              <div class="movie-content">
+                <img
+                  :src="show.image.medium"
+                  class="card-img-top"
+                  alt="Movie Poster"
+                  @click="fetchShowDetails(show.id)"
+      style="cursor: pointer;"
+                />
+                <div class="movie-info">
+                  <h5 @click="fetchShowDetails(show.id)"
+                  style="cursor: pointer;">{{ show.name }}</h5>
+                  <span v-if="show.rating && show.rating.average"
+                    >Rating: {{ show.rating.average }}</span
+                  >
+                  <br />
+                  <span>Genres: {{ show.genres.join(', ') }}</span>
+                  <!-- Add to Favorites button -->
+                  <div class="d-grid gap-2">
+                    <button
+                      class="btn btn-outline-primary"
+                      @click="addToFavorites(show)"
+                    >
+                      Add to Favorites
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+<!--Zmieniam obrazki-->
+        <!-- Paginacja -->
+        <b-pagination
+          v-model="currentPage"
+          :total-rows="allShows.length"
+          :per-page="pageSize"
+          aria-controls="allShows"
+          class="my-4"
+        />
+        <nav
+          aria-label="Page navigation example"
+          class="d-flex justify-content-center"
+        >
+          <ul class="pagination">
+            <li class="page-item" :class="{ disabled: currentPage === 1 }">
+              <a
+                class="page-link"
+                href="#"
+                aria-label="Previous"
+                @click.prevent="currentPage > 1 ? currentPage-- : null"
+              >
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li
+              v-for="page in totalPages"
+              :key="page"
+              class="page-item"
+              :class="{ active: currentPage === page }"
+            >
+              <a class="page-link" href="#" @click.prevent="currentPage = page"
+                >{{ page }}</a
+              >
+            </li>
+            <li
+              class="page-item"
+              :class="{ disabled: currentPage === totalPages }"
+            >
+              <a
+                class="page-link"
+                href="#"
+                aria-label="Next"
+                @click.prevent="currentPage < totalPages ? currentPage++ : null"
+              >
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
       </div>
+
+      <!-- ALL SHOW WITH PAGINATION END-->
+
+      <!------------------------------------------------------------>
+
+
+      
 
       <!-- TOP TEN FILMS START-->
-    <!-- <div class="container">
-      <div class="row" id="topTen">
-
-      </div>
-    </div> -->
-<!-- TOP TEN FILMS END-->
-
-    <!-- TOP TEN FILMS START-->
-    <div class="container">
-      <div class="row" id="topTen">
-          <div v-for="show in topTenShows" :key="show.id" class="col-sm-4">
-              <div class="movie-content">
-                  <img :src="show.image.medium" alt="Movie Poster">
-                  <div class="movie-info">
-                      <h5>{{ show.name }}</h5>
-                      <span>Rating: {{ show.rating.average }}</span>
-                      <br />
-                      <span>Genres: {{ show.genres.join(', ') }}</span>
-                  </div>
+      <div class="container">
+        <div class="row mb-4" id="topTen">
+          <h4> TOP 10 MOVIES</h4>
+          <div v-for="show in topTenShows" :key="show.id" class="col-sm-6 col-md-4 col-lg-3 mb-4">
+            <div class="movie-content">
+              <img :src="show.image.medium" alt="Movie Poster" />
+              <div class="movie-info">
+                <h5>{{ show.name }}</h5>
+                <span>Rating: {{ show.rating.average }}</span>
+                <br />
+                <span>Genres: {{ show.genres.join(', ') }}</span>
               </div>
+            </div>
           </div>
+        </div>
       </div>
-  </div>
-  <!-- TOP TEN FILMS END-->
-      
+      <!-- TOP TEN FILMS END-->
 
       <!------------Footer START------------>
       <div class="container">

@@ -12,10 +12,9 @@ var app = Vue.createApp({
   methods: {
     fetchTopTenShows: function fetchTopTenShows() {
       var _this = this;
-      fetch('https://api.tvmaze.com/shows').then(function (response) {
-        return response.json();
-      }).then(function (data) {
-        var topTenShows = data.filter(function (show) {
+      var request = axios.get('https://api.tvmaze.com/shows');
+      request.then(function (response) {
+        var topTenShows = response.data.filter(function (show) {
           return show.rating.average;
         }).sort(function (a, b) {
           return b.rating.average - a.rating.average;
@@ -30,4 +29,4 @@ var app = Vue.createApp({
 app.mount('#app');
 /******/ })()
 ;
-//# sourceMappingURL=kontakt.d1a36ec02f4d1ac308f9.bundle.js.map
+//# sourceMappingURL=kontakt.ccc337c8fbac995ce47d.bundle.js.map
