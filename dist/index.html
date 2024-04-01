@@ -12,7 +12,6 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
     <script defer src="index.fdc18456351c0b692930.bundle.js"></script>
-    <script defer src="kontakt.16353a9ae17a661bca69.bundle.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
     <link
@@ -26,138 +25,114 @@
       integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
       crossorigin="anonymous"
     ></script>
-  <script defer src="index.dcbe90b9a1b3c97707f4.bundle.js"></script><script defer src="kontakt.ccc337c8fbac995ce47d.bundle.js"></script><script defer src="koszyk.8baf63c6cae60a9482e1.bundle.js"></script><script defer src="wypozyczalnia.1d3afdf1e0fd7bc14fe0.bundle.js"></script><script defer src="main.28008c2b67d21536fc83.bundle.js"></script><link href="index.css" rel="stylesheet"></head>
+  <script defer src="index.dcbe90b9a1b3c97707f4.bundle.js"></script><script defer src="store.400c79b875a8431f8730.bundle.js"></script><script defer src="koszyk.8baf63c6cae60a9482e1.bundle.js"></script><script defer src="favorites.ddd323cabd5bbf0ed11a.bundle.js"></script><script defer src="main.665a666d43543e865b63.bundle.js"></script><link href="index.css" rel="stylesheet"></head>
   <!-------------------------------------------------------------------->
   <body>
     <div class="container">
       <header class="p-3 mb-3 border-bottom">
-        <!-- Pasek nawigacyjny -->
-        <div class="container">
-          <div
-            class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"
-          >
-            <!-- Menu Logo -->
-            <!-- <a href="./index.html"></a>
-            <img class="bi me-2" width="40" height="32" role="img" src="./assets/img/bag-seedling.png" alt="Strona Główna">
-          </a> -->
-            <!-- Navbar - Wypozyczalnia -->
-            <ul
-              class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
-            >
-              <li class="nav-item dropdown">
-                <a
-                  href="./wypozyczalnia.html"
-                  class="nav-link px-2 link-secondary"
-                  >Wypożyczalnia</a
-                >
-              </li>
-              <!-- Nowa sekcja navbar -->
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  id="navbarDropdown"
-                  role="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  Next Steps
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="#">Historic</a>
-                  <a class="dropdown-item" href="#">Subscribe to the blog</a>
-                  <a class="dropdown-item" href="#"
-                    >Sign up for our newsletter</a
-                  >
-                </div>
-              </li>
-              <!-- Dodaj do ulubionych -->
-              <li>
-                <input
-                  type="button"
-                  class="nav-link px-2 link-secondary"
-                  onClick="location.href='.kontakt.html'"
-                  value="Add to favorites"
-                />
-              </li>
-              <!-- Wypożyczalnia -->
-              <li>
-                <button
-                  onclick="search()"
-                  class="nav-link px-2 link-body-emphasis"
-                >
-                  Wyszukaj film
-                </button>
-                <p id="outputSearch"></p>
-              </li>
-            </ul>
-            <!-- Wyszukiwanie -->
-            <form class="d-flex">
-              <input
-                class="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button class="btn btn-secondary" type="submit">Search</button>
-            </form>
+        <div class="container-fluid">
+          <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container-fluid">
+              <a href="./main.html"
+                ><img
+                  class="bi me-2"
+                  src="/src/assets/img/film-solid.svg"
+                  alt="Logo"
+                  width="40"
+                  height="32"
+              /></a>
 
-            <!-- Przycisk do wyświetlenia formularza -->
-            <a href="#" id="toggleLoginBtn" class="btn btn-link link-secondary"
-              >Login</a
-            >
-            <!-- Kontener formularza logowania -->
-            <div id="loginContainer" class="login-form-container">
-              <form class="p-4">
-                <h2 class="mb-4">Login</h2>
-                <div class="mb-3">
-                  <label for="inputEmail" class="form-label"
-                    >Email address</label
-                  >
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="inputEmail"
-                    placeholder="name@example.com"
-                  />
+              <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <!-- LOGO ICON END-->
+              <!-- ADD FAV START-->
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <!-- TOGGLE LOGIN BTN START-->
+
+                  <li class="nav-item">
+                    <a
+                      href="main.html"
+                      class="nav-link px-2 link-secondary"
+                      ><i class="fa-solid fa-box">   Movie Database</i
+                    ></a>
+                  </li>
+                  <li class="nav-item">
+                    <a
+                      href="favorites.html"
+                      class="nav-link px-2 link-secondary"
+                      ><i class="fas fa-heart">   Favorites</i
+                    ></a>
+                  </li>
+                  <li class="nav-item">
+                    <a
+                      href="store.html"
+                      class="nav-link px-2 link-secondary"
+                      ><i class="fa-solid fa-store">Store</i></a>
+                  </li>
+                  <li class="nav-item">
+                    <a
+                      href="#"
+                      id="toggleLoginBtn"
+                      class="nav-link px-2 link-secondary"
+                      ><i class="fas fa-user">LOGIN</i
+                    ></a>
+                    <div id="loginContainer" class="login-form-container">
+                      <form class="p-4">
+                        <h2 class="mb-4">Login</h2>
+                        <div class="mb-3">
+                          <label for="inputEmail" class="form-label"
+                            >Email address</label
+                          >
+                          <input
+                            type="email"
+                            class="form-control"
+                            id="inputEmail"
+                            placeholder="name@example.com"
+                          />
+                        </div>
+                        <div class="mb-3">
+                          <input
+                            type="password"
+                            class="form-control"
+                            id="inputPassword"
+                            placeholder="Password"
+                          />
+                        </div>
+                        <button type="submit" class="btn btn-secondary">
+                          Sign in
+                        </button>
+                      </form>
+                    </div>
+                  </li>
+                </ul>
+                <!-- BACKET ICON START -->
+                <div class="empty-basket">
+                  <a href="./koszyk.html" title="Koszyk">
+                    <span class="countlabel">
+                      <i
+                        class="fas fa-shopping-basket me-2 link-secondary"
+                        style="font-size: 1.5rem"
+                      ></i>
+                      <b>
+                        <b class="sum">0,00&nbsp;zł</b>
+                        <b class="count"><span>0</span></b>
+                      </b>
+                    </span>
+                  </a>
                 </div>
-                <div class="mb-3">
-                  <label for="inputPassword" class="form-label">Password</label>
-                  <input
-                    type="password"
-                    class="form-control"
-                    id="inputPassword"
-                    placeholder="Password"
-                  />
-                </div>
-                <button type="submit" class="btn btn-secondary">Sign in</button>
-              </form>
+              </div>
             </div>
-            <!-- Skrypty formularza logowania JavaScript -->
-            <script src="index.js"></script>
-            <!-- Koszyk -->
-            <div class="empty-basket">
-              <a href="./koszyk.html" title="Koszyk">
-                <span class="countlabel">
-                  <img
-                    class="bi me-2"
-                    width="40"
-                    height="22"
-                    role="img"
-                    src="./assets/img/basket.svg"
-                    onClick="location.href='koszyk.html'"
-                    alt="Koszyk"
-                  />
-                  <!-- <span>Koszyk:</span> -->
-                  <b>
-                    <b class="sum">0,00&nbsp;zł</b>
-                    <b class="count"><span>0</span></b>
-                  </b>
-                </span>
-              </a>
-            </div>
-          </div>
+          </nav>
         </div>
       </header>
       <!------------------------------------------------------------------------------->
@@ -187,7 +162,7 @@
                 <li class="login">
                   <input
                     type="button"
-                    onClick="location.href='kontakt.html';"
+                    onClick="location.href='store.html';"
                     value="Login"
                   />
                 </li>

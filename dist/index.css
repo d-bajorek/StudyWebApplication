@@ -1,6 +1,11 @@
+@charset "UTF-8";
 body {
   font-family: "Roboto", sans-serif;
-  background: linear-gradient(to bottom, #FED8F7, #FFCFFB, #FFFFFC, #DDE8FF, #C4DDFE);
+  background: linear-gradient(to bottom, #fed8f7, #ffcffb, #fffffc, #dde8ff, #c4ddfe);
+}
+body .movie-content {
+  width: 50%;
+  height: auto;
 }
 body h1 {
   color: blueviolet;
@@ -27,6 +32,31 @@ body .autoprefixer {
 }
 .login-form-container.show {
   right: 0;
+}
+
+.pagination.pagination-sm.pagination-secondary .page-item .page-link {
+  color: #6c757d; /* Kolor tekstu nieaktywnych stron */
+  border-color: transparent; /* Brak obramowania dla nieaktywnych stron */
+  background-color: transparent; /* Przezroczyste tło dla nieaktywnych stron */
+}
+
+.pagination.pagination-sm.pagination-secondary .page-item.active .page-link {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.pagination.pagination-sm.pagination-secondary .page-link {
+  color: #6c757d;
+}
+
+.pagination.pagination-sm.pagination-secondary .page-link:hover {
+  color: #343a40;
+}
+
+.pagination.pagination-sm.pagination-secondary .page-item.active .page-link {
+  color: #fff; /* Kolor tekstu aktywnej strony */
+  background-color: #343a40; /* Kolor tła aktywnej strony */
+  border-color: #343a40; /* Kolor obramowania aktywnej strony */
 }
 
 /*# sourceMappingURL=index.css.map*/

@@ -36,7 +36,10 @@ var app = Vue.createApp({
       // Dodajemy właściwość przechowującą oryginalną listę kategorii filmów
       displayedGenres: [],
       // Lista wyświetlanych kategorii filmów
-      showDetails: null // Dodajemy właściwość do przechowywania szczegółowych informacji o wybranym show
+      showDetails: null,
+      // Dodajemy właściwość do przechowywania szczegółowych informacji o wybranym show
+      // reszta danych pozostaje bez zmian
+      showCast: [] // Dodajemy pole przechowujące informacje o obsadzie
     };
   },
   // Obliczenia związane z danymi
@@ -138,6 +141,13 @@ var app = Vue.createApp({
         }
       }
     },
+    // Dodajemy metodę do usuwania filmów z ulubionych
+    removeFromFavorites: function removeFromFavorites(showId) {
+      this.favorites = this.favorites.filter(function (show) {
+        return show.id !== showId;
+      });
+      localStorage.setItem("favorites", JSON.stringify(this.favorites));
+    },
     filterFilms: function filterFilms(category) {
       this.selectedCategory = category;
       this.displayedGenres = category === "All" ? this.originalGenres : [category];
@@ -152,6 +162,7 @@ var app = Vue.createApp({
       axios.get("https://api.tvmaze.com/shows/".concat(showId)).then(function (response) {
         // Wyświetlanie szczegółowych informacji w modalu
         _this4.showDetailsModal(response.data);
+        _this4.fetchShowCast(showId); // Dodajemy pobieranie informacji o obsadzie
       })["catch"](function (error) {
         console.error("Error fetching show details:", error);
       });
@@ -162,6 +173,14 @@ var app = Vue.createApp({
       this.showDetails = showData;
       // Pokazanie modala
       $("#showDetailsModal").modal("show");
+    },
+    fetchShowCast: function fetchShowCast(showId) {
+      var _this5 = this;
+      axios.get("https://api.tvmaze.com/shows/".concat(showId, "/cast")).then(function (response) {
+        _this5.showCast = response.data;
+      })["catch"](function (error) {
+        console.error("Error fetching show cast:", error);
+      });
     }
   }
 });
@@ -176,4 +195,4 @@ document.getElementById("toggleLoginBtn").addEventListener("click", function () 
 });
 /******/ })()
 ;
-//# sourceMappingURL=main.28008c2b67d21536fc83.bundle.js.map
+//# sourceMappingURL=main.665a666d43543e865b63.bundle.js.map

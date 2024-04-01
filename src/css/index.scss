@@ -1,12 +1,24 @@
 body {
-  font-family: 'Roboto', sans-serif;
-$color1: #FED8F7;
-$color2: #FFCFFB;
-$color3: #FFFFFC;
-$color4: #DDE8FF;
-$color5: #C4DDFE;
+  font-family: "Roboto", sans-serif;
+  $color1: #fed8f7;
+  $color2: #ffcffb;
+  $color3: #fffffc;
+  $color4: #dde8ff;
+  $color5: #c4ddfe;
 
-background: linear-gradient(to bottom, $color1, $color2, $color3, $color4, $color5);
+  background: linear-gradient(
+    to bottom,
+    $color1,
+    $color2,
+    $color3,
+    $color4,
+    $color5
+  );
+
+  .movie-content {
+    width: 50%;
+    height: auto;
+  }
 
   h1 {
     color: blueviolet;
@@ -28,9 +40,34 @@ background: linear-gradient(to bottom, $color1, $color2, $color3, $color4, $colo
   height: 100%;
   width: 300px;
   background-color: #f8f9fa;
-  transition: right 0.3s ease; 
+  transition: right 0.3s ease;
 
   &.show {
     right: 0;
   }
 }
+.pagination.pagination-sm.pagination-secondary .page-item .page-link {
+  color: #6c757d; /* Kolor tekstu nieaktywnych stron */
+  border-color: transparent; /* Brak obramowania dla nieaktywnych stron */
+  background-color: transparent; /* Przezroczyste tło dla nieaktywnych stron */
+}
+
+.pagination.pagination-sm.pagination-secondary .page-item.active .page-link {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.pagination.pagination-sm.pagination-secondary .page-link {
+  color: #6c757d;
+}
+
+.pagination.pagination-sm.pagination-secondary .page-link:hover {
+  color: #343a40;
+}
+
+.pagination.pagination-sm.pagination-secondary .page-item.active .page-link {
+  color: #fff; /* Kolor tekstu aktywnej strony */
+  background-color: #343a40; /* Kolor tła aktywnej strony */
+  border-color: #343a40; /* Kolor obramowania aktywnej strony */
+}
+

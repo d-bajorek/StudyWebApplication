@@ -18,7 +18,9 @@ const app = Vue.createApp({
       filteredAllShows: [], // Tablica dla filtrowanych filmów
       originalGenres: [], // Dodajemy właściwość przechowującą oryginalną listę kategorii filmów
       displayedGenres: [], // Lista wyświetlanych kategorii filmów
-      showDetails: null // Dodajemy właściwość do przechowywania szczegółowych informacji o wybranym show
+      showDetails: null, // Dodajemy właściwość do przechowywania szczegółowych informacji o wybranym show
+      // reszta danych pozostaje bez zmian
+    showCast: [], // Dodajemy pole przechowujące informacje o obsadzie
     };
   },
   // Obliczenia związane z danymi
@@ -118,6 +120,11 @@ const app = Vue.createApp({
     }
       }
     },
+    // Dodajemy metodę do usuwania filmów z ulubionych
+    removeFromFavorites(showId) {
+      this.favorites = this.favorites.filter(show => show.id !== showId);
+      localStorage.setItem("favorites", JSON.stringify(this.favorites));
+    },
     filterFilms(category) {
       this.selectedCategory = category;
       this.displayedGenres =
@@ -134,6 +141,7 @@ const app = Vue.createApp({
         .then((response) => {
           // Wyświetlanie szczegółowych informacji w modalu
           this.showDetailsModal(response.data);
+          this.fetchShowCast(showId); // Dodajemy pobieranie informacji o obsadzie
         })
         .catch((error) => {
           console.error("Error fetching show details:", error);
@@ -145,6 +153,16 @@ const app = Vue.createApp({
       this.showDetails = showData;
       // Pokazanie modala
       $("#showDetailsModal").modal("show");
+    },
+    fetchShowCast(showId) {
+      axios
+        .get(`https://api.tvmaze.com/shows/${showId}/cast`)
+        .then((response) => {
+          this.showCast = response.data;
+        })
+        .catch((error) => {
+          console.error("Error fetching show cast:", error);
+        });
     },
   },
 });

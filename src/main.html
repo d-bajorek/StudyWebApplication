@@ -37,13 +37,15 @@
           <div class="container-fluid">
             <nav class="navbar navbar-expand-lg navbar-light">
               <div class="container-fluid">
-                <img
-                  class="bi me-2"
-                  src="./assets/img/bag-seedling.png"
-                  alt="Logo"
-                  width="40"
-                  height="32"
-                />
+                <a href="./main.html"
+                  ><img
+                    class="bi me-2"
+                    src="/src/assets/img/film-solid.svg"
+                    alt="Logo"
+                    width="40"
+                    height="32"
+                /></a>
+
                 <button
                   class="navbar-toggler"
                   type="button"
@@ -59,34 +61,34 @@
                 <!-- ADD FAV START-->
                 <div class="collapse navbar-collapse" id="navbarNav">
                   <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                      <form class="d-flex">
-                        <input
-                          class="form-control me-2"
-                          type="search"
-                          placeholder="Search"
-                          aria-label="Search"
-                        />
-                        <button
-                          class="btn btn-link link-secondary"
-                          type="submit"
-                        >
-                          <i class="fas fa-search"></i>
-                        </button>
-                      </form>
-                    </li>
                     <!-- TOGGLE LOGIN BTN START-->
+
                     <li class="nav-item">
-                      <a href="#" class="nav-link px-2 link-secondary"
-                        ><i class="fas fa-heart"></i
+                      <a
+                        href="main.html"
+                        class="nav-link px-2 link-secondary"
+                        ><i class="fa-solid fa-box">   Movie Database</i
                       ></a>
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        href="favorites.html"
+                        class="nav-link px-2 link-secondary"
+                        ><i class="fas fa-heart">   Favorites</i
+                      ></a>
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        href="store.html"
+                        class="nav-link px-2 link-secondary"
+                        ><i class="fa-solid fa-store">Store</i></a>
                     </li>
                     <li class="nav-item">
                       <a
                         href="#"
                         id="toggleLoginBtn"
                         class="nav-link px-2 link-secondary"
-                        ><i class="fas fa-user"></i
+                        ><i class="fas fa-user">LOGIN</i
                       ></a>
                       <div id="loginContainer" class="login-form-container">
                         <form class="p-4">
@@ -139,7 +141,6 @@
         </header>
       </div>
 
-      
       <!----->
       <!-- Zaczynam zmiany filtoreania -->
       <!-- CATEGORIES MENU START -->
@@ -170,7 +171,7 @@
       <div id="allShows">
         <div class="container">
           <!-- Wyszukiwarka -->
-          <div class="row mb-4">
+          <div class="row mb-4 col-12">
             <div class="col">
               <input
                 type="text"
@@ -182,8 +183,6 @@
             </div>
           </div>
 
-
-
           <!--Zmiana-->
 
           <div class="container">
@@ -191,44 +190,159 @@
               <div class="col-12">
                 <div class="p-3 mb-3 border-bottom">
                   <h5>{{ selectedCategory }}</h5>
-                  <button v-if="selectedCategory !== 'All'" @click="resetCategory" type="button" class="btn-close"></button>
+                  <button
+                    v-if="selectedCategory !== 'All'"
+                    @click="resetCategory"
+                    type="button"
+                    class="btn-close"
+                  ></button>
                 </div>
               </div>
             </div>
           </div>
 
-<!-- Szczegóły po kliknięciu na film-->
-          <div class="modal fade" id="showDetailsModal" tabindex="-1" aria-labelledby="showDetailsModalLabel" aria-hidden="true">
+          <!-- Szczegóły po kliknięciu na film-->
+          <div
+            class="modal fade"
+            id="showDetailsModal"
+            tabindex="-1"
+            aria-labelledby="showDetailsModalLabel"
+            aria-hidden="true"
+          >
             <div class="modal-dialog modal-lg">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 v-if="showDetails" class="modal-title" id="showDetailsModalLabel">{{ showDetails.name }}</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <h5
+                    v-if="showDetails"
+                    class="modal-title"
+                    id="showDetailsModalLabel"
+                  >
+                    {{ showDetails.name }}
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
                 </div>
                 <div class="modal-body">
-                  <img v-if="showDetails && showDetails.image" :src="showDetails.image.medium" alt="Show Poster" class="img-fluid mb-3" />
+                  <img
+                    v-if="showDetails && showDetails.image"
+                    :src="showDetails.image.medium"
+                    alt="Show Poster"
+                    class="img-fluid mb-3"
+                  />
                   <!-- Render summary using v-html directive -->
-        <div v-if="showDetails && showDetails.summary" v-html="showDetails.summary"></div>
+                  <div
+                    v-if="showDetails && showDetails.summary"
+                    v-html="showDetails.summary"
+                  ></div>
                   <div v-if="showDetails">
-                    <span v-if="showDetails.type"><strong>Type:</strong> {{ showDetails.type }}</span>
+                    <span v-if="showDetails.type"
+                      ><strong>Type:</strong> {{ showDetails.type }}</span
+                    >
                     <br />
-                    <span v-if="showDetails.language"><strong>Language:</strong> {{ showDetails.language }}</span>
+                    <span v-if="showDetails.language"
+                      ><strong>Language:</strong> {{ showDetails.language
+                      }}</span
+                    >
                     <br />
-                    <span v-if="showDetails.premiered"><strong>Premiered:</strong> {{ showDetails.premiered }}</span>
+                    <span v-if="showDetails.premiered"
+                      ><strong>Premiered:</strong> {{ showDetails.premiered
+                      }}</span
+                    >
                     <br />
-                    <span v-if="showDetails.ended"><strong>Ended:</strong> {{ showDetails.ended }}</span>
+                    <span v-if="showDetails.ended"
+                      ><strong>Ended:</strong> {{ showDetails.ended }}</span
+                    >
                     <br />
-                    <span v-if="showDetails.network"><strong>Network:</strong> {{ showDetails.network.name }}</span>
+                    <span v-if="showDetails.network"
+                      ><strong>Network:</strong> {{ showDetails.network.name
+                      }}</span
+                    >
                     <br />
-                    <span v-if="showDetails.schedule"><strong>Schedule:</strong> {{ showDetails.schedule.days.join(', ') }} at {{ showDetails.schedule.time }}</span>
+                    <span v-if="showDetails.schedule"
+                      ><strong>Schedule:</strong> {{
+                      showDetails.schedule.days.join(', ') }} at {{
+                      showDetails.schedule.time }}</span
+                    >
                     <br />
-                    <span v-if="showDetails.runtime"><strong>Runtime:</strong> {{ showDetails.runtime }} min</span>
+                    <span v-if="showDetails.runtime"
+                      ><strong>Runtime:</strong> {{ showDetails.runtime }}
+                      min</span
+                    >
+                    <!-- Panel rozwijalny dla obsady -->
+                    <div class="accordion" id="showCastAccordion">
+                      <div class="accordion-item">
+                        <h2 class="accordion-header" id="showCastHeading">
+                          <button
+                            class="accordion-button collapsed"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#showCastCollapse"
+                            aria-expanded="false"
+                            aria-controls="showCastCollapse"
+                          >
+                            Show Cast
+                          </button>
+                        </h2>
+                        <div
+                          id="showCastCollapse"
+                          class="accordion-collapse collapse"
+                          aria-labelledby="showCastHeading"
+                          data-bs-parent="#showCastAccordion"
+                        >
+                          <div class="accordion-body">
+                            <!-- Lista obsady -->
+                            <ul class="list-group">
+                              <li
+                                v-for="(castMember, index) in showCast"
+                                :key="index"
+                                class="list-group-item"
+                              >
+                                {{ castMember.person.name }} as {{
+                                castMember.character.name }}
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+<!--KONIEC SZCZEGÓŁÓW FILMU-->
+                  <div id="app">
+                    <div class="container mt-5">
+                      <h1 class="mb-4">Favorite movies</h1>
+                      <div
+                        v-if="favorites.length === 0"
+                        class="alert alert-info"
+                        role="alert"
+                      >
+                        No favorite films. Add some!
+                      </div>
+                      <div
+                        class="card"
+                        v-for="favorite in favorites"
+                        :key="favorite.id"
+                      >
+                        <div class="card-body">
+                          <h5 class="card-title">{{ favorite.name }}</h5>
+                          <p class="card-text">{{ favorite.summary }}</p>
+                          <button
+                            @click="removeFromFavorites(favorite.id)"
+                            class="btn btn-danger"
+                          >
+                            Remove from favorites
+                          </button>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
 
           <!-- Wyświetlanie seriali -->
           <div class="row">
@@ -243,11 +357,15 @@
                   class="card-img-top"
                   alt="Movie Poster"
                   @click="fetchShowDetails(show.id)"
-      style="cursor: pointer;"
+                  style="cursor: pointer"
                 />
                 <div class="movie-info">
-                  <h5 @click="fetchShowDetails(show.id)"
-                  style="cursor: pointer;">{{ show.name }}</h5>
+                  <h5
+                    @click="fetchShowDetails(show.id)"
+                    style="cursor: pointer"
+                  >
+                    {{ show.name }}
+                  </h5>
                   <span v-if="show.rating && show.rating.average"
                     >Rating: {{ show.rating.average }}</span
                   >
@@ -256,7 +374,7 @@
                   <!-- Add to Favorites button -->
                   <div class="d-grid gap-2">
                     <button
-                      class="btn btn-outline-primary"
+                      class="btn btn-outline-secondary"
                       @click="addToFavorites(show)"
                     >
                       Add to Favorites
@@ -267,20 +385,14 @@
             </div>
           </div>
         </div>
-<!--Zmieniam obrazki-->
+        <!--Zmieniam obrazki-->
         <!-- Paginacja -->
-        <b-pagination
-          v-model="currentPage"
-          :total-rows="allShows.length"
-          :per-page="pageSize"
-          aria-controls="allShows"
-          class="my-4"
-        />
+        
         <nav
-          aria-label="Page navigation example"
+          aria-label="Pagination for movie list"
           class="d-flex justify-content-center"
         >
-          <ul class="pagination">
+          <ul class="pagination pagination-sm pagination-secondary flex-wrap"> <!-- pagination-sm dla responsywności i pagination-secondary dla stylu -->
             <li class="page-item" :class="{ disabled: currentPage === 1 }">
               <a
                 class="page-link"
@@ -319,30 +431,7 @@
       </div>
 
       <!-- ALL SHOW WITH PAGINATION END-->
-
       <!------------------------------------------------------------>
-
-
-      
-
-      <!-- TOP TEN FILMS START-->
-      <div class="container">
-        <div class="row mb-4" id="topTen">
-          <h4> TOP 10 MOVIES</h4>
-          <div v-for="show in topTenShows" :key="show.id" class="col-sm-6 col-md-4 col-lg-3 mb-4">
-            <div class="movie-content">
-              <img :src="show.image.medium" alt="Movie Poster" />
-              <div class="movie-info">
-                <h5>{{ show.name }}</h5>
-                <span>Rating: {{ show.rating.average }}</span>
-                <br />
-                <span>Genres: {{ show.genres.join(', ') }}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- TOP TEN FILMS END-->
 
       <!------------Footer START------------>
       <div class="container">
@@ -368,5 +457,8 @@
       </div>
     </div>
     <script src="./main.js"></script>
+    <script src="./favorites.js"></script>
+    <script src="./koszyk.html"></script>
+    <script src="./store.html"></script>
   </body>
 </html>
