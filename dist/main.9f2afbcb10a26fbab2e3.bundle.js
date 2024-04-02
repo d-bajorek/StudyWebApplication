@@ -27,6 +27,8 @@ var app = Vue.createApp({
       // Liczba filmów wyświetlanych na jednej stronie
       favorites: [],
       // Tablica ulubionych seriali przechowywana w localStorage
+      cart: [],
+      // Tablica seriali dodanych do koszyka przechowywana w localStorage
       searchQuery: "",
       selectedCategory: "All",
       // Wybrana kategoria
@@ -86,6 +88,10 @@ var app = Vue.createApp({
     if (favoritesFromStorage) {
       this.favorites = JSON.parse(favoritesFromStorage);
     }
+    var cartFromStorage = localStorage.getItem("cart");
+    if (cartFromStorage) {
+      this.cart = JSON.parse(cartFromStorage);
+    }
     this.originalGenres = this.genres.slice();
     this.displayedGenres = ['All'].concat(_toConsumableArray(this.originalGenres));
   },
@@ -97,7 +103,7 @@ var app = Vue.createApp({
           return show.rating && show.rating.average;
         }).sort(function (a, b) {
           return b.rating.average - a.rating.average;
-        }).slice(0, 9);
+        }).slice(0, 10);
         _this2.topTenShows = topTenShows;
       })["catch"](function (error) {
         console.error("Error fetching top ten shows:", error);
@@ -137,7 +143,7 @@ var app = Vue.createApp({
           heartIcon.classList.add("animate__animated", "animate__heartBeat");
           setTimeout(function () {
             heartIcon.classList.remove("animate__animated", "animate__heartBeat");
-          }, 1000); // Usunięcie animacji po 1 sekundzie
+          }, 10000); // Usunięcie animacji po 10 sekundzie
         }
       }
     },
@@ -148,6 +154,24 @@ var app = Vue.createApp({
       });
       localStorage.setItem("favorites", JSON.stringify(this.favorites));
     },
+    addToCart: function addToCart(show) {
+      // Sprawdzenie, czy dany film już istnieje w koszyku
+      var exists = this.cart.some(function (item) {
+        return item.id === show.id;
+      });
+      if (!exists) {
+        // Dodanie filmu do koszyka
+        this.cart.push(show);
+        // Zapisanie koszyka w localStorage
+        localStorage.setItem("cart", JSON.stringify(this.cart));
+      }
+    },
+    removeFromCart: function removeFromCart(showId) {
+      this.cart = this.cart.filter(function (item) {
+        return item.id !== showId;
+      });
+      localStorage.setItem("cart", JSON.stringify(this.cart));
+    },
     filterFilms: function filterFilms(category) {
       this.selectedCategory = category;
       this.displayedGenres = category === "All" ? this.originalGenres : [category];
@@ -155,6 +179,46 @@ var app = Vue.createApp({
     resetCategory: function resetCategory() {
       this.selectedCategory = 'All';
       this.displayedGenres = ['All'].concat(_toConsumableArray(this.originalGenres));
+    },
+    // Dodajemy funkcję sortowania
+    sortShows: function sortShows(option) {
+      var sortedShows = _toConsumableArray(this.originalAllShows);
+      switch (option) {
+        case "recent":
+          sortedShows.sort(function (a, b) {
+            return new Date(b.premiered) - new Date(a.premiered);
+          });
+          break;
+        case "oldest":
+          sortedShows.sort(function (a, b) {
+            return new Date(a.premiered) - new Date(b.premiered);
+          });
+          break;
+        case "newest":
+          sortedShows.sort(function (a, b) {
+            return new Date(b.premiered) - new Date(a.premiered);
+          });
+          break;
+        case "az":
+          sortedShows.sort(function (a, b) {
+            return a.name.localeCompare(b.name);
+          });
+          break;
+        case "za":
+          sortedShows.sort(function (a, b) {
+            return b.name.localeCompare(a.name);
+          });
+          break;
+        default:
+          // Domyślne sortowanie według kolejności w tablicy
+          break;
+      }
+      // Przypisujemy posortowane filmy do filteredShows
+      this.originalAllShows = sortedShows;
+    },
+    resetSort: function resetSort() {
+      // Resetujemy sortowanie do domyślnego
+      this.originalAllShows = _toConsumableArray(this.allShows);
     },
     // Metoda do pobierania szczegółowych informacji o wybranym show
     fetchShowDetails: function fetchShowDetails(showId) {
@@ -195,4 +259,4 @@ document.getElementById("toggleLoginBtn").addEventListener("click", function () 
 });
 /******/ })()
 ;
-//# sourceMappingURL=main.665a666d43543e865b63.bundle.js.map
+//# sourceMappingURL=main.9f2afbcb10a26fbab2e3.bundle.js.map

@@ -1,22 +1,14 @@
 body {
   font-family: "Roboto", sans-serif;
-  $color1: #fed8f7;
-  $color2: #ffcffb;
-  $color3: #fffffc;
-  $color4: #dde8ff;
-  $color5: #c4ddfe;
+  $color1: #94b49f;
+  $color2: #cee5d0;
+  $color3: #fcf8e8;
+  $color4: #ecb390;
 
-  background: linear-gradient(
-    to bottom,
-    $color1,
-    $color2,
-    $color3,
-    $color4,
-    $color5
-  );
+  background: linear-gradient(to bottom, $color1, $color2, $color3, $color4);
 
   .movie-content {
-    width: 50%;
+    width: 75%;
     height: auto;
   }
 
@@ -70,4 +62,5 @@ body {
   background-color: #343a40; /* Kolor tła aktywnej strony */
   border-color: #343a40; /* Kolor obramowania aktywnej strony */
 }
+
 

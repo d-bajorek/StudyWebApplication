@@ -1,10 +1,10 @@
 @charset "UTF-8";
 body {
   font-family: "Roboto", sans-serif;
-  background: linear-gradient(to bottom, #fed8f7, #ffcffb, #fffffc, #dde8ff, #c4ddfe);
+  background: linear-gradient(to bottom, #94b49f, #cee5d0, #fcf8e8, #ecb390);
 }
 body .movie-content {
-  width: 50%;
+  width: 75%;
   height: auto;
 }
 body h1 {

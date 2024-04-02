@@ -3,7 +3,7 @@ const app = Vue.createApp({
       return {
           topTenShows: [],
           images: [],
-          
+          cart: [], // Tablica koszyka, logika z main.js
       };
   },
   created() {
@@ -38,6 +38,20 @@ const app = Vue.createApp({
                 });
         });
     },
+    addToCart(show) {
+        // Sprawdzenie, czy dany film już istnieje w koszyku
+        const exists = this.cart.some(item => item.id === show.id);
+        if (!exists) {
+          // Dodanie filmu do koszyka
+          this.cart.push(show);
+          // Zapisanie koszyka w localStorage
+          localStorage.setItem("cart", JSON.stringify(this.cart));
+        }
+      },
+      removeFromCart(showId) {
+        this.cart = this.cart.filter(item => item.id !== showId);
+        localStorage.setItem("cart", JSON.stringify(this.cart));
+      },
   }
 });
 

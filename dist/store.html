@@ -27,12 +27,19 @@
       integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
       crossorigin="anonymous"
     ></script>
-  <script defer src="store.400c79b875a8431f8730.bundle.js"></script></head>
+  <script defer src="store.855b9c7562ed9d8c7ca6.bundle.js"></script></head>
 
   <body>
     <div class="container">
       <header class="p-3 mb-3 border-bottom">
-        <div class="container-fluid"></div>
+        <div class="container">
+          <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a href="./main.html">
+              <img class="bi me-2" width="30" height="22" role="img" src="./assets/img/bag-seedling.png" alt="Strona Główna">
+            </a>
+            <h5>Checkout</h5>
+          </div>
+        </div>
       </header>
       <h1>New User</h1>
       <!-- Formularz rejestracji -->
@@ -81,12 +88,55 @@
       </form>
 
       <div id="app">
-        <!-- KARUZELA START -->
+        <div class="position-fixed top-0 end-0 p-3 bg-light border">
+          <h5>Total Price: ${{ totalPrice }}</h5>
+        </div>
+        <!-- Karty z filmami w koszyku -->
         <div class="container mt-5">
+          <h2>Your Cart</h2>
+          <div v-if="cart.length === 0" class="alert alert-info" role="alert">
+            No added series. Add some!
+            <h6>
+              You may be interested in the top 10 highest-rated series below.
+            </h6>
+            <h6></h6>
+          </div>
+          <div class="row">
+            <div v-for="item in cart" :key="item.id" class="col-sm-4">
+              <div class="card bg-transparent h-100" style="width: 100%">
+                <img
+                  :src="item.image.medium"
+                  class="d-block mx-auto"
+                  :alt="item.name"
+                />
+                <div
+                  class="card-body d-flex flex-column justify-content-between"
+                >
+                  <h5 class="card-title">{{ item.name }}</h5>
+                  <p class="card-text">
+                    <strong>Runtime </strong> {{ item.runtime }} min<br />
+                    <strong>Genres:</strong> {{ item.genres.join(', ') }}<br />
+                    <strong>Price:</strong> $9.99
+                  </p>
+                  <button
+                    class="btn btn-danger mt-auto"
+                    @click="removeFromCart(item.id)"
+                  >
+                    Remove from Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- KARUZELA START -->
+        <div class="container mt-3">
           <div
             id="carouselExampleControls"
             class="carousel slide d-none d-sm-block"
-          > <!--usuwam data-bs-ride="carousel" brak automatycznego przesuwania-->
+          >
+            <!--usuwam data-bs-ride="carousel" brak automatycznego przesuwania-->
             <div class="carousel-inner">
               <div
                 v-for="(showGroup, index) in Math.ceil(topTenShows.length / 5)"
@@ -107,13 +157,22 @@
                         class="card-img-top"
                         :alt="'Slide ' + (index + 1)"
                       />
-                      <div class="card-body d-flex flex-column justify-content-between"> <!-- Zmiana w stylu CSS dla przycisków -->
+                      <div
+                        class="card-body d-flex flex-column justify-content-between"
+                      >
+                        <!-- Zmiana w stylu CSS dla przycisków -->
                         <h5 class="card-title">{{ show.name }}</h5>
                         <p class="card-text">
                           <strong>Rating:</strong> {{ show.rating.average }}<br />
                           <strong>Genres:</strong> {{ show.genres.join(', ') }}
                         </p>
-                        <button class="btn btn-secondary mt-auto">Rent or buy</button> <!-- Dodanie stylu CSS dla przycisków -->
+                        <button
+                          class="btn btn-secondary mt-auto"
+                          @click="addToCart(show)"
+                        >
+                          Rent or buy
+                        </button>
+                        <!-- Dodanie stylu CSS dla przycisków -->
                       </div>
                     </div>
                   </div>
@@ -157,13 +216,17 @@
                     class="d-block mx-auto"
                     :alt="show.name"
                   />
-                  <div class="card-body d-flex flex-column justify-content-between">
+                  <div
+                    class="card-body d-flex flex-column justify-content-between"
+                  >
                     <h5 class="card-title">{{ show.name }}</h5>
                     <p class="card-text">
                       <strong>Rating:</strong> {{ show.rating.average }}<br />
                       <strong>Genres:</strong> {{ show.genres.join(', ') }}
                     </p>
-                    <button class="btn btn-secondary mt-auto">Rent or buy</button>
+                    <button class="btn btn-secondary mt-auto">
+                      Rent or buy
+                    </button>
                   </div>
                 </div>
               </div>
@@ -193,6 +256,7 @@
       </div>
     </div>
 
+    <script src="./main.js"></script>
     <script src="./store.js"></script>
   </body>
 </html>

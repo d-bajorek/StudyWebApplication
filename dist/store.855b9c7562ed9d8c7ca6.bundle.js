@@ -10,7 +10,8 @@ var app = Vue.createApp({
   data: function data() {
     return {
       topTenShows: [],
-      images: []
+      images: [],
+      cart: [] // Tablica koszyka, logika z main.js
     };
   },
   created: function created() {
@@ -47,10 +48,28 @@ var app = Vue.createApp({
           console.error('Error fetching images for show:', show.id, error);
         });
       });
+    },
+    addToCart: function addToCart(show) {
+      // Sprawdzenie, czy dany film już istnieje w koszyku
+      var exists = this.cart.some(function (item) {
+        return item.id === show.id;
+      });
+      if (!exists) {
+        // Dodanie filmu do koszyka
+        this.cart.push(show);
+        // Zapisanie koszyka w localStorage
+        localStorage.setItem("cart", JSON.stringify(this.cart));
+      }
+    },
+    removeFromCart: function removeFromCart(showId) {
+      this.cart = this.cart.filter(function (item) {
+        return item.id !== showId;
+      });
+      localStorage.setItem("cart", JSON.stringify(this.cart));
     }
   }
 });
 app.mount('#app');
 /******/ })()
 ;
-//# sourceMappingURL=store.400c79b875a8431f8730.bundle.js.map
+//# sourceMappingURL=store.855b9c7562ed9d8c7ca6.bundle.js.map

@@ -13,6 +13,7 @@ const app = Vue.createApp({
       currentPage: 1, // Numer aktualnie wyświetlanej strony
       pageSize: 12, // Liczba filmów wyświetlanych na jednej stronie
       favorites: [], // Tablica ulubionych seriali przechowywana w localStorage
+      cart: [], // Tablica seriali dodanych do koszyka przechowywana w localStorage
       searchQuery: "",
       selectedCategory: "All", // Wybrana kategoria
       filteredAllShows: [], // Tablica dla filtrowanych filmów
@@ -20,7 +21,7 @@ const app = Vue.createApp({
       displayedGenres: [], // Lista wyświetlanych kategorii filmów
       showDetails: null, // Dodajemy właściwość do przechowywania szczegółowych informacji o wybranym show
       // reszta danych pozostaje bez zmian
-    showCast: [], // Dodajemy pole przechowujące informacje o obsadzie
+      showCast: [], // Dodajemy pole przechowujące informacje o obsadzie
     };
   },
   // Obliczenia związane z danymi
@@ -64,6 +65,10 @@ const app = Vue.createApp({
     if (favoritesFromStorage) {
       this.favorites = JSON.parse(favoritesFromStorage);
     }
+    const cartFromStorage = localStorage.getItem("cart");
+    if (cartFromStorage) {
+      this.cart = JSON.parse(cartFromStorage);
+    }
     this.originalGenres = this.genres.slice();
     this.displayedGenres = ['All', ...this.originalGenres];
   },
@@ -75,7 +80,7 @@ const app = Vue.createApp({
           const topTenShows = response.data
             .filter((show) => show.rating && show.rating.average)
             .sort((a, b) => b.rating.average - a.rating.average)
-            .slice(0, 9);
+            .slice(0, 10);
           this.topTenShows = topTenShows;
         })
         .catch((error) => {
@@ -116,7 +121,7 @@ const app = Vue.createApp({
       heartIcon.classList.add("animate__animated", "animate__heartBeat");
       setTimeout(() => {
         heartIcon.classList.remove("animate__animated", "animate__heartBeat");
-      }, 1000); // Usunięcie animacji po 1 sekundzie
+      }, 10000); // Usunięcie animacji po 10 sekundzie
     }
       }
     },
@@ -124,6 +129,20 @@ const app = Vue.createApp({
     removeFromFavorites(showId) {
       this.favorites = this.favorites.filter(show => show.id !== showId);
       localStorage.setItem("favorites", JSON.stringify(this.favorites));
+    },
+    addToCart(show) {
+      // Sprawdzenie, czy dany film już istnieje w koszyku
+      const exists = this.cart.some(item => item.id === show.id);
+      if (!exists) {
+        // Dodanie filmu do koszyka
+        this.cart.push(show);
+        // Zapisanie koszyka w localStorage
+        localStorage.setItem("cart", JSON.stringify(this.cart));
+      }
+    },
+    removeFromCart(showId) {
+      this.cart = this.cart.filter(item => item.id !== showId);
+      localStorage.setItem("cart", JSON.stringify(this.cart));
     },
     filterFilms(category) {
       this.selectedCategory = category;
@@ -133,6 +152,36 @@ const app = Vue.createApp({
     resetCategory() {
       this.selectedCategory = 'All';
       this.displayedGenres = ['All', ...this.originalGenres];
+    },
+     // Dodajemy funkcję sortowania
+     sortShows(option) {
+      let sortedShows = [...this.originalAllShows];
+      switch (option) {
+        case "recent":
+          sortedShows.sort((a, b) => new Date(b.premiered) - new Date(a.premiered));
+          break;
+        case "oldest":
+          sortedShows.sort((a, b) => new Date(a.premiered) - new Date(b.premiered));
+          break;
+        case "newest":
+          sortedShows.sort((a, b) => new Date(b.premiered) - new Date(a.premiered));
+          break;
+        case "az":
+          sortedShows.sort((a, b) => a.name.localeCompare(b.name));
+          break;
+        case "za":
+          sortedShows.sort((a, b) => b.name.localeCompare(a.name));
+          break;
+        default:
+          // Domyślne sortowanie według kolejności w tablicy
+          break;
+      }
+      // Przypisujemy posortowane filmy do filteredShows
+      this.originalAllShows = sortedShows;
+    },
+    resetSort() {
+      // Resetujemy sortowanie do domyślnego
+      this.originalAllShows = [...this.allShows];
     },
     // Metoda do pobierania szczegółowych informacji o wybranym show
     fetchShowDetails(showId) {
