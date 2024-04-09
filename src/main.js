@@ -1,3 +1,4 @@
+
 // import axios from 'axios';
 
 fetch("https://api.tvmaze.com/shows").then((response) =>
@@ -57,6 +58,24 @@ const app = Vue.createApp({
       });
       return Array.from(genresSet);
     },
+    totalPrice() {
+      // Sprawdzenie, czy wszystkie filmy w koszyku posiadają właściwość price
+      const hasPrice = this.cart.every(
+        (item) => item.hasOwnProperty("price") && !isNaN(item.price)
+      );
+
+      if (!hasPrice) {
+        console.error("Some items in the cart do not have a valid price.");
+        return "N/A";
+      }
+
+      // Obliczanie całkowitej ceny na podstawie sumy cen filmów w koszyku
+      const total = this.cart.reduce(
+        (total, item) => total + parseFloat(item.price),
+        0
+      );
+      return total.toFixed(2);
+    },
   },
   created() {
     this.fetchTopTenShows();
@@ -70,7 +89,7 @@ const app = Vue.createApp({
       this.cart = JSON.parse(cartFromStorage);
     }
     this.originalGenres = this.genres.slice();
-    this.displayedGenres = ['All', ...this.originalGenres];
+    this.displayedGenres = ["All", ...this.originalGenres];
   },
   methods: {
     fetchTopTenShows() {
@@ -104,44 +123,56 @@ const app = Vue.createApp({
     },
     addToFavorites(show) {
       // Sprawdzenie czy dany film już istnieje w ulubionych
-      const exists = this.favorites.some(favorite => favorite.id === show.id);
+      const exists = this.favorites.some((favorite) => favorite.id === show.id);
       if (!exists) {
         // Dodanie filmu do ulubionych
         this.favorites.push(show);
         // Zapisanie ulubionych w localStorage
         localStorage.setItem("favorites", JSON.stringify(this.favorites));
         // Zaktualizowanie licznika na serduszku
-    const countElement = document.querySelector(".count span");
-    if (countElement) {
-      countElement.textContent = parseInt(countElement.textContent || 0) + 1;
+        const countElement = document.querySelector(".count span");
+        if (countElement) {
+          countElement.textContent =
+            parseInt(countElement.textContent || 0) + 1;
         }
         // Dodanie animacji do ikony serduszka
-    const heartIcon = document.querySelector(".fa-heart");
-    if (heartIcon) {
-      heartIcon.classList.add("animate__animated", "animate__heartBeat");
-      setTimeout(() => {
-        heartIcon.classList.remove("animate__animated", "animate__heartBeat");
-      }, 10000); // Usunięcie animacji po 10 sekundzie
-    }
+        const heartIcon = document.querySelector(".fa-heart");
+        if (heartIcon) {
+          heartIcon.classList.add("animate__animated", "animate__heartBeat");
+          setTimeout(() => {
+            heartIcon.classList.remove(
+              "animate__animated",
+              "animate__heartBeat"
+            );
+          }, 10000); // Usunięcie animacji po 10 sekundzie
+        }
       }
     },
     // Dodajemy metodę do usuwania filmów z ulubionych
     removeFromFavorites(showId) {
-      this.favorites = this.favorites.filter(show => show.id !== showId);
+      this.favorites = this.favorites.filter((show) => show.id !== showId);
       localStorage.setItem("favorites", JSON.stringify(this.favorites));
     },
     addToCart(show) {
       // Sprawdzenie, czy dany film już istnieje w koszyku
-      const exists = this.cart.some(item => item.id === show.id);
+      const exists = this.cart.some((item) => item.id === show.id);
+
+      // Domyślna cena dla filmu, gdy cena nie jest dostępna w danych z API
+      const defaultPrice = 9.99;
+
       if (!exists) {
+        // Dodanie ceny do obiektu filmu, jeśli nie jest dostępna w danych z API
+        const showWithPrice = { ...show, price: show.price || defaultPrice };
+
         // Dodanie filmu do koszyka
-        this.cart.push(show);
+        this.cart.push(showWithPrice);
+
         // Zapisanie koszyka w localStorage
         localStorage.setItem("cart", JSON.stringify(this.cart));
       }
     },
     removeFromCart(showId) {
-      this.cart = this.cart.filter(item => item.id !== showId);
+      this.cart = this.cart.filter((item) => item.id !== showId);
       localStorage.setItem("cart", JSON.stringify(this.cart));
     },
     filterFilms(category) {
@@ -150,21 +181,22 @@ const app = Vue.createApp({
         category === "All" ? this.originalGenres : [category];
     },
     resetCategory() {
-      this.selectedCategory = 'All';
-      this.displayedGenres = ['All', ...this.originalGenres];
+      this.selectedCategory = "All";
+      this.displayedGenres = ["All", ...this.originalGenres];
     },
-     // Dodajemy funkcję sortowania
-     sortShows(option) {
+    // Dodajemy funkcję sortowania
+    sortShows(option) {
       let sortedShows = [...this.originalAllShows];
       switch (option) {
-        case "recent":
-          sortedShows.sort((a, b) => new Date(b.premiered) - new Date(a.premiered));
-          break;
         case "oldest":
-          sortedShows.sort((a, b) => new Date(a.premiered) - new Date(b.premiered));
+          sortedShows.sort(
+            (a, b) => new Date(a.premiered) - new Date(b.premiered)
+          );
           break;
         case "newest":
-          sortedShows.sort((a, b) => new Date(b.premiered) - new Date(a.premiered));
+          sortedShows.sort(
+            (a, b) => new Date(b.premiered) - new Date(a.premiered)
+          );
           break;
         case "az":
           sortedShows.sort((a, b) => a.name.localeCompare(b.name));
@@ -174,6 +206,7 @@ const app = Vue.createApp({
           break;
         default:
           // Domyślne sortowanie według kolejności w tablicy
+          sortedShows = [...this.allShows];
           break;
       }
       // Przypisujemy posortowane filmy do filteredShows

@@ -27,18 +27,18 @@
       integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
       crossorigin="anonymous"
     ></script>
-  <script defer src="store.855b9c7562ed9d8c7ca6.bundle.js"></script></head>
+  <script defer src="store.01e8757491bcea7fa039.bundle.js"></script></head>
 
   <body>
     <div class="container">
       <header class="p-3 mb-3 border-bottom">
-        <div class="container">
-          <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <div class="container-fluid">
+          <nav class="navbar navbar-expand-lg navbar-light">
             <a href="./main.html">
-              <img class="bi me-2" width="30" height="22" role="img" src="./assets/img/bag-seedling.png" alt="Strona Główna">
+              <img class="bi me-2" width="30" height="22" role="img" src="./assets/img/film-solid.svg" alt="Strona Główna">
             </a>
             <h5>Checkout</h5>
-          </div>
+          </nav>
         </div>
       </header>
       <h1>New User</h1>
@@ -87,9 +87,11 @@
         </button>
       </form>
 
+      <!-- Shopping cart start-->
       <div id="app">
         <div class="position-fixed top-0 end-0 p-3 bg-light border">
           <h5>Total Price: ${{ totalPrice }}</h5>
+          <p>Number of items in cart: {{ cart.length }}</p>
         </div>
         <!-- Karty z filmami w koszyku -->
         <div class="container mt-5">

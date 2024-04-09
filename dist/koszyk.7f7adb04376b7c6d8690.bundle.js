@@ -68,4 +68,4 @@ fetch("https://restcountries.com/v2/all").then(function (response) {
 });
 /******/ })()
 ;
-//# sourceMappingURL=koszyk.8baf63c6cae60a9482e1.bundle.js.map
+//# sourceMappingURL=koszyk.7f7adb04376b7c6d8690.bundle.js.map

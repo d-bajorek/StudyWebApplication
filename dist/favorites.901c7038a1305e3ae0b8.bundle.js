@@ -24,4 +24,4 @@ var app = Vue.createApp({
 app.mount("#app");
 /******/ })()
 ;
-//# sourceMappingURL=favorites.ddd323cabd5bbf0ed11a.bundle.js.map
+//# sourceMappingURL=favorites.901c7038a1305e3ae0b8.bundle.js.map

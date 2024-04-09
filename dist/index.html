@@ -3,17 +3,19 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Projekt zaliczeniowy</title>
-    <!-- Linki do arkuszy stylów -->
-    <link href="index.css" rel="stylesheet" />
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <title>Projekt WSB</title>
+
+    <link rel="stylesheet" href="/dist/index.css" />
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
-    <script defer src="index.fdc18456351c0b692930.bundle.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -25,239 +27,324 @@
       integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
       crossorigin="anonymous"
     ></script>
-  <script defer src="index.dcbe90b9a1b3c97707f4.bundle.js"></script><script defer src="store.855b9c7562ed9d8c7ca6.bundle.js"></script><script defer src="koszyk.8baf63c6cae60a9482e1.bundle.js"></script><script defer src="favorites.ddd323cabd5bbf0ed11a.bundle.js"></script><script defer src="main.9f2afbcb10a26fbab2e3.bundle.js"></script><link href="index.css" rel="stylesheet"></head>
-  <!-------------------------------------------------------------------->
+  <script defer src="store.01e8757491bcea7fa039.bundle.js"></script><script defer src="koszyk.7f7adb04376b7c6d8690.bundle.js"></script><script defer src="favorites.901c7038a1305e3ae0b8.bundle.js"></script><script defer src="main.46f3ee0fd21f62575109.bundle.js"></script></head>
+
   <body>
-    <div class="container">
-      <header class="p-3 mb-3 border-bottom">
-        <div class="container-fluid">
-          <nav class="navbar navbar-expand-lg navbar-light">
-            <div class="container-fluid">
-              <a href="./main.html"
-                ><img
-                  class="bi me-2"
-                  src="/src/assets/img/film-solid.svg"
-                  alt="Logo"
-                  width="40"
-                  height="32"
-              /></a>
+    <div id="app">
+      <!-- NAVBAR START-->
+      <div class="container">
+        <header class="p-3 mb-3 border-bottom">
+          <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg navbar-light">
+              <div class="container-fluid">
+                <a :href="'./main.html'">
+                  <img
+                      class="bi me-2"
+                      :src="'./assets/img/film-solid.svg'"
+                      alt="Logo"
+                      width="40"
+                      height="32"
+                  />
+              </a>
 
-              <button
-                class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarNav"
-                aria-controls="navbarNav"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-              >
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <!-- LOGO ICON END-->
-              <!-- ADD FAV START-->
-              <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  <!-- TOGGLE LOGIN BTN START-->
+                <button
+                  class="navbar-toggler"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#navbarNav"
+                  aria-controls="navbarNav"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation"
+                >
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <!-- LOGO ICON END-->
+                <!-- ADD FAV START-->
+                <div class="collapse navbar-collapse" id="navbarNav">
+                  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <!-- TOGGLE LOGIN BTN START-->
 
-                  <li class="nav-item">
-                    <a
-                      href="main.html"
-                      class="nav-link px-2 link-secondary"
-                      ><i class="fa-solid fa-box">   Movie Database</i
-                    ></a>
-                  </li>
-                  <li class="nav-item">
-                    <a
-                      href="favorites.html"
-                      class="nav-link px-2 link-secondary"
-                      ><i class="fas fa-heart">   Favorites</i
-                    ></a>
-                  </li>
-                  <li class="nav-item">
-                    <a
-                      href="store.html"
-                      class="nav-link px-2 link-secondary"
-                      ><i class="fa-solid fa-store">Store</i></a>
-                  </li>
-                  <li class="nav-item">
-                    <a
-                      href="#"
-                      id="toggleLoginBtn"
-                      class="nav-link px-2 link-secondary"
-                      ><i class="fas fa-user">LOGIN</i
-                    ></a>
-                    <div id="loginContainer" class="login-form-container">
-                      <form class="p-4">
-                        <h2 class="mb-4">Login</h2>
-                        <div class="mb-3">
-                          <label for="inputEmail" class="form-label"
-                            >Email address</label
-                          >
-                          <input
-                            type="email"
-                            class="form-control"
-                            id="inputEmail"
-                            placeholder="name@example.com"
-                          />
-                        </div>
-                        <div class="mb-3">
-                          <input
-                            type="password"
-                            class="form-control"
-                            id="inputPassword"
-                            placeholder="Password"
-                          />
-                        </div>
-                        <button type="submit" class="btn btn-secondary">
-                          Sign in
-                        </button>
-                      </form>
-                    </div>
-                  </li>
-                </ul>
-                <!-- BACKET ICON START -->
-                <div class="empty-basket">
-                  <a href="./koszyk.html" title="Koszyk">
-                    <span class="countlabel">
-                      <i
-                        class="fas fa-shopping-basket me-2 link-secondary"
-                        style="font-size: 1.5rem"
-                      ></i>
-                      <b>
-                        <b class="sum">0,00&nbsp;zł</b>
-                        <b class="count"><span>0</span></b>
-                      </b>
-                    </span>
-                  </a>
+                    <li class="nav-item">
+                      <a
+                        href="main.html"
+                        class="nav-link px-2 link-secondary"
+                        ><i class="fa-solid fa-box">   Movie  Database</i
+                      ></a>
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        href="favorites.html"
+                        class="nav-link px-2 link-secondary"
+                        ><i class="fas fa-heart">   Favorites</i
+                      ></a>
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        href="store.html"
+                        class="nav-link px-2 link-secondary"
+                        ><i class="fa-solid fa-store"> Store</i></a>
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        href="#"
+                        id="toggleLoginBtn"
+                        class="nav-link px-2 link-secondary"
+                        ><i class="fas fa-user"> LOGIN</i
+                      ></a>
+                      <div id="loginContainer" class="login-form-container">
+                        <form class="p-4">
+                          <h2 class="mb-4"> Login</h2>
+                          <div class="mb-3">
+                            <label for="inputEmail" class="form-label"
+                              >Email address</label
+                            >
+                            <input
+                              type="email"
+                              class="form-control"
+                              id="inputEmail"
+                              placeholder="name@example.com"
+                            />
+                          </div>
+                          <div class="mb-3">
+                            <input
+                              type="password"
+                              class="form-control"
+                              id="inputPassword"
+                              placeholder="Password"
+                            />
+                          </div>
+                          <button type="submit" class="btn btn-secondary">
+                            Sign in
+                          </button>
+                        </form>
+                      </div>
+                    </li>
+                  </ul>
+                  <!-- BASKET ICON START -->
+                  <div class="empty-basket">
+                    <a href="./store.html" title="Store">
+                      <span class="countlabel">
+                        <i
+                          class="fas fa-shopping-basket me-2 link-secondary"
+                          style="font-size: 1.5rem"
+                        >${{ totalPrice }}
+                        <p> {{ cart.length }}</p></i>
+                      </span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </nav>
+          </div>
+        </header>
+      </div>
+
+      <!----->
+      <!-- CATEGORIES MENU START -->
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="p-3 mb-3 border-bottom">
+              <h5>Filter by genre</h5>
+              <div class="d-flex flex-wrap">
+                <button
+                  v-for="genre in genres"
+                  :key="genre"
+                  @click="filterFilms(genre)"
+                  type="button"
+                  class="btn btn-secondary mx-2 my-2 btn-transparent"
+                >
+                  {{ genre }}
+                </button>
+              </div>
+              <!--Sortowanie Start-->
+              <div class="col-4 mt-3">
+                <label for="sortSelect" class="form-label">Sort by:</label>
+                <select id="sortSelect" class="form-select" @change="sortShows($event.target.value)">
+                  <option value="default">Default</option>
+                  <option value="recent">Recently Added</option>
+                  <option value="oldest">Oldest</option>
+                  <option value="newest">Newest</option>
+                  <option value="az">A-Z</option>
+                  <option value="za">Z-A</option>
+                </select>
+              </div>
+              <!--Sortowanie Koniec-->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CATEGORIES MENU END-->
+      <!-- ALL SHOW WITH PAGINATION START-->
+
+      <div id="allShows">
+        <div class="container">
+          <!-- Wyszukiwarka -->
+          <div class="row ">
+            <div class="col-12">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Search for shows..."
+                v-model="searchQuery"
+                @input="searchShows"
+              />
+            </div>
+          </div>
+
+          <div class="container">
+            <div class="row">
+              <div class="col-12">
+                <div class="p-3 mb-3 border-bottom">
+                  <h5>{{ selectedCategory }}</h5>
+                  <button
+                    v-if="selectedCategory !== 'All'"
+                    @click="resetCategory"
+                    type="button"
+                    class="btn-close"
+                  ></button>
                 </div>
               </div>
             </div>
-          </nav>
-        </div>
-      </header>
-      <!------------------------------------------------------------------------------->
-    </div>
-    <!--  -->
-    <div class="container">
-      <div class="wrap rwd">
-        <header class="row">
-          <div class="top-row-container">
-            <span class="fonts-size-btn">A+</span>
           </div>
-          <div class="logo-bar-row-container">
-            <a href="/" title="Strona Główna">
-              <!-- <img src="wstaw zdjęcie logo.svg" alt="Wypożyczalnia filmów" /> -->
-            </a>
-            <div class="search-container">
-              <input
-                type="text"
-                id="search"
-                autocomplete="off"
-                placeholder="Czego potrzebujesz?"
-              />
-              <button onclick="search()">Wyszukaj film</button>
-            </div>
-            <div class="login-bar">
-              <ul class="links">
-                <li class="login">
-                  <input
-                    type="button"
-                    onClick="location.href='store.html';"
-                    value="Login"
-                  />
-                </li>
-                <li class="register">
-                  <a
-                    href="link do rejestracji"
-                    title="Zarejestruj się"
-                    class="register"
-                    >Zarejestruj się
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <!-- Koszyk pełny -->
-            <div class="basket-contain">
-              <div class="basket-products">
-                <ul class="basket-products-list"></ul>
-              </div>
-              <div class="basket-summery">
-                <a href="./koszyk.html">Do kasy</a>
-                <span class="basket-price">
-                  <span class="price-total">
-                    <span>Suma:</span>
-                    <b class="price-products">0,00&nbsp;zł</b>
-                  </span>
-                </span>
-              </div>
-            </div>
-          </div>
-        </header>
-        <div class="menu-row">
-          <nav class="menu-row-conainer">
-            <ul class="menu-list-large">
-              <li class="home-link-menu-li">
-                <a href="/index.html" title="Strona główna">
-                  <!-- <img
-                  src="zdjecie logo moze byc gif ale nie wiem"
-                  alt="Strona główna"
-              />-->
-                </a>
-              </li>
-              <li class="link-submenu-sklep">
-                <a href="link do strony sklepu ale nie nie wiem" title="Sklep">
-                  <span>Sklep</span>
-                </a>
-              </li>
-              <li>
-                <a href="link do promocji" title="Promocje">
-                  <span>Promocje</span>
-                </a>
-              </li>
-              <li>
-                <a href="link do podstrony o nas">
-                  <span>O nas</span>
-                </a>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </div>
-    </div>
-<!-- TOP TEN FILMS START-->
-    <div class="container">
-      <div class="row" id="topTen">
 
-      </div>
-    </div>
-<!-- TOP TEN FILMS END-->
-    <!-- Slider -->
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12">
+          <!-- Szczegóły po kliknięciu na film-->
           <div
-            id="carouselExampleIndicators"
-            class="carousel slide"
-            data-bs-ride="carousel"
+            class="modal fade"
+            id="showDetailsModal"
+            tabindex="-1"
+            aria-labelledby="showDetailsModalLabel"
+            aria-hidden="true"
           >
-            <ol class="carousel-indicators">
-              <li
-                data-target="#carouselExampleIndicators"
-                data-bs-slide-to="0"
-                class="active"
-              ></li>
-              <li
-                data-target="#carouselExampleIndicators"
-                data-bs-slide-to="1"
-              ></li>
-            </ol>
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <div class="row">
-                  <div class="col-md-4">
-                    <div class="single-box">
-                      <div class="img-area">
-                        <div class="slider" id="carouselSlider">Slider</div>
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5
+                    v-if="showDetails"
+                    class="modal-title"
+                    id="showDetailsModalLabel"
+                  >
+                    {{ showDetails.name }}
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <img
+                    v-if="showDetails && showDetails.image"
+                    :src="showDetails.image.medium"
+                    alt="Show Poster"
+                    class="img-fluid mb-3"
+                  />
+                  <!-- Render summary using v-html directive -->
+                  <div
+                    v-if="showDetails && showDetails.summary"
+                    v-html="showDetails.summary"
+                  ></div>
+                  <div v-if="showDetails">
+                    <span v-if="showDetails.type"
+                      ><strong>Type:</strong> {{ showDetails.type }}</span
+                    >
+                    <br />
+                    <span v-if="showDetails.language"
+                      ><strong>Language:</strong> {{ showDetails.language
+                      }}</span
+                    >
+                    <br />
+                    <span v-if="showDetails.premiered"
+                      ><strong>Premiered:</strong> {{ showDetails.premiered
+                      }}</span
+                    >
+                    <br />
+                    <span v-if="showDetails.ended"
+                      ><strong>Ended:</strong> {{ showDetails.ended }}</span
+                    >
+                    <br />
+                    <span v-if="showDetails.network"
+                      ><strong>Network:</strong> {{ showDetails.network.name
+                      }}</span
+                    >
+                    <br />
+                    <span v-if="showDetails.schedule"
+                      ><strong>Schedule:</strong> {{
+                      showDetails.schedule.days.join(', ') }} at {{
+                      showDetails.schedule.time }}</span
+                    >
+                    <br />
+                    <span v-if="showDetails.runtime"
+                      ><strong>Runtime:</strong> {{ showDetails.runtime }}
+                      min</span
+                    >
+                    <!-- Panel rozwijalny dla obsady -->
+                    <div class="accordion" id="showCastAccordion">
+                      <div class="accordion-item">
+                        <h2 class="accordion-header" id="showCastHeading">
+                          <button
+                            class="accordion-button collapsed"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#showCastCollapse"
+                            aria-expanded="false"
+                            aria-controls="showCastCollapse"
+                          >
+                            Show Cast
+                          </button>
+                        </h2>
+                        <div
+                          id="showCastCollapse"
+                          class="accordion-collapse collapse"
+                          aria-labelledby="showCastHeading"
+                          data-bs-parent="#showCastAccordion"
+                        >
+                          <div class="accordion-body">
+                            <!-- Lista obsady -->
+                            <ul class="list-group">
+                              <li
+                                v-for="(castMember, index) in showCast"
+                                :key="index"
+                                class="list-group-item"
+                              >
+                                {{ castMember.person.name }} as {{
+                                castMember.character.name }}
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+<!--KONIEC SZCZEGÓŁÓW FILMU-->
+                  <div id="app">
+                    <div class="container mt-5">
+                      <h1 class="mb-4">Favorite movies</h1>
+                      <div
+                        v-if="favorites.length === 0"
+                        class="alert alert-info"
+                        role="alert"
+                      >
+                        No favorite films. Add some!
+                      </div>
+                      <div
+                        class="card"
+                        v-for="favorite in favorites"
+                        :key="favorite.id"
+                      >
+                        <div class="card-body">
+                          <h5 class="card-title">{{ favorite.name }}</h5>
+                          <p class="card-text"
+                          >{{ favorite.summary }}</p>
+                          <button
+                            @click="removeFromFavorites(favorite.id)"
+                            class="btn btn-danger"
+                          >
+                            Remove from favorites
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -265,43 +352,135 @@
               </div>
             </div>
           </div>
+
+          <!-- Wyświetlanie seriali -->
+          <div class="row">
+            <div
+              v-for="(show, index) in paginatedShows"
+              :key="index"
+              class="col-sm-6 col-md-4 col-lg-3 mb-4"
+            >
+              <div class="movie-content">
+                <img
+                  :src="show.image.medium"
+                  class="card-img-top"
+                  alt="Movie Poster"
+                  @click="fetchShowDetails(show.id)"
+                  style="cursor: pointer"
+                />
+                <div class="movie-info">
+                  <h5
+                    @click="fetchShowDetails(show.id)"
+                    style="cursor: pointer"
+                  >
+                    {{ show.name }}
+                  </h5>
+                  <span v-if="show.rating && show.rating.average"
+                    >Rating: {{ show.rating.average }}</span
+                  >
+                  <br />
+                  <span>Genres: {{ show.genres.join(', ') }}</span>
+                  <!-- Add to Favorites button -->
+<div class="row">
+  <div class="col">
+    <div class="d-grid gap-2">
+      <button class="btn btn-outline-secondary" @click="addToFavorites(show)">
+        Add to Favorites
+      </button>
+    </div>
+  </div>
+  <!-- Add to Favorites button END -->
+
+  <!-- Buy or rent button start -->
+  <div class="col">
+    <div class="d-grid gap-2">
+      <button class="btn btn-outline-secondary" @click="addToCart(show)">
+        Buy or Rent
+      </button>
+    </div>
+  </div>
+  <!-- Buy or rent button END -->
+</div>
+
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+        <!--Zmieniam obrazki-->
+        <!-- Paginacja -->
+        
+        <nav
+          aria-label="Pagination for movie list"
+          class="d-flex justify-content-center"
+        >
+          <ul class="pagination pagination-sm pagination-secondary flex-wrap"> <!-- pagination-sm dla responsywności i pagination-secondary dla stylu -->
+            <li class="page-item" :class="{ disabled: currentPage === 1 }">
+              <a
+                class="page-link"
+                href="#"
+                aria-label="Previous"
+                @click.prevent="currentPage > 1 ? currentPage-- : null"
+              >
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li
+              v-for="page in totalPages"
+              :key="page"
+              class="page-item"
+              :class="{ active: currentPage === page }"
+            >
+              <a class="page-link" href="#" @click.prevent="currentPage = page"
+                >{{ page }}</a
+              >
+            </li>
+            <li
+              class="page-item"
+              :class="{ disabled: currentPage === totalPages }"
+            >
+              <a
+                class="page-link"
+                href="#"
+                aria-label="Next"
+                @click.prevent="currentPage < totalPages ? currentPage++ : null"
+              >
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- ALL SHOW WITH PAGINATION END-->
+      <!------------------------------------------------------------>
+
+      <!------------Footer START------------>
+      <div class="container">
+        <footer
+          class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top"
+        >
+          <div class="col-md-4 d-flex align-items-center">
+            <span class="text-muted">© 2024 Projekt, Inc</span>
+          </div>
+          <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+            <li class="ms-3">
+              <i class="fab fa-facebook"></i>
+            </li>
+            <li class="ms-3">
+              <i class="fab fa-twitter"></i>
+            </li>
+            <li class="ms-3">
+              <i class="fab fa-instagram"></i>
+            </li>
+          </ul>
+        </footer>
+        <!-- FOOTER END -->
       </div>
     </div>
-    <!-- Footer -->
-    <div class="container">
-      <footer
-        class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top"
-      >
-        <div class="col-md-4 d-flex align-items-center">
-          <img
-            class="bi me-2"
-            width="40"
-            height="32"
-            role="img"
-            src="./assets/img/bag-seedling.png"
-            alt="Strona Główna"
-          />
-          <span class="text-muted">© 2024 Projekt, Inc</span>
-        </div>
-        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-          <li class="ms-3">
-            <a class="text-muted" href="./index.html">
-              <img
-                class="bi me-2"
-                role="img"
-                src="./assets/img/facebook.svg"
-                alt="Facebook"
-              />
-            </a>
-          </li>
-          <li class="ms-3">
-            <a class="text-muted" href="./index.html">
-              <img src="./assets/img/instagram.svg" alt="Instagram" />
-            </a>
-          </li>
-        </ul>
-      </footer>
-    </div>
+    <script src="./main.js"></script>
+    <script src="./favorites.js"></script>
+    <script src="./koszyk.html"></script>
+    <script src="./store.html"></script>
   </body>
 </html>
