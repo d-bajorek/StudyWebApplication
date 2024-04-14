@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Projekt WSB</title>
 
-    <link rel="stylesheet" href="/dist/index.css" />
+    <link rel="stylesheet" href="/dist/main.css" />
 
     <link
       rel="stylesheet"
@@ -40,7 +40,7 @@
                 <a href="./main.html"
                   ><img
                     class="bi me-2"
-                    src="/src/assets/img/film-solid.svg"
+                    :src="'./assets/img/film-solid.svg'"
                     alt="Logo"
                     width="40"
                     height="32"
@@ -60,6 +60,7 @@
                 <!-- ADD FAV START-->
                 <div class="collapse navbar-collapse" id="navbarNav">
                   <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <!-- TOGGLE LOGIN BTN START-->
                     <li class="nav-item">
                       <form class="d-flex">
                         <input
@@ -78,60 +79,99 @@
                     </li>
                     <!-- TOGGLE LOGIN BTN START-->
                     <li class="nav-item">
-                      <a
-                        href="favorites.html"
-                        class="nav-link px-2 link-secondary"
-                        ><i class="fas fa-heart"></i
-                      ></a>
+                      <a href="main.html" class="nav-link px-2 link-secondary"
+                        ><i class="fa-solid fa-box"> Movie Database</i></a
+                      >
                     </li>
                     <li class="nav-item">
                       <a
-                        href="#"
-                        id="toggleLoginBtn"
+                        href="favorites.html"
                         class="nav-link px-2 link-secondary"
-                        ><i class="fas fa-user"></i
-                      ></a>
-                      <div id="loginContainer" class="login-form-container">
-                        <form class="p-4">
-                          <h2 class="mb-4">Login</h2>
-                          <div class="mb-3">
-                            <label for="inputEmail" class="form-label"
-                              >Email address</label
-                            >
-                            <input
-                              type="email"
-                              class="form-control"
-                              id="inputEmail"
-                              placeholder="name@example.com"
-                            />
+                        ><i class="fas fa-heart"> Favorites</i></a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a href="store.html" class="nav-link px-2 link-secondary"
+                        ><i class="fa-solid fa-store"> Store</i></a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <button
+                        @click="showLoginModal = true"
+                        class="nav-link px-2 link-secondary"
+                        type="button"
+                        data-bs-toggle="modal"
+                        data-bs-target="#loginModal"
+                      >
+                        <i class="fas fa-user"> LOGIN</i>
+                      </button>
+
+                      <div
+                        class="modal"
+                        id="loginModal"
+                        tabindex="-1"
+                        aria-labelledby="loginModalLabel"
+                        aria-hidden="true"
+                        v-if="showLoginModal"
+                      >
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="loginModalLabel">
+                                Login
+                              </h5>
+                              <button
+                              type="button"
+                              class="btn-close"
+                              data-bs-dismiss="modal"
+                              aria-label="Close"
+                            ></button>
+                            </div>
+                            <div class="modal-body">
+                              <form>
+                                <div class="mb-3">
+                                  <label for="inputEmail" class="form-label"
+                                    >Email address</label
+                                  >
+                                  <input
+                                    type="email"
+                                    class="form-control"
+                                    id="inputEmail"
+                                    placeholder="name@example.com"
+                                  />
+                                </div>
+                                <div class="mb-3">
+                                  <label for="inputPassword" class="form-label"
+                                    >Password</label
+                                  >
+                                  <input
+                                    type="password"
+                                    class="form-control"
+                                    id="inputPassword"
+                                    placeholder="Password"
+                                  />
+                                </div>
+                                <button type="submit" class="btn btn-secondary">
+                                  Sign in
+                                </button>
+                              </form>
+                            </div>
                           </div>
-                          <div class="mb-3">
-                            <input
-                              type="password"
-                              class="form-control"
-                              id="inputPassword"
-                              placeholder="Password"
-                            />
-                          </div>
-                          <button type="submit" class="btn btn-secondary">
-                            Sign in
-                          </button>
-                        </form>
+                        </div>
                       </div>
                     </li>
                   </ul>
-                  <!-- BACKET ICON START -->
+                  <!-- BASKET ICON START -->
                   <div class="empty-basket">
-                    <a href="./koszyk.html" title="Koszyk">
+                    <a href="./store.html" title="Store" class="text-decoration-none">
                       <span class="countlabel">
-                        <i
-                          class="fas fa-shopping-basket me-2 link-secondary"
-                          style="font-size: 1.5rem"
-                        >${{ totalPrice }}
-                        <p> {{ cart.length }}</p></i>
+                        <span class="badge bg-secondary">{{ cart.length }}</span> <!-- Ilość elementów w koszyku -->
                       </span>
+                      <i class="fas fa-shopping-cart me-2 link-secondary" style="font-size: 1.5rem"></i>
+                      <span class="text-secondary d-none d-md-inline">${{ totalPrice }}</span> <!-- Cena koszyka - ukryta na małych ekranach -->
                     </a>
                   </div>
+                  <!-- BASKET ICON END -->
                 </div>
               </div>
             </nav>
@@ -222,7 +262,5 @@
     </div>
     <script src="./main.js"></script>
     <script src="./favorites.js"></script>
-    <script src="./koszyk.html"></script>
-    <script src="./store.html"></script>
   </body>
 </html>

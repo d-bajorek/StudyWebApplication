@@ -1,0 +1,62 @@
+@charset "UTF-8";
+body {
+  font-family: "Roboto", sans-serif;
+  background: linear-gradient(to bottom, #94b49f, #cee5d0, #fcf8e8, #ecb390);
+}
+body .movie-content {
+  width: 75%;
+  height: auto;
+}
+body h1 {
+  color: blueviolet;
+}
+body .change {
+  background-color: yellow;
+  padding: 10px;
+}
+body .autoprefixer {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+/* Dodatkowe niestandardowe style */
+.login-form-container {
+  position: fixed;
+  top: 0;
+  right: -300px;
+  height: 100%;
+  width: 300px;
+  background-color: #f8f9fa;
+  transition: right 0.3s ease;
+}
+.login-form-container.show {
+  right: 0;
+}
+
+.pagination.pagination-sm.pagination-secondary .page-item .page-link {
+  color: #6c757d; /* Kolor tekstu nieaktywnych stron */
+  border-color: transparent; /* Brak obramowania dla nieaktywnych stron */
+  background-color: transparent; /* Przezroczyste tło dla nieaktywnych stron */
+}
+
+.pagination.pagination-sm.pagination-secondary .page-item.active .page-link {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+.pagination.pagination-sm.pagination-secondary .page-link {
+  color: #6c757d;
+}
+
+.pagination.pagination-sm.pagination-secondary .page-link:hover {
+  color: #343a40;
+}
+
+.pagination.pagination-sm.pagination-secondary .page-item.active .page-link {
+  color: #fff; /* Kolor tekstu aktywnej strony */
+  background-color: #343a40; /* Kolor tła aktywnej strony */
+  border-color: #343a40; /* Kolor obramowania aktywnej strony */
+}
+
+/*# sourceMappingURL=main.css.map*/

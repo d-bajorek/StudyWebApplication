@@ -61,6 +61,9 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: "./src/main.html",
+      inject: true,
+      chunks: ["main"],
+      filename: "main.html",
     }),
     new HtmlWebpackPlugin({
       template: "./src/favorites.html",

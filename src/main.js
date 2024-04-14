@@ -1,9 +1,10 @@
 
 // import axios from 'axios';
 
-fetch("https://api.tvmaze.com/shows").then((response) =>
-  response.json().then((response2) => console.log(response2))
-);
+// fetch("https://api.tvmaze.com/shows").then((response) =>
+//   response.json().then((response2) => console.log(response2))
+// );
+ import './css/main.scss';
 
 const app = Vue.createApp({
   data() {
@@ -23,6 +24,7 @@ const app = Vue.createApp({
       showDetails: null, // Dodajemy właściwość do przechowywania szczegółowych informacji o wybranym show
       // reszta danych pozostaje bez zmian
       showCast: [], // Dodajemy pole przechowujące informacje o obsadzie
+      showLoginModal: false, // Pokazywanie lub ukrywanie modala logowania
     };
   },
   // Obliczenia związane z danymi
@@ -246,6 +248,7 @@ const app = Vue.createApp({
           console.error("Error fetching show cast:", error);
         });
     },
+    
   },
 });
 
