@@ -4,7 +4,8 @@
 // fetch("https://api.tvmaze.com/shows").then((response) =>
 //   response.json().then((response2) => console.log(response2))
 // );
- import './css/main.scss';
+
+import "./css/main.scss";
 
 const app = Vue.createApp({
   data() {
@@ -25,6 +26,9 @@ const app = Vue.createApp({
       // reszta danych pozostaje bez zmian
       showCast: [], // Dodajemy pole przechowujące informacje o obsadzie
       showLoginModal: false, // Pokazywanie lub ukrywanie modala logowania
+      showCartAnimation: false,
+      showAlreadyInCartAlert: null, // Dodajemy właściwość do przechowywania informacji o wyświetleniu komunikatu "Film znajduje się już w koszyku!"
+    
     };
   },
   // Obliczenia związane z danymi
@@ -171,6 +175,18 @@ const app = Vue.createApp({
 
         // Zapisanie koszyka w localStorage
         localStorage.setItem("cart", JSON.stringify(this.cart));
+        // Pokaż animację koszyka
+    // Pokaż animację koszyka tylko dla dodanego produktu
+    this.showCartAnimation = show.id;
+    setTimeout(() => {
+      this.showCartAnimation = false;
+    }, 1000); // Ukryj animację po 3 sekundach
+      } else {
+        // Wyświetl komunikat, że film znajduje się już w koszyku
+    this.showAlreadyInCartAlert = true;
+    setTimeout(() => {
+      this.showAlreadyInCartAlert = null;
+    }, 1000); // Ukryj komunikat po 1 sekundzie
       }
     },
     removeFromCart(showId) {
@@ -253,13 +269,3 @@ const app = Vue.createApp({
 });
 
 app.mount("#app");
-
-// zaczynam modyfikacje
-
-// TOGGLE LOGIN BUTTON
-document
-  .getElementById("toggleLoginBtn")
-  .addEventListener("click", function () {
-    // Przełączanie klasy show na kontenerze formularza logowania
-    document.getElementById("loginContainer").classList.toggle("show");
-  });

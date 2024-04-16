@@ -27,7 +27,7 @@
       integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
       crossorigin="anonymous"
     ></script>
-  <script defer src="main.d464cf10a91b82ad7154.bundle.js"></script><link href="main.css" rel="stylesheet"></head>
+  <script defer src="main.d5737ab2a6d5dfab444b.bundle.js"></script><link href="main.css" rel="stylesheet"></head>
 
   <body>
     <div id="app">
@@ -63,6 +63,7 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                   <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <!-- TOGGLE LOGIN BTN START-->
+
                     <li class="nav-item">
                       <a
                         href="main.html"
@@ -109,11 +110,11 @@
                                 Login
                               </h5>
                               <button
-                              type="button"
-                              class="btn-close"
-                              data-bs-dismiss="modal"
-                              aria-label="Close"
-                            ></button>
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                              ></button>
                             </div>
                             <div class="modal-body">
                               <form>
@@ -151,16 +152,28 @@
                   </ul>
                   <!-- BASKET ICON START -->
                   <div class="empty-basket">
-                    <a href="./store.html" title="Store" class="text-decoration-none">
+                    <a
+                      href="./store.html"
+                      title="Store"
+                      class="text-decoration-none"
+                    >
                       <span class="countlabel">
-                        <span class="badge bg-secondary">{{ cart.length }}</span> <!-- Ilość elementów w koszyku -->
+                        <span class="badge bg-secondary"
+                          >{{ cart.length }}</span
+                        >
+                        <!-- Ilość elementów w koszyku -->
                       </span>
-                      <i class="fas fa-shopping-cart me-2 link-secondary" style="font-size: 1.5rem"></i>
-                      <span class="text-secondary d-none d-md-inline">${{ totalPrice }}</span> <!-- Cena koszyka - ukryta na małych ekranach -->
+                      <i
+                        class="fas fa-shopping-cart me-2 link-secondary"
+                        style="font-size: 1.5rem"
+                      ></i>
+                      <span class="text-secondary d-none d-md-inline"
+                        >${{ totalPrice }}</span
+                      >
+                      <!-- Cena koszyka - ukryta na małych ekranach -->
                     </a>
                   </div>
                   <!-- BASKET ICON END -->
-                </div>
               </div>
             </nav>
           </div>
@@ -169,10 +182,10 @@
 
       <!----->
       <!-- CATEGORIES MENU START -->
-      <div class="container mt-5 content">
+      <div class="container mt-5">
         <div class="row">
           <div class="col-12">
-            <div class="p-3 mb-3 border-bottom mt-5">
+            <div class="p-3 mb-3 border-bottom">
               <h5>Filter by genre</h5>
               <div class="d-flex flex-wrap">
                 <button
@@ -207,7 +220,7 @@
       <!-- ALL SHOW WITH PAGINATION START-->
 
       <div id="allShows">
-        <div class="container">
+        <div class="container mt-1">
           <!-- Wyszukiwarka -->
           <div class="row ">
             <div class="col-12">
@@ -425,6 +438,25 @@
       <button class="btn btn-outline-secondary" @click="addToCart(show)">
         Buy or Rent
       </button>
+    </div>
+    <!-- Animacja koszyka -->
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+      <div v-if="showCartAnimation === show.id" class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+          <i class="fas fa-shopping-cart cart-icon me-2"></i>
+          <strong class="me-auto">Produkt dodany do koszyka!</strong>
+          <button type="button" class="btn-close" @click="showCartAnimation = null" aria-label="Close"></button>
+        </div>
+      </div>
+    </div>
+    <!-- Komunikat "Film znajduje się już w koszyku!" -->
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+    <div v-if="showAlreadyInCartAlert" class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <i class="fas fa-exclamation-circle text-danger me-2"></i>
+        <strong class="me-auto">Film znajduje się już w koszyku!</strong>
+        <button type="button" class="btn-close" @click="showAlreadyInCartAlert = null" aria-label="Close"></button>
+      </div>
     </div>
   </div>
   <!-- Buy or rent button END -->

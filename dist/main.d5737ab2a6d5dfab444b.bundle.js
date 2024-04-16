@@ -73,6 +73,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //   response.json().then((response2) => console.log(response2))
 // );
 
+
 var app = Vue.createApp({
   data: function data() {
     return {
@@ -103,7 +104,10 @@ var app = Vue.createApp({
       // reszta danych pozostaje bez zmian
       showCast: [],
       // Dodajemy pole przechowujące informacje o obsadzie
-      showLoginModal: false // Pokazywanie lub ukrywanie modala logowania
+      showLoginModal: false,
+      // Pokazywanie lub ukrywanie modala logowania
+      showCartAnimation: false,
+      showAlreadyInCartAlert: null // Dodajemy właściwość do przechowywania informacji o wyświetleniu komunikatu "Film znajduje się już w koszyku!"
     };
   },
   // Obliczenia związane z danymi
@@ -233,6 +237,7 @@ var app = Vue.createApp({
       localStorage.setItem("favorites", JSON.stringify(this.favorites));
     },
     addToCart: function addToCart(show) {
+      var _this4 = this;
       // Sprawdzenie, czy dany film już istnieje w koszyku
       var exists = this.cart.some(function (item) {
         return item.id === show.id;
@@ -251,6 +256,18 @@ var app = Vue.createApp({
 
         // Zapisanie koszyka w localStorage
         localStorage.setItem("cart", JSON.stringify(this.cart));
+        // Pokaż animację koszyka
+        // Pokaż animację koszyka tylko dla dodanego produktu
+        this.showCartAnimation = show.id;
+        setTimeout(function () {
+          _this4.showCartAnimation = false;
+        }, 1000); // Ukryj animację po 3 sekundach
+      } else {
+        // Wyświetl komunikat, że film znajduje się już w koszyku
+        this.showAlreadyInCartAlert = true;
+        setTimeout(function () {
+          _this4.showAlreadyInCartAlert = null;
+        }, 1000); // Ukryj komunikat po 1 sekundzie
       }
     },
     removeFromCart: function removeFromCart(showId) {
@@ -305,11 +322,11 @@ var app = Vue.createApp({
     },
     // Metoda do pobierania szczegółowych informacji o wybranym show
     fetchShowDetails: function fetchShowDetails(showId) {
-      var _this4 = this;
+      var _this5 = this;
       axios.get("https://api.tvmaze.com/shows/".concat(showId)).then(function (response) {
         // Wyświetlanie szczegółowych informacji w modalu
-        _this4.showDetailsModal(response.data);
-        _this4.fetchShowCast(showId); // Dodajemy pobieranie informacji o obsadzie
+        _this5.showDetailsModal(response.data);
+        _this5.fetchShowCast(showId); // Dodajemy pobieranie informacji o obsadzie
       })["catch"](function (error) {
         console.error("Error fetching show details:", error);
       });
@@ -322,9 +339,9 @@ var app = Vue.createApp({
       $("#showDetailsModal").modal("show");
     },
     fetchShowCast: function fetchShowCast(showId) {
-      var _this5 = this;
+      var _this6 = this;
       axios.get("https://api.tvmaze.com/shows/".concat(showId, "/cast")).then(function (response) {
-        _this5.showCast = response.data;
+        _this6.showCast = response.data;
       })["catch"](function (error) {
         console.error("Error fetching show cast:", error);
       });
@@ -332,16 +349,8 @@ var app = Vue.createApp({
   }
 });
 app.mount("#app");
-
-// zaczynam modyfikacje
-
-// TOGGLE LOGIN BUTTON
-document.getElementById("toggleLoginBtn").addEventListener("click", function () {
-  // Przełączanie klasy show na kontenerze formularza logowania
-  document.getElementById("loginContainer").classList.toggle("show");
-});
 })();
 
 /******/ })()
 ;
-//# sourceMappingURL=main.d464cf10a91b82ad7154.bundle.js.map
+//# sourceMappingURL=main.d5737ab2a6d5dfab444b.bundle.js.map

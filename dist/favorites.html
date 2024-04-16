@@ -27,16 +27,16 @@
       integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
       crossorigin="anonymous"
     ></script>
-  <script defer src="favorites.901c7038a1305e3ae0b8.bundle.js"></script></head>
+  <script defer src="favorites.e28b22a3cde9dfcdd653.bundle.js"></script></head>
 
   <body>
     <div id="app">
       <!-- NAVBAR START-->
       <div class="container">
-        <header class="p-3 mb-3 border-bottom">
+        <header class="p-3 mb-3 border-bottom fixed-top" style="background-color: #94b49f;">
           <div class="container-fluid">
             <nav class="navbar navbar-expand-lg navbar-light">
-              <div class="container-fluid">
+              
                 <a href="./main.html"
                   ><img
                     class="bi me-2"
@@ -60,7 +60,7 @@
                 <!-- ADD FAV START-->
                 <div class="collapse navbar-collapse" id="navbarNav">
                   <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <!-- TOGGLE LOGIN BTN START-->
+                    <!-- NAV SeARCH START-->
                     <li class="nav-item">
                       <form class="d-flex">
                         <input
@@ -79,9 +79,9 @@
                     </li>
                     <!-- TOGGLE LOGIN BTN START-->
                     <li class="nav-item">
-                      <a href="main.html" class="nav-link px-2 link-secondary"
-                        ><i class="fa-solid fa-box"> Movie Database</i></a
-                      >
+                      <a href="main.html" class="nav-link px-2 link-secondary">
+                        <i class="fa-solid fa-box"> Movie Database</i>
+                      </a>
                     </li>
                     <li class="nav-item">
                       <a
@@ -121,11 +121,11 @@
                                 Login
                               </h5>
                               <button
-                              type="button"
-                              class="btn-close"
-                              data-bs-dismiss="modal"
-                              aria-label="Close"
-                            ></button>
+                                type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Close"
+                              ></button>
                             </div>
                             <div class="modal-body">
                               <form>
@@ -163,17 +163,30 @@
                   </ul>
                   <!-- BASKET ICON START -->
                   <div class="empty-basket">
-                    <a href="./store.html" title="Store" class="text-decoration-none">
+                    <a
+                      href="./store.html"
+                      title="Store"
+                      class="text-decoration-none"
+                    >
                       <span class="countlabel">
-                        <span class="badge bg-secondary">{{ cart.length }}</span> <!-- Ilość elementów w koszyku -->
+                        <span class="badge bg-secondary"
+                          >{{ cart.length }}</span
+                        >
+                        <!-- Ilość elementów w koszyku -->
                       </span>
-                      <i class="fas fa-shopping-cart me-2 link-secondary" style="font-size: 1.5rem"></i>
-                      <span class="text-secondary d-none d-md-inline">${{ totalPrice }}</span> <!-- Cena koszyka - ukryta na małych ekranach -->
+                      <i
+                        class="fas fa-shopping-cart me-2 link-secondary"
+                        style="font-size: 1.5rem"
+                      ></i>
+                      <span class="text-secondary d-none d-md-inline"
+                        >${{ totalPrice }}</span
+                      >
+                      <!-- Cena koszyka - ukryta na małych ekranach -->
                     </a>
                   </div>
                   <!-- BASKET ICON END -->
                 </div>
-              </div>
+            
             </nav>
           </div>
         </header>
@@ -181,7 +194,7 @@
       <!----------------------->
 
       <!-- favorites.html -->
-      <div id="app">
+      
         <div class="container mt-5">
           <h1 class="mb-4">Favorite movies</h1>
           <div
@@ -204,7 +217,7 @@
             </div>
           </div>
         </div>
-      </div>
+      
       <!----------------------->
       <!-- TOP TEN FILMS START-->
       <div class="container">

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Projekt WSB</title>
 
-    <link rel="stylesheet" href="/dist/index.css" />
+    <link rel="stylesheet" href="/dist/main.css" />
 
     <link
       rel="stylesheet"
@@ -30,65 +30,30 @@
   <script defer src="store.01e8757491bcea7fa039.bundle.js"></script></head>
 
   <body>
+    <div id="app">
     <div class="container">
-      <header class="p-3 mb-3 border-bottom">
+      <header class="p-3 mb-3 border-bottom fixed-top" style="background-color: #94b49f;">
         <div class="container-fluid">
           <nav class="navbar navbar-expand-lg navbar-light">
-            <a href="./main.html">
-              <img class="bi me-2" width="30" height="22" role="img" src="./assets/img/film-solid.svg" alt="Strona Główna">
-            </a>
-            <h5>Checkout</h5>
+            <div class="container-fluid">
+              <a href="./main.html"
+                  ><img
+                    class="bi me-2"
+                    :src="'./assets/img/film-solid.svg'"
+                    alt="Logo"
+                    width="40"
+                    height="32"
+                /></a>
+              <h5>Checkout</h5>
+            </div>
+            
           </nav>
         </div>
       </header>
-      <h1>New User</h1>
-      <!-- Formularz rejestracji -->
-      <form id="registrationForm" class="login-form">
-        <!-- Email input -->
-        <div class="form-outline mb-4">
-          <input type="email" id="email" class="form-control" v-model="email" />
-          <label class="form-label" for="email">Email address</label>
-        </div>
-
-        <!-- Password input -->
-        <div class="form-outline mb-4">
-          <input
-            type="password"
-            id="password"
-            class="form-control"
-            v-model="password"
-          />
-          <label class="form-label" for="password">Password</label>
-        </div>
-        <small id="passwordHelpBlock" class="form-text text-muted">
-          Your password must be 8-20 characters long, contain letters and
-          numbers, and must not contain spaces, special characters, or emojis.
-        </small>
-
-        <!-- Checkbox -->
-        <div class="form-check mb-4">
-          <input
-            class="form-check-input"
-            type="checkbox"
-            value=""
-            id="rememberMe"
-            v-model="rememberMe"
-          />
-          <label class="form-check-label" for="rememberMe"> Remember me </label>
-        </div>
-
-        <!-- Submit button -->
-        <button
-          type="submit"
-          class="btn btn-primary btn-block mb-4"
-          @click.prevent="register"
-        >
-          Sign up
-        </button>
-      </form>
+      
 
       <!-- Shopping cart start-->
-      <div id="app">
+      
         <!-- Animacja koszyka -->
     <div v-if="showCartAnimation" class="cart-animation">
       <i class="fas fa-shopping-cart cart-icon"></i>
@@ -139,6 +104,7 @@
 
         <!-- KARUZELA START -->
         <div class="container mt-3">
+          <h6 class="text-sm-center">Top 10 highest-rated series</h6>
           <div
             id="carouselExampleControls"
             class="carousel slide d-none d-sm-block"
@@ -261,6 +227,7 @@
         </div>
         <!-- TOP TEN FILMS END-->
       </div>
+    </div>
     </div>
 
     <script src="./main.js"></script>
