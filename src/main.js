@@ -5,7 +5,7 @@
 //   response.json().then((response2) => console.log(response2))
 // );
 
-import "./css/main.scss";
+//import "./css/main.css";
 
 const app = Vue.createApp({
   data() {
@@ -25,10 +25,15 @@ const app = Vue.createApp({
       showDetails: null, // Dodajemy właściwość do przechowywania szczegółowych informacji o wybranym show
       // reszta danych pozostaje bez zmian
       showCast: [], // Dodajemy pole przechowujące informacje o obsadzie
-      showLoginModal: false, // Pokazywanie lub ukrywanie modala logowania
       showCartAnimation: false,
       showAlreadyInCartAlert: null, // Dodajemy właściwość do przechowywania informacji o wyświetleniu komunikatu "Film znajduje się już w koszyku!"
-    
+      email: '',
+      password: '',
+      submitted: false,
+      emailValid: true, // Dodajemy właściwość do przechowywania informacji o poprawności adresu email
+      passwordValid: true, // Dodajemy właściwość do przechowywania informacji o poprawności hasła
+      passwordErrorMessage: ''
+      
     };
   },
   // Obliczenia związane z danymi
@@ -264,8 +269,64 @@ const app = Vue.createApp({
           console.error("Error fetching show cast:", error);
         });
     },
+    login() {
+      
+      this.submitted = true;
+      
+      // Resetowanie komunikatów o błędach
+      this.passwordErrorMessage = '';
+      this.emailErrorMessage = ''; 
+      
+    
+      // Walidacja adresu email
+      if (!this.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.email)) {
+        this.emailValid = false;
+      } else {
+        this.emailValid = true;
+      }
+    
+      // Walidacja hasła
+if (!this.password || this.password.length < 8) {
+  this.passwordErrorMessage = 'Password must be at least 8 characters long.';
+  this.passwordValid = false;
+  inputPassword.classList.remove('is-valid'); // Usunięcie klasy is-valid
+} else {
+  this.passwordValid = true;
+}
+
+    
+      // Sprawdzenie, czy oba pola spełniają kryteria walidacji
+      if (this.emailValid && this.passwordValid) {
+        // Tutaj można dodać logikę logowania
+        console.log('Logged in with:', this.email, this.password);
+        // Wyświetlenie komunikatu o pomyślnym zalogowaniu
+        alert('Successfully logged in!');
+        // Zamykanie modalu po wyświetleniu komunikatu
+        $("#loginModal").modal("hide");
+        this.clearForm();
+       
+        
+      }
+    },
+    clearForm() {
+  // Czyszczenie danych formularza
+  this.email = '';
+  this.password = '';
+  this.submitted = false;
+  this.emailValid = true;
+  this.passwordValid = true;
+  this.passwordErrorMessage = '';
+  this.emailErrorMessage = '';
+  // Usunięcie klas is-invalid i is-valid
+  const inputEmail = document.getElementById('inputEmail');
+  const inputPassword = document.getElementById('inputPassword');
+  inputEmail.classList.remove('is-invalid', 'is-valid');
+  inputPassword.classList.remove('is-invalid', 'is-valid');
+
+},
     
   },
+  
 });
 
 app.mount("#app");

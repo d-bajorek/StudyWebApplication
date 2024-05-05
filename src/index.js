@@ -1,8 +1,23 @@
 import { style } from "./css/index.scss";
 import Icon from "./assets/img/bag-seedling.png";
 import axios from 'axios';
-
+import "./css/main.css";
 /////////////////////////////////////////////
+
+const app = Vue.createApp({
+  data() {
+    return {
+
+    };
+  },
+  computed:{
+
+  },
+  methods:{
+
+  },
+})
+app.mount("#app");
 
 document
   .getElementById("toggleLoginBtn")

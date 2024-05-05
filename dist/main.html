@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Projekt WSB</title>
 
-    <link rel="stylesheet" href="/dist/main.css">
+    <link rel="stylesheet" href="./css/main.css">
 
     <link
       rel="stylesheet"
@@ -14,6 +14,7 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
 
     <link
@@ -27,7 +28,8 @@
       integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
       crossorigin="anonymous"
     ></script>
-  <script defer src="main.d5737ab2a6d5dfab444b.bundle.js"></script><link href="main.css" rel="stylesheet"></head>
+    <script src="https://unpkg.com/vee-validate"></script>
+  <script defer src="main.8f6857f410b5cc48d97a.bundle.js"></script><link href="main.css" rel="stylesheet"></head>
 
   <body>
     <div id="app">
@@ -84,24 +86,25 @@
                         class="nav-link px-2 link-secondary"
                         ><i class="fa-solid fa-store"> Store</i></a>
                     </li>
+                    <!-- LOGIN MODAL START-->
                     <li class="nav-item">
                       <button
-                        @click="showLoginModal = true"
-                        class="nav-link px-2 link-secondary"
                         type="button"
+                        class="nav-link px-2 link-secondary"
                         data-bs-toggle="modal"
                         data-bs-target="#loginModal"
+                        data-bs-dismiss="modal"
                       >
                         <i class="fas fa-user"> LOGIN</i>
                       </button>
-
+                      
                       <div
-                        class="modal"
+                        class="modal fade"
                         id="loginModal"
                         tabindex="-1"
                         aria-labelledby="loginModalLabel"
                         aria-hidden="true"
-                        v-if="showLoginModal"
+                        data-bs-backdrop="false"
                       >
                         <div class="modal-dialog">
                           <div class="modal-content">
@@ -112,43 +115,54 @@
                               <button
                                 type="button"
                                 class="btn-close"
-                                data-bs-dismiss="modal"
                                 aria-label="Close"
+                                data-bs-dismiss="modal"
+                                @click="clearForm"
                               ></button>
                             </div>
                             <div class="modal-body">
-                              <form>
+                              <form autocomplete="off" >
                                 <div class="mb-3">
-                                  <label for="inputEmail" class="form-label"
-                                    >Email address</label
-                                  >
+                                  <label for="inputEmail" class="form-label">Email address</label>
                                   <input
                                     type="email"
                                     class="form-control"
+                                    v-model="email"
                                     id="inputEmail"
                                     placeholder="name@example.com"
+                                    :class="{ 'is-invalid': submitted && !emailValid }"
+                                    autocomplete="username"
+                                    required
                                   />
+                                  <div class="invalid-feedback" v-if="submitted && !emailValid">
+                                    {{ emailErrorMessage }}
+                                  </div>
                                 </div>
                                 <div class="mb-3">
-                                  <label for="inputPassword" class="form-label"
-                                    >Password</label
-                                  >
+                                  <label for="inputPassword" class="form-label">Password</label>
                                   <input
                                     type="password"
                                     class="form-control"
+                                    v-model="password"
                                     id="inputPassword"
                                     placeholder="Password"
+                                    :class="{ 'is-invalid': submitted && !passwordValid}"
+                                    autocomplete="current-password"
+                                    minlength="8"
+                                    required
                                   />
+                                  <div class="invalid-feedback" v-if="submitted && !passwordValid">
+                                    {{ passwordErrorMessage }}
+                                  </div>
                                 </div>
-                                <button type="submit" class="btn btn-secondary">
-                                  Sign in
-                                </button>
+                                <button type="button" class="btn btn-secondary" @click="login">Sign in</button>
                               </form>
                             </div>
                           </div>
                         </div>
                       </div>
                     </li>
+<!-- LOGIN MODAL END-->
                   </ul>
                   <!-- BASKET ICON START -->
                   <div class="empty-basket">
@@ -185,8 +199,9 @@
       <div class="container mt-5">
         <div class="row">
           <div class="col-12">
+            <label for="sortSelect" class="form-label">Filter by genre</label>
             <div class="p-3 mb-3 border-bottom">
-              <h5>Filter by genre</h5>
+              <h6>Filter by genre</h6>
               <div class="d-flex flex-wrap">
                 <button
                   v-for="genre in genres"
@@ -198,17 +213,25 @@
                   {{ genre }}
                 </button>
               </div>
+
               <!--Sortowanie Start-->
-              <div class="col-4 mt-3">
-                <label for="sortSelect" class="form-label">Sort by:</label>
-                <select id="sortSelect" class="form-select" @change="sortShows($event.target.value)">
-                  <option value="default">Default</option>
-                  <option value="recent">Recently Added</option>
-                  <option value="oldest">Oldest</option>
-                  <option value="newest">Newest</option>
-                  <option value="az">A-Z</option>
-                  <option value="za">Z-A</option>
-                </select>
+              <div class="row">
+                <div class="col-md-4 mt-md-3">
+                  <label for="sortSelect" class="form-label">Sort by:</label>
+                  <select id="sortSelect" class="form-select" @change="sortShows($event.target.value)">
+                    <option value="default">Default</option>
+                    <option value="oldest">Oldest</option>
+                    <option value="newest">Newest</option>
+                    <option value="az">A-Z</option>
+                    <option value="za">Z-A</option>
+                  </select>
+                </div>
+                <!--Sortowanie END-->
+                <!--ADD MOVIE START-->
+                <div class="col-md-4 mt-md-3 d-flex align-items-end justify-content-md-start justify-content-center">
+                  <button class="btn btn-secondary mx-2 my-2 btn-transparent" @click="showAddMovieForm">Add Movie</button>
+                </div>
+                <!-- ADD MOVIE END-->
               </div>
               <!--Sortowanie Koniec-->
             </div>
@@ -444,7 +467,7 @@
       <div v-if="showCartAnimation === show.id" class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header">
           <i class="fas fa-shopping-cart cart-icon me-2"></i>
-          <strong class="me-auto">Produkt dodany do koszyka!</strong>
+          <strong class="me-auto">This is added to your cart!</strong>
           <button type="button" class="btn-close" @click="showCartAnimation = null" aria-label="Close"></button>
         </div>
       </div>
@@ -454,7 +477,7 @@
     <div v-if="showAlreadyInCartAlert" class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
       <div class="toast-header">
         <i class="fas fa-exclamation-circle text-danger me-2"></i>
-        <strong class="me-auto">Film znajduje się już w koszyku!</strong>
+        <strong class="me-auto">This is already added to your cart!</strong>
         <button type="button" class="btn-close" @click="showAlreadyInCartAlert = null" aria-label="Close"></button>
       </div>
     </div>
@@ -538,9 +561,10 @@
         <!-- FOOTER END -->
       </div>
     </div>
+    </div>
     <script src="./main.js"></script>
-    <script src="./favorites.js"></script>
-    <script src="./koszyk.html"></script>
-    <script src="./store.html"></script>
+    <script src="/dist/"></script>
+    <script src="./koszyk.js"></script>
+    <script src="./store.js"></script>
   </body>
 </html>

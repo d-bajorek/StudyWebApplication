@@ -16,8 +16,8 @@ body .change {
 }
 body .autoprefixer {
   -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
 
 /* Dodatkowe niestandardowe style */
@@ -35,9 +35,12 @@ body .autoprefixer {
 }
 
 .pagination.pagination-sm.pagination-secondary .page-item .page-link {
-  color: #6c757d; /* Kolor tekstu nieaktywnych stron */
-  border-color: transparent; /* Brak obramowania dla nieaktywnych stron */
-  background-color: transparent; /* Przezroczyste tło dla nieaktywnych stron */
+  color: #6c757d;
+  /* Kolor tekstu nieaktywnych stron */
+  border-color: transparent;
+  /* Brak obramowania dla nieaktywnych stron */
+  background-color: transparent;
+  /* Przezroczyste tło dla nieaktywnych stron */
 }
 
 .pagination.pagination-sm.pagination-secondary .page-item.active .page-link {
@@ -54,9 +57,12 @@ body .autoprefixer {
 }
 
 .pagination.pagination-sm.pagination-secondary .page-item.active .page-link {
-  color: #fff; /* Kolor tekstu aktywnej strony */
-  background-color: #343a40; /* Kolor tła aktywnej strony */
-  border-color: #343a40; /* Kolor obramowania aktywnej strony */
+  color: #fff;
+  /* Kolor tekstu aktywnej strony */
+  background-color: #343a40;
+  /* Kolor tła aktywnej strony */
+  border-color: #343a40;
+  /* Kolor obramowania aktywnej strony */
 }
 
 /*# sourceMappingURL=main.css.map*/

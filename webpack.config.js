@@ -26,12 +26,10 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.scss$/, //zamiana css na scss
+        test: /\.css$/, // Zmieniamy regułę na pliki .css
         use: [
-          // "style-loader", <-- już nie potrzebne bo zamieniliśmy za plugin MiniCssExtractPlugin
           MiniCssExtractPlugin.loader,
           "css-loader",
-          "sass-loader",
           {
             loader: "postcss-loader",
             options: {
