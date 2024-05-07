@@ -54,13 +54,13 @@ $(document).ready(function () {
 const selectElement = document.querySelector("select");
 const table = document.querySelector("table");
 
-// Lista krajów:
-fetch("https://restcountries.com/v2/all")
-  .then((response) => response.json())
-  .then((data) => {
-    data.forEach((country) => {
-      const option = document.createElement("option");
-      option.text = country.name;
-      selectElement.add(option);
-    });
-  });
+// // Lista krajów:
+// fetch("https://restcountries.com/v2/all")
+//   .then((response) => response.json())
+//   .then((data) => {
+//     data.forEach((country) => {
+//       const option = document.createElement("option");
+//       option.text = country.name;
+//       selectElement.add(option);
+//     });
+//   });

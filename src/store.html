@@ -90,12 +90,18 @@
                     <strong>Genres:</strong> {{ item.genres.join(', ') }}<br />
                     <strong>Price:</strong> $9.99
                   </p>
-                  <button
-                    class="btn btn-danger mt-auto"
+                  <div class="container mt-1">
+                    <button class="btn btn-danger mx-2 my-2 btn-transparent" @click="openCartSummary">Go to checkout</button>
+                  </div>
+                  <div class="container mt-1">
+                    <button
+                    class="btn btn-secondary mx-2 my-2 btn-transparent"
                     @click="removeFromCart(item.id)"
                   >
                     Remove from Cart
                   </button>
+                  </div>
+                  
                 </div>
               </div>
             </div>

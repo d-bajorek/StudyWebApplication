@@ -56,16 +56,16 @@ $(document).ready(function () {
 var selectElement = document.querySelector("select");
 var table = document.querySelector("table");
 
-// Lista krajów:
-fetch("https://restcountries.com/v2/all").then(function (response) {
-  return response.json();
-}).then(function (data) {
-  data.forEach(function (country) {
-    var option = document.createElement("option");
-    option.text = country.name;
-    selectElement.add(option);
-  });
-});
+// // Lista krajów:
+// fetch("https://restcountries.com/v2/all")
+//   .then((response) => response.json())
+//   .then((data) => {
+//     data.forEach((country) => {
+//       const option = document.createElement("option");
+//       option.text = country.name;
+//       selectElement.add(option);
+//     });
+//   });
 /******/ })()
 ;
-//# sourceMappingURL=koszyk.7f7adb04376b7c6d8690.bundle.js.map
+//# sourceMappingURL=koszyk.d078db0ccfd279898539.bundle.js.map

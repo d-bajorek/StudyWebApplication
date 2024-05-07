@@ -97,7 +97,7 @@
                       >
                         <i class="fas fa-user"> LOGIN</i>
                       </button>
-                      
+
                       <div
                         class="modal fade"
                         id="loginModal"
@@ -172,7 +172,7 @@
                       class="text-decoration-none"
                     >
                       <span class="countlabel">
-                        <span class="badge bg-secondary"
+                        <span class="badge badge-pill bg-success"
                           >{{ cart.length }}</span
                         >
                         <!-- Ilość elementów w koszyku -->
@@ -228,9 +228,67 @@
                 </div>
                 <!--Sortowanie END-->
                 <!--ADD MOVIE START-->
-                <div class="col-md-4 mt-md-3 d-flex align-items-end justify-content-md-start justify-content-center">
+                <!-- <div class="col-md-4 mt-md-3 d-flex align-items-end justify-content-md-start justify-content-center">
                   <button class="btn btn-secondary mx-2 my-2 btn-transparent" @click="showAddMovieForm">Add Movie</button>
+                </div> -->
+                <!-- Przycisk otwierający modal -->
+                <div class="col-md-4 mt-md-3 d-flex align-items-end justify-content-md-start justify-content-center">
+                  <button type="button" class="btn btn-secondary mx-2 my-2 btn-transparent" data-bs-toggle="modal" data-bs-target="#addMovieModal">
+                    Add Series
+                  </button>
                 </div>
+
+
+<!-- Modal do dodawania nowego filmu -->
+<div class="modal fade" id="addMovieModal" tabindex="-1" aria-labelledby="addMovieModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addMovieModalLabel">Dodaj nowy film</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Formularz dodawania nowego filmu -->
+        <form @submit.prevent="addNewMovie">
+          <div class="mb-3">
+            <label for="movieName" class="form-label">Name</label>
+            <input type="text" class="form-control" id="movieName" v-model="newMovie.name" required>
+          </div>
+          <div class="mb-3">
+            <label for="movieImage" class="form-label">Poster</label>
+            <input type="file" class="form-control" id="movieImage" accept=".jpg, .jpeg, .png, .gif" @change="handleImageUpload" required>
+          </div>
+          <div class="mb-3">
+            <label for="genre" class="form-label">Genre</label>
+            <select class="form-select flex-grow-1" id="genre" v-model="newMovie.genre" required>
+              <option disabled value="">Choose genre</option>
+              <option v-for="genre in genres" :value="genre">{{ genre }}</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="status" class="form-label">Status</label>
+            <select class="form-select flex-grow-1" id="status" v-model="newMovie.status" required>
+              <option disabled value="">Choose status</option>
+              <option value="Ended">Ended</option>
+              <option value="On-going">On-going</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="language" class="form-label">Language</label>
+            <select class="form-select flex-grow-1" id="language" v-model="newMovie.language" required>
+              <option disabled value="">Choose Language</option>
+              <option value="English">English</option>
+              <!-- Dodaj inne języki dostępne w bazie danych -->
+              <option v-for="language in languages" :value="language">{{ language }}</option>
+            </select>
+          </div>
+          <!-- Pozostałe pola formularza, takie jak opis, premiera itp., mogą być dodane na podstawie potrzeb -->
+          <button type="submit" class="btn btn-secondary mx-2 my-2 btn-transparent">Add series</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
                 <!-- ADD MOVIE END-->
               </div>
               <!--Sortowanie Koniec-->

@@ -62,3 +62,12 @@ body .autoprefixer {
   border-color: #343a40;
   /* Kolor obramowania aktywnej strony */
 }
+
+.movie-content {
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Animacja po najechaniu myszką */
+.movie-content:hover {
+  transform: scale(1.05);
+}

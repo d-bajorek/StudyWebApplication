@@ -114,7 +114,14 @@ var app = Vue.createApp({
       // Dodajemy właściwość do przechowywania informacji o poprawności adresu email
       passwordValid: true,
       // Dodajemy właściwość do przechowywania informacji o poprawności hasła
-      passwordErrorMessage: ''
+      passwordErrorMessage: '',
+      languages: ["English", "French", "German", "Spanish", "Italian", "Japanese", "Other"],
+      newMovie: {
+        name: '',
+        status: '',
+        language: ''
+        // Dodaj inne pola, jeśli są wymagane
+      }
     };
   },
   // Obliczenia związane z danymi
@@ -401,6 +408,23 @@ var app = Vue.createApp({
       var inputPassword = document.getElementById('inputPassword');
       inputEmail.classList.remove('is-invalid', 'is-valid');
       inputPassword.classList.remove('is-invalid', 'is-valid');
+    },
+    addNewMovie: function addNewMovie() {
+      // Dodaj nowy film do listy wszystkich filmów
+      var newMovie = {
+        name: this.newMovie.name,
+        image: this.newMovie.image,
+        genre: this.newMovie.genre,
+        status: this.newMovie.status,
+        language: this.newMovie.language
+        // Dodaj inne pola, jeśli są wymagane
+      };
+
+      // Dodajemy nowy film do listy wszystkich filmów
+      this.allShows.push(newMovie);
+
+      // Następnie możesz zamknąć modal
+      $('#addMovieModal').modal('hide');
     }
   }
 });
@@ -409,4 +433,4 @@ app.mount("#app");
 
 /******/ })()
 ;
-//# sourceMappingURL=main.8f6857f410b5cc48d97a.bundle.js.map
+//# sourceMappingURL=main.71634b0828c215b9c08d.bundle.js.map

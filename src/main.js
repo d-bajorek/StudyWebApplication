@@ -32,8 +32,14 @@ const app = Vue.createApp({
       submitted: false,
       emailValid: true, // Dodajemy właściwość do przechowywania informacji o poprawności adresu email
       passwordValid: true, // Dodajemy właściwość do przechowywania informacji o poprawności hasła
-      passwordErrorMessage: ''
-      
+      passwordErrorMessage: '',
+      languages: ["English", "French", "German", "Spanish", "Italian", "Japanese", "Other"],
+      newMovie: {
+        name: '',
+        status: '',
+        language: '',
+        // Dodaj inne pola, jeśli są wymagane
+      },
     };
   },
   // Obliczenia związane z danymi
@@ -323,6 +329,24 @@ if (!this.password || this.password.length < 8) {
   inputEmail.classList.remove('is-invalid', 'is-valid');
   inputPassword.classList.remove('is-invalid', 'is-valid');
 
+},
+addNewMovie() {
+  // Dodaj nowy film do listy wszystkich filmów
+      const newMovie = {
+        name: this.newMovie.name,
+        image: this.newMovie.image,
+        genre: this.newMovie.genre,
+        status: this.newMovie.status,
+        language: this.newMovie.language
+        // Dodaj inne pola, jeśli są wymagane
+      };
+
+  // Dodajemy nowy film do listy wszystkich filmów
+  this.allShows.push(newMovie);
+
+
+  // Następnie możesz zamknąć modal
+  $('#addMovieModal').modal('hide');
 },
     
   },
