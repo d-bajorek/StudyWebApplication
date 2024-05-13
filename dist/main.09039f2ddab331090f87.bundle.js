@@ -90,7 +90,7 @@ var app = Vue.createApp({
       // Tablica ulubionych seriali przechowywana w localStorage
       cart: [],
       // Tablica seriali dodanych do koszyka przechowywana w localStorage
-      searchQuery: "",
+      searchShow: "",
       selectedCategory: "All",
       // Wybrana kategoria
       filteredAllShows: [],
@@ -115,12 +115,13 @@ var app = Vue.createApp({
       passwordValid: true,
       // Dodajemy właściwość do przechowywania informacji o poprawności hasła
       passwordErrorMessage: '',
-      languages: ["English", "French", "German", "Spanish", "Italian", "Japanese", "Other"],
+      languages: ["English", "French", "German", "Spanish", "Italian", "Japanese", "Turkish", "Korean", "Other"],
       newMovie: {
-        name: '',
-        status: '',
-        language: ''
-        // Dodaj inne pola, jeśli są wymagane
+        name: "",
+        status: "",
+        language: "",
+        genres: [],
+        image: null // Dodajemy pole image
       }
     };
   },
@@ -143,8 +144,8 @@ var app = Vue.createApp({
           return show.genres.includes(_this.selectedCategory);
         });
       }
-      if (this.searchQuery) {
-        var regex = new RegExp(this.searchQuery.toLowerCase(), "i");
+      if (this.searchShow) {
+        var regex = new RegExp(this.searchShow.toLowerCase(), "i");
         filtered = filtered.filter(function (show) {
           return regex.test(show.name.toLowerCase());
         });
@@ -410,21 +411,28 @@ var app = Vue.createApp({
       inputPassword.classList.remove('is-invalid', 'is-valid');
     },
     addNewMovie: function addNewMovie() {
-      // Dodaj nowy film do listy wszystkich filmów
-      var newMovie = {
-        name: this.newMovie.name,
-        image: this.newMovie.image,
-        genre: this.newMovie.genre,
-        status: this.newMovie.status,
-        language: this.newMovie.language
-        // Dodaj inne pola, jeśli są wymagane
-      };
+      console.log("New movie data:", this.newMovie); // Dodaj tę linię, aby sprawdzić dane dla newMovie
+
+      // Dodajemy domyślny obraz, jeśli użytkownik nie wprowadził obrazu
+      if (!this.newMovie.image) {
+        this.newMovie.image = {
+          medium: '/assets/img/place-holder.png' // Zmieniamy ścieżkę obrazu na place-holder.svg
+        };
+      }
 
       // Dodajemy nowy film do listy wszystkich filmów
-      this.allShows.push(newMovie);
-
+      this.allShows.push(_objectSpread({}, this.newMovie));
+      this.clearAddMovie();
       // Następnie możesz zamknąć modal
       $('#addMovieModal').modal('hide');
+    },
+    clearAddMovie: function clearAddMovie() {
+      this.newMovie = {
+        name: "",
+        genres: [],
+        status: "",
+        language: ""
+      };
     }
   }
 });
@@ -433,4 +441,4 @@ app.mount("#app");
 
 /******/ })()
 ;
-//# sourceMappingURL=main.71634b0828c215b9c08d.bundle.js.map
+//# sourceMappingURL=main.09039f2ddab331090f87.bundle.js.map

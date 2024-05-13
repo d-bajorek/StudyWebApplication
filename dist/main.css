@@ -65,13 +65,13 @@ body .autoprefixer {
   /* Kolor obramowania aktywnej strony */
 }
 
-.movie-content {
+/* .movie-content {
   transition: transform 0.3s ease-in-out;
-}
+} */
 
 /* Animacja po najechaniu myszką */
-.movie-content:hover {
+/* .movie-content:hover {
   transform: scale(1.05);
-}
+} */
 
 /*# sourceMappingURL=main.css.map*/

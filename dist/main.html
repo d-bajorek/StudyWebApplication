@@ -28,8 +28,8 @@
       integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
       crossorigin="anonymous"
     ></script>
-    <script src="https://unpkg.com/vee-validate"></script>
-  <script defer src="main.71634b0828c215b9c08d.bundle.js"></script><link href="main.css" rel="stylesheet"></head>
+    
+  <script defer src="main.09039f2ddab331090f87.bundle.js"></script><link href="main.css" rel="stylesheet"></head>
 
   <body>
     <div id="app">
@@ -255,15 +255,13 @@
             <input type="text" class="form-control" id="movieName" v-model="newMovie.name" required>
           </div>
           <div class="mb-3">
-            <label for="movieImage" class="form-label">Poster</label>
-            <input type="file" class="form-control" id="movieImage" accept=".jpg, .jpeg, .png, .gif" @change="handleImageUpload" required>
-          </div>
-          <div class="mb-3">
-            <label for="genre" class="form-label">Genre</label>
-            <select class="form-select flex-grow-1" id="genre" v-model="newMovie.genre" required>
-              <option disabled value="">Choose genre</option>
-              <option v-for="genre in genres" :value="genre">{{ genre }}</option>
-            </select>
+            <label class="form-label">Genres</label>
+            <div>
+              <label v-for="genre in genres" :key="genre" class="form-check form-check-inline">
+                <input type="checkbox" :value="genre" v-model="newMovie.genres" class="form-check-input">
+                {{ genre }}
+              </label>
+            </div>
           </div>
           <div class="mb-3">
             <label for="status" class="form-label">Status</label>
@@ -283,7 +281,7 @@
             </select>
           </div>
           <!-- Pozostałe pola formularza, takie jak opis, premiera itp., mogą być dodane na podstawie potrzeb -->
-          <button type="submit" class="btn btn-secondary mx-2 my-2 btn-transparent">Add series</button>
+          <button type="submit" class="btn btn-secondary mx-2 my-2 btn-transparent">Add show</button>
         </form>
       </div>
     </div>
@@ -309,8 +307,7 @@
                 type="text"
                 class="form-control"
                 placeholder="Search for shows..."
-                v-model="searchQuery"
-                @input="searchShows"
+                v-model="searchShow"
               />
             </div>
           </div>
@@ -458,8 +455,7 @@
                       >
                         <div class="card-body">
                           <h5 class="card-title">{{ favorite.name }}</h5>
-                          <p class="card-text"
-                          >{{ favorite.summary }}</p>
+                          <div class="card-text" v-html="favorite.summary"></div>
                           <button
                             @click="removeFromFavorites(favorite.id)"
                             class="btn btn-danger"
@@ -480,12 +476,12 @@
             <div
               v-for="(show, index) in paginatedShows"
               :key="index"
-              class="col-sm-6 col-md-4 col-lg-3 mb-4"
+              class="col-sm-6 col-md-4 col-lg-3 mb-4 d-flex justify-content-center"
             >
               <div class="movie-content">
                 <img
-                  :src="show.image.medium"
-                  class="card-img-top"
+                :src="show.image ? show.image.medium : 'src/assets/img/place-holder.png'"
+                  class="card-img-top rounded"
                   alt="Movie Poster"
                   @click="fetchShowDetails(show.id)"
                   style="cursor: pointer"
@@ -606,13 +602,19 @@
           </div>
           <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
             <li class="ms-3">
-              <i class="fab fa-facebook"></i>
+              <a href="https://www.facebook.com/" target="_blank" class="social-icon-link">
+                <i class="fab fa-facebook social-icon" style="color: #6c757d;"></i>
+              </a>
             </li>
             <li class="ms-3">
-              <i class="fab fa-twitter"></i>
+              <a href="https://twitter.com/" target="_blank" class="social-icon-link">
+                <i class="fab fa-twitter social-icon" style="color: #6c757d;"></i>
+              </a>
             </li>
             <li class="ms-3">
-              <i class="fab fa-instagram"></i>
+              <a href="https://www.instagram.com/" target="_blank" class="social-icon-link">
+                <i class="fab fa-instagram social-icon" style="color: #6c757d;"></i>
+              </a>
             </li>
           </ul>
         </footer>

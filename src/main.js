@@ -5,7 +5,7 @@
 //   response.json().then((response2) => console.log(response2))
 // );
 
-//import "./css/main.css";
+import "./css/main.css";
 
 const app = Vue.createApp({
   data() {
@@ -17,7 +17,7 @@ const app = Vue.createApp({
       pageSize: 12, // Liczba filmów wyświetlanych na jednej stronie
       favorites: [], // Tablica ulubionych seriali przechowywana w localStorage
       cart: [], // Tablica seriali dodanych do koszyka przechowywana w localStorage
-      searchQuery: "",
+      searchShow: "",
       selectedCategory: "All", // Wybrana kategoria
       filteredAllShows: [], // Tablica dla filtrowanych filmów
       originalGenres: [], // Dodajemy właściwość przechowującą oryginalną listę kategorii filmów
@@ -33,12 +33,13 @@ const app = Vue.createApp({
       emailValid: true, // Dodajemy właściwość do przechowywania informacji o poprawności adresu email
       passwordValid: true, // Dodajemy właściwość do przechowywania informacji o poprawności hasła
       passwordErrorMessage: '',
-      languages: ["English", "French", "German", "Spanish", "Italian", "Japanese", "Other"],
+      languages: ["English", "French", "German", "Spanish", "Italian", "Japanese", "Turkish", "Korean", "Other"],
       newMovie: {
-        name: '',
-        status: '',
-        language: '',
-        // Dodaj inne pola, jeśli są wymagane
+        name: "",
+        status: "",
+        language: "",
+        genres: [],
+        image: null, // Dodajemy pole image
       },
     };
   },
@@ -60,8 +61,8 @@ const app = Vue.createApp({
           show.genres.includes(this.selectedCategory)
         );
       }
-      if (this.searchQuery) {
-        const regex = new RegExp(this.searchQuery.toLowerCase(), "i");
+      if (this.searchShow) {
+        const regex = new RegExp(this.searchShow.toLowerCase(), "i");
         filtered = filtered.filter((show) =>
           regex.test(show.name.toLowerCase())
         );
@@ -331,22 +332,28 @@ if (!this.password || this.password.length < 8) {
 
 },
 addNewMovie() {
-  // Dodaj nowy film do listy wszystkich filmów
-      const newMovie = {
-        name: this.newMovie.name,
-        image: this.newMovie.image,
-        genre: this.newMovie.genre,
-        status: this.newMovie.status,
-        language: this.newMovie.language
-        // Dodaj inne pola, jeśli są wymagane
-      };
+  console.log("New movie data:", this.newMovie); // Dodaj tę linię, aby sprawdzić dane dla newMovie
+  
+  // Dodajemy domyślny obraz, jeśli użytkownik nie wprowadził obrazu
+  if (!this.newMovie.image) {
+    this.newMovie.image = {
+      medium: '/assets/img/place-holder.png' // Zmieniamy ścieżkę obrazu na place-holder.svg
+    };
+  }
 
   // Dodajemy nowy film do listy wszystkich filmów
-  this.allShows.push(newMovie);
-
-
+  this.allShows.push({...this.newMovie});
+  this.clearAddMovie();
   // Następnie możesz zamknąć modal
   $('#addMovieModal').modal('hide');
+},
+clearAddMovie(){
+  this.newMovie = {
+    name:"",
+    genres:[],
+    status:"",
+    language:"",
+  }
 },
     
   },
