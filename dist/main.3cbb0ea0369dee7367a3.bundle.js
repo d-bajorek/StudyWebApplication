@@ -180,7 +180,16 @@ var app = Vue.createApp({
   },
   created: function created() {
     this.fetchTopTenShows();
-    this.fetchAllShows();
+    // Sprawdzenie, czy istnieją dane w localStorage
+    var storedShows = localStorage.getItem("allShows");
+    if (storedShows) {
+      // Jeśli tak, parsujemy je i aktualizujemy listę allShows
+      this.allShows = JSON.parse(storedShows);
+      this.originalAllShows = _toConsumableArray(this.allShows);
+    } else {
+      // W przeciwnym razie inicjalizujemy listę na podstawie danych z API
+      this.fetchAllShows();
+    }
     var favoritesFromStorage = localStorage.getItem("favorites");
     if (favoritesFromStorage) {
       this.favorites = JSON.parse(favoritesFromStorage);
@@ -188,6 +197,13 @@ var app = Vue.createApp({
     var cartFromStorage = localStorage.getItem("cart");
     if (cartFromStorage) {
       this.cart = JSON.parse(cartFromStorage);
+    }
+
+    // Wczytaj listę filmów z localStorage do allShows
+    var allShowsFromStorage = localStorage.getItem("allShows");
+    if (allShowsFromStorage) {
+      this.allShows = JSON.parse(allShowsFromStorage);
+      this.originalAllShows = _toConsumableArray(this.allShows);
     }
     this.originalGenres = this.genres.slice();
     this.displayedGenres = ["All"].concat(_toConsumableArray(this.originalGenres));
@@ -411,7 +427,18 @@ var app = Vue.createApp({
       inputPassword.classList.remove('is-invalid', 'is-valid');
     },
     addNewMovie: function addNewMovie() {
-      console.log("New movie data:", this.newMovie); // Dodaj tę linię, aby sprawdzić dane dla newMovie
+      var _this7 = this;
+      console.log("New movie data:", this.newMovie);
+
+      // Sprawdzamy, czy film o takiej samej nazwie już istnieje
+      var existingMovie = this.allShows.find(function (movie) {
+        return movie.name === _this7.newMovie.name;
+      });
+      if (existingMovie) {
+        // Jeśli film już istnieje, wyświetlamy odpowiedni komunikat
+        alert("Ten film już istnieje na liście!");
+        return; // Przerywamy działanie metody, aby nie dodawać duplikatu filmu
+      }
 
       // Dodajemy domyślny obraz, jeśli użytkownik nie wprowadził obrazu
       if (!this.newMovie.image) {
@@ -422,9 +449,27 @@ var app = Vue.createApp({
 
       // Dodajemy nowy film do listy wszystkich filmów
       this.allShows.push(_objectSpread({}, this.newMovie));
+      this.originalAllShows = _toConsumableArray(this.allShows); // Aktualizacja originalAllShows
+
+      // Zapisujemy zaktualizowaną listę filmów do localStorage
+      localStorage.setItem("allShows", JSON.stringify(this.allShows));
+
+      // Aktualizacja filteredShows po dodaniu nowego filmu
+      this.filteredAllShows = _toConsumableArray(this.allShows);
       this.clearAddMovie();
+
       // Następnie możesz zamknąć modal
       $('#addMovieModal').modal('hide');
+    },
+    validateAndAddMovie: function validateAndAddMovie() {
+      if (!this.newMovie.name || !this.newMovie.genres.length || !this.newMovie.status || !this.newMovie.language) {
+        // Wyświetl komunikat błędu jeśli jakieś pole jest puste
+        alert("Please fill in all fields");
+        return;
+      }
+
+      // Dodaj nowy film do listy jeśli wszystkie pola są wypełnione
+      this.addNewMovie();
     },
     clearAddMovie: function clearAddMovie() {
       this.newMovie = {
@@ -441,4 +486,4 @@ app.mount("#app");
 
 /******/ })()
 ;
-//# sourceMappingURL=main.09039f2ddab331090f87.bundle.js.map
+//# sourceMappingURL=main.3cbb0ea0369dee7367a3.bundle.js.map

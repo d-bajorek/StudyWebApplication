@@ -5,7 +5,7 @@
 //   response.json().then((response2) => console.log(response2))
 // );
 
-import "./css/main.css";
+//import "./css/main.css";
 
 const app = Vue.createApp({
   data() {
@@ -97,7 +97,17 @@ const app = Vue.createApp({
   },
   created() {
     this.fetchTopTenShows();
+    // Sprawdzenie, czy istnieją dane w localStorage
+  const storedShows = localStorage.getItem("allShows");
+  if (storedShows) {
+    // Jeśli tak, parsujemy je i aktualizujemy listę allShows
+    this.allShows = JSON.parse(storedShows);
+    this.originalAllShows = [...this.allShows];
+  } else {
+    // W przeciwnym razie inicjalizujemy listę na podstawie danych z API
     this.fetchAllShows();
+  }
+  
     const favoritesFromStorage = localStorage.getItem("favorites");
     if (favoritesFromStorage) {
       this.favorites = JSON.parse(favoritesFromStorage);
@@ -106,9 +116,18 @@ const app = Vue.createApp({
     if (cartFromStorage) {
       this.cart = JSON.parse(cartFromStorage);
     }
+  
+    // Wczytaj listę filmów z localStorage do allShows
+    const allShowsFromStorage = localStorage.getItem("allShows");
+    if (allShowsFromStorage) {
+      this.allShows = JSON.parse(allShowsFromStorage);
+      this.originalAllShows = [...this.allShows];
+    }
+  
     this.originalGenres = this.genres.slice();
     this.displayedGenres = ["All", ...this.originalGenres];
   },
+  
   methods: {
     fetchTopTenShows() {
       axios
@@ -332,8 +351,17 @@ if (!this.password || this.password.length < 8) {
 
 },
 addNewMovie() {
-  console.log("New movie data:", this.newMovie); // Dodaj tę linię, aby sprawdzić dane dla newMovie
+  console.log("New movie data:", this.newMovie);
+
+  // Sprawdzamy, czy film o takiej samej nazwie już istnieje
+  const existingMovie = this.allShows.find(movie => movie.name === this.newMovie.name);
   
+  if (existingMovie) {
+    // Jeśli film już istnieje, wyświetlamy odpowiedni komunikat
+    alert("Ten film już istnieje na liście!");
+    return; // Przerywamy działanie metody, aby nie dodawać duplikatu filmu
+  }
+
   // Dodajemy domyślny obraz, jeśli użytkownik nie wprowadził obrazu
   if (!this.newMovie.image) {
     this.newMovie.image = {
@@ -343,10 +371,35 @@ addNewMovie() {
 
   // Dodajemy nowy film do listy wszystkich filmów
   this.allShows.push({...this.newMovie});
+  this.originalAllShows = [...this.allShows]; // Aktualizacja originalAllShows
+
+  // Zapisujemy zaktualizowaną listę filmów do localStorage
+  localStorage.setItem("allShows", JSON.stringify(this.allShows));
+
+   // Aktualizacja filteredShows po dodaniu nowego filmu
+   this.filteredAllShows = [...this.allShows];
+
   this.clearAddMovie();
+
   // Następnie możesz zamknąć modal
   $('#addMovieModal').modal('hide');
 },
+
+validateAndAddMovie() {
+    if (
+      !this.newMovie.name ||
+      !this.newMovie.genres.length ||
+      !this.newMovie.status ||
+      !this.newMovie.language
+    ) {
+      // Wyświetl komunikat błędu jeśli jakieś pole jest puste
+      alert("Please fill in all fields");
+      return;
+    }
+
+    // Dodaj nowy film do listy jeśli wszystkie pola są wypełnione
+    this.addNewMovie();
+  },
 clearAddMovie(){
   this.newMovie = {
     name:"",

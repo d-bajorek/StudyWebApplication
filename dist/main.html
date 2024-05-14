@@ -29,7 +29,7 @@
       crossorigin="anonymous"
     ></script>
     
-  <script defer src="main.09039f2ddab331090f87.bundle.js"></script><link href="main.css" rel="stylesheet"></head>
+  <script defer src="main.3cbb0ea0369dee7367a3.bundle.js"></script><link href="main.css" rel="stylesheet"></head>
 
   <body>
     <div id="app">
@@ -244,45 +244,46 @@
   <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="addMovieModalLabel">Dodaj nowy film</h5>
+        <h5 class="modal-title" id="addMovieModalLabel">Add new show</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <!-- Formularz dodawania nowego filmu -->
-        <form @submit.prevent="addNewMovie">
-          <div class="mb-3">
-            <label for="movieName" class="form-label">Name</label>
-            <input type="text" class="form-control" id="movieName" v-model="newMovie.name" required>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Genres</label>
-            <div>
-              <label v-for="genre in genres" :key="genre" class="form-check form-check-inline">
-                <input type="checkbox" :value="genre" v-model="newMovie.genres" class="form-check-input">
-                {{ genre }}
-              </label>
-            </div>
-          </div>
-          <div class="mb-3">
-            <label for="status" class="form-label">Status</label>
-            <select class="form-select flex-grow-1" id="status" v-model="newMovie.status" required>
-              <option disabled value="">Choose status</option>
-              <option value="Ended">Ended</option>
-              <option value="On-going">On-going</option>
-            </select>
-          </div>
-          <div class="mb-3">
-            <label for="language" class="form-label">Language</label>
-            <select class="form-select flex-grow-1" id="language" v-model="newMovie.language" required>
-              <option disabled value="">Choose Language</option>
-              <option value="English">English</option>
-              <!-- Dodaj inne języki dostępne w bazie danych -->
-              <option v-for="language in languages" :value="language">{{ language }}</option>
-            </select>
-          </div>
-          <!-- Pozostałe pola formularza, takie jak opis, premiera itp., mogą być dodane na podstawie potrzeb -->
-          <button type="submit" class="btn btn-secondary mx-2 my-2 btn-transparent">Add show</button>
-        </form>
+        <!-- Formularz dodawania nowego filmu -->
+<form @submit.prevent="validateAndAddMovie">
+  <div class="mb-3">
+    <label for="movieName" class="form-label">Name</label>
+    <input type="text" class="form-control" id="movieName" v-model="newMovie.name">
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Genres</label>
+    <div>
+      <label v-for="genre in genres" :key="genre" class="form-check form-check-inline">
+        <input type="checkbox" :value="genre" v-model="newMovie.genres" class="form-check-input">
+        {{ genre }}
+      </label>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="status" class="form-label">Status</label>
+    <select class="form-select flex-grow-1" id="status" v-model="newMovie.status">
+      <option disabled value="">Choose status</option>
+      <option value="Ended">Ended</option>
+      <option value="On-going">On-going</option>
+    </select>
+  </div>
+  <div class="mb-3">
+    <label for="language" class="form-label">Language</label>
+    <select class="form-select flex-grow-1" id="language" v-model="newMovie.language">
+      <option disabled value="">Choose Language</option>
+      <option value="English">English</option>
+      <!-- Dodaj inne języki dostępne w bazie danych -->
+      <option v-for="language in languages" :value="language">{{ language }}</option>
+    </select>
+  </div>
+  <!-- Pozostałe pola formularza, takie jak opis, premiera itp., mogą być dodane na podstawie potrzeb -->
+  <button type="submit" class="btn btn-secondary mx-2 my-2 btn-transparent">Add show</button>
+</form>
       </div>
     </div>
   </div>
