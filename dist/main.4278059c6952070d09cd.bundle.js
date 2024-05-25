@@ -2,7 +2,7 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 4:
+/***/ 7:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -54,7 +54,7 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _css_main_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4);
+/* harmony import */ var _css_main_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(7);
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
@@ -258,6 +258,14 @@ var app = Vue.createApp({
             heartIcon.classList.remove("animate__animated", "animate__heartBeat");
           }, 10000); // Usunięcie animacji po 10 sekundzie
         }
+        // Dodanie animacji do przycisku
+        var button = event.target;
+        button.classList.add('animate');
+
+        // Usunięcie animacji po zakończeniu animacji
+        setTimeout(function () {
+          button.classList.remove('animate');
+        }, 600); // Długość trwania animacji w milisekundach
       }
     },
     // Dodajemy metodę do usuwania filmów z ulubionych
@@ -275,7 +283,7 @@ var app = Vue.createApp({
       });
 
       // Domyślna cena dla filmu, gdy cena nie jest dostępna w danych z API
-      var defaultPrice = 9.99;
+      var defaultPrice = 5.99;
       if (!exists) {
         // Dodanie ceny do obiektu filmu, jeśli nie jest dostępna w danych z API
         var showWithPrice = _objectSpread(_objectSpread({}, show), {}, {
@@ -352,15 +360,25 @@ var app = Vue.createApp({
       this.originalAllShows = _toConsumableArray(this.allShows);
     },
     // Metoda do pobierania szczegółowych informacji o wybranym show
+    // W metodzie fetchShowDetails sprawdź, czy isNew dla danego filmu wynosi false przed próbą pobrania szczegółów z API
     fetchShowDetails: function fetchShowDetails(showId) {
       var _this5 = this;
-      axios.get("https://api.tvmaze.com/shows/".concat(showId)).then(function (response) {
-        // Wyświetlanie szczegółowych informacji w modalu
-        _this5.showDetailsModal(response.data);
-        _this5.fetchShowCast(showId); // Dodajemy pobieranie informacji o obsadzie
-      })["catch"](function (error) {
-        console.error("Error fetching show details:", error);
+      var show = this.allShows.find(function (show) {
+        return show.id === showId;
       });
+      if (show && !show.isNew) {
+        // Wywołaj funkcję pobierającą szczegóły tylko jeśli film nie jest nowy
+        axios.get("https://api.tvmaze.com/shows/".concat(showId)).then(function (response) {
+          // Wyświetlanie szczegółowych informacji w modalu
+          _this5.showDetailsModal(response.data);
+          _this5.fetchShowCast(showId);
+        })["catch"](function (error) {
+          console.error("Error fetching show details:", error);
+        });
+      } else {
+        // Obsłuż przypadek, gdy film jest nowy
+        console.log("This is a newly added movie, no need to fetch details from API.");
+      }
     },
     // Metoda wyświetlająca modal z danymi o show
     showDetailsModal: function showDetailsModal(showData) {
@@ -436,7 +454,7 @@ var app = Vue.createApp({
       });
       if (existingMovie) {
         // Jeśli film już istnieje, wyświetlamy odpowiedni komunikat
-        alert("Ten film już istnieje na liście!");
+        alert("This show already exists on the list!");
         return; // Przerywamy działanie metody, aby nie dodawać duplikatu filmu
       }
 
@@ -446,6 +464,9 @@ var app = Vue.createApp({
           medium: '/assets/img/place-holder.png' // Zmieniamy ścieżkę obrazu na place-holder.svg
         };
       }
+
+      // Ustawienie pola isNew na true dla nowo dodanych filmów
+      this.newMovie.isNew = true;
 
       // Dodajemy nowy film do listy wszystkich filmów
       this.allShows.push(_objectSpread({}, this.newMovie));
@@ -458,7 +479,7 @@ var app = Vue.createApp({
       this.filteredAllShows = _toConsumableArray(this.allShows);
       this.clearAddMovie();
 
-      // Następnie możesz zamknąć modal
+      // Zamykanie modalu po jego wyczyszczeniu
       $('#addMovieModal').modal('hide');
     },
     validateAndAddMovie: function validateAndAddMovie() {
@@ -486,4 +507,4 @@ app.mount("#app");
 
 /******/ })()
 ;
-//# sourceMappingURL=main.3cbb0ea0369dee7367a3.bundle.js.map
+//# sourceMappingURL=main.4278059c6952070d09cd.bundle.js.map

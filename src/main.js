@@ -5,7 +5,7 @@
 //   response.json().then((response2) => console.log(response2))
 // );
 
-//import "./css/main.css";
+import "./css/main.css";
 
 const app = Vue.createApp({
   data() {
@@ -183,6 +183,14 @@ const app = Vue.createApp({
             );
           }, 10000); // Usunięcie animacji po 10 sekundzie
         }
+        // Dodanie animacji do przycisku
+      const button = event.target;
+      button.classList.add('animate');
+
+      // Usunięcie animacji po zakończeniu animacji
+      setTimeout(() => {
+        button.classList.remove('animate');
+      }, 600); // Długość trwania animacji w milisekundach
       }
     },
     // Dodajemy metodę do usuwania filmów z ulubionych
@@ -195,7 +203,7 @@ const app = Vue.createApp({
       const exists = this.cart.some((item) => item.id === show.id);
 
       // Domyślna cena dla filmu, gdy cena nie jest dostępna w danych z API
-      const defaultPrice = 9.99;
+      const defaultPrice = 5.99;
 
       if (!exists) {
         // Dodanie ceny do obiektu filmu, jeśli nie jest dostępna w danych z API
@@ -266,18 +274,26 @@ const app = Vue.createApp({
       this.originalAllShows = [...this.allShows];
     },
     // Metoda do pobierania szczegółowych informacji o wybranym show
-    fetchShowDetails(showId) {
-      axios
-        .get(`https://api.tvmaze.com/shows/${showId}`)
-        .then((response) => {
-          // Wyświetlanie szczegółowych informacji w modalu
-          this.showDetailsModal(response.data);
-          this.fetchShowCast(showId); // Dodajemy pobieranie informacji o obsadzie
-        })
-        .catch((error) => {
-          console.error("Error fetching show details:", error);
-        });
-    },
+    // W metodzie fetchShowDetails sprawdź, czy isNew dla danego filmu wynosi false przed próbą pobrania szczegółów z API
+fetchShowDetails(showId) {
+  const show = this.allShows.find(show => show.id === showId);
+  if (show && !show.isNew) {
+    // Wywołaj funkcję pobierającą szczegóły tylko jeśli film nie jest nowy
+    axios
+      .get(`https://api.tvmaze.com/shows/${showId}`)
+      .then((response) => {
+        // Wyświetlanie szczegółowych informacji w modalu
+        this.showDetailsModal(response.data);
+        this.fetchShowCast(showId);
+      })
+      .catch((error) => {
+        console.error("Error fetching show details:", error);
+      });
+  } else {
+    // Obsłuż przypadek, gdy film jest nowy
+    console.log("This is a newly added movie, no need to fetch details from API.");
+  }
+},
     // Metoda wyświetlająca modal z danymi o show
     showDetailsModal(showData) {
       // Ustawianie danych showDetails, które wykorzystamy do wyświetlenia w modalu
@@ -358,7 +374,7 @@ addNewMovie() {
   
   if (existingMovie) {
     // Jeśli film już istnieje, wyświetlamy odpowiedni komunikat
-    alert("Ten film już istnieje na liście!");
+    alert("This show already exists on the list!");
     return; // Przerywamy działanie metody, aby nie dodawać duplikatu filmu
   }
 
@@ -368,6 +384,9 @@ addNewMovie() {
       medium: '/assets/img/place-holder.png' // Zmieniamy ścieżkę obrazu na place-holder.svg
     };
   }
+
+  // Ustawienie pola isNew na true dla nowo dodanych filmów
+  this.newMovie.isNew = true;
 
   // Dodajemy nowy film do listy wszystkich filmów
   this.allShows.push({...this.newMovie});
@@ -381,7 +400,7 @@ addNewMovie() {
 
   this.clearAddMovie();
 
-  // Następnie możesz zamknąć modal
+  // Zamykanie modalu po jego wyczyszczeniu
   $('#addMovieModal').modal('hide');
 },
 
@@ -398,8 +417,9 @@ validateAndAddMovie() {
     }
 
     // Dodaj nowy film do listy jeśli wszystkie pola są wypełnione
-    this.addNewMovie();
+    this.addNewMovie();  
   },
+  
 clearAddMovie(){
   this.newMovie = {
     name:"",

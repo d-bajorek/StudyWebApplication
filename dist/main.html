@@ -4,8 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Projekt WSB</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/img/favicon-16x16.png">
 
-    <link rel="stylesheet" href="./css/main.css">
+    <!-- <link rel="stylesheet" href="./css/main.css"> -->
 
     <link
       rel="stylesheet"
@@ -29,7 +30,7 @@
       crossorigin="anonymous"
     ></script>
     
-  <script defer src="main.3cbb0ea0369dee7367a3.bundle.js"></script><link href="main.css" rel="stylesheet"></head>
+  <script defer src="main.4278059c6952070d09cd.bundle.js"></script><link href="main.css" rel="stylesheet"></head>
 
   <body>
     <div id="app">
@@ -77,7 +78,14 @@
                       <a
                         href="favorites.html"
                         class="nav-link px-2 link-secondary"
-                        ><i class="fas fa-heart">   Favorites</i
+                        >
+                        <span class="countlabel">
+                          <span class="badge badge-pill bg-success"
+                            >{{ favorites.length }}</span
+                          >
+                          <!-- Ilość elementów w ulubionych -->
+                        </span>
+                        <i class="fas fa-heart">   Favorites</i
                       ></a>
                     </li>
                     <li class="nav-item">
@@ -341,7 +349,7 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <h5
-                    v-if="showDetails"
+                    v-if="showDetails && !showDetails.isNew"
                     class="modal-title"
                     id="showDetailsModalLabel"
                   >
@@ -439,7 +447,7 @@
                     </div>
                   </div>
 <!--KONIEC SZCZEGÓŁÓW FILMU-->
-                  <div id="app">
+                  
                     <div class="container mt-5">
                       <h1 class="mb-4">Favorite movies</h1>
                       <div
@@ -466,7 +474,7 @@
                         </div>
                       </div>
                     </div>
-                  </div>
+                  
                 </div>
               </div>
             </div>
@@ -481,7 +489,7 @@
             >
               <div class="movie-content">
                 <img
-                :src="show.image ? show.image.medium : 'src/assets/img/place-holder.png'"
+                :src="show.image ? show.image.medium : './assets/img/place-holder.png'"
                   class="card-img-top rounded"
                   alt="Movie Poster"
                   @click="fetchShowDetails(show.id)"
@@ -503,7 +511,7 @@
 <div class="row">
   <div class="col">
     <div class="d-grid gap-2">
-      <button class="btn btn-outline-secondary" @click="addToFavorites(show)">
+      <button v-if="!show.isNew" class="button" @click="addToFavorites(show, $event)">
         Add to Favorites
       </button>
     </div>
@@ -513,11 +521,11 @@
   <!-- Buy or rent button start -->
   <div class="col">
     <div class="d-grid gap-2">
-      <button class="btn btn-outline-secondary" @click="addToCart(show)">
+      <button v-if="!show.isNew" class="btn btn-outline-secondary" @click="addToCart(show)">
         Buy or Rent
       </button>
     </div>
-    <!-- Animacja koszyka -->
+    <!-- Animacja koszyka "This is added to your cart!"" -->
     <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
       <div v-if="showCartAnimation === show.id" class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header">
@@ -527,7 +535,7 @@
         </div>
       </div>
     </div>
-    <!-- Komunikat "Film znajduje się już w koszyku!" -->
+    <!-- Komunikat "This is already added to your cart!" -->
   <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
     <div v-if="showAlreadyInCartAlert" class="toast show" role="alert" aria-live="assertive" aria-atomic="true">
       <div class="toast-header">
@@ -619,13 +627,12 @@
             </li>
           </ul>
         </footer>
-        <!-- FOOTER END -->
       </div>
+      <!-- FOOTER END -->
     </div>
     </div>
-    <script src="./main.js"></script>
-    <script src="/dist/"></script>
-    <script src="./koszyk.js"></script>
-    <script src="./store.js"></script>
+    <!-- <script src="src/main.js"></script>
+    <script src="./checkout.js"></script>
+    <script src="./store.js"></script> -->
   </body>
 </html>

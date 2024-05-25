@@ -6,7 +6,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 module.exports = {
   entry: {
     store: "./src/store.js",
-    koszyk: "./src/koszyk.js",
+    checkout: "./src/checkout.js",
     favorites: "./src/favorites.js",
     main: "./src/main.js"
   },
@@ -76,10 +76,10 @@ module.exports = {
       filename: "store.html",
     }),
     new HtmlWebpackPlugin({
-      template: "./src/koszyk.html",
+      template: "./src/checkout.html",
       inject: true,
-      chunks: ["koszyk"],
-      filename: "koszyk.html",
+      chunks: ["checkout"],
+      filename: "checkout.html",
     }),
     new MiniCssExtractPlugin(),
     new CopyWebpackPlugin({

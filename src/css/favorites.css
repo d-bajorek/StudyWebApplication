@@ -1,0 +1,83 @@
+@charset "UTF-8";
+body {
+  font-family: "Roboto", sans-serif;
+  background: linear-gradient(to bottom, #94b49f, #cee5d0, #fcf8e8, #ecb390);
+}
+body .movie-content {
+  width: 75%;
+  height: auto;
+}
+body h1 {
+  color: blueviolet;
+}
+body .change {
+  background-color: yellow;
+  padding: 10px;
+}
+body .autoprefixer {
+  user-select: none;
+}
+
+/* Dodatkowe niestandardowe style */
+.login-form-container {
+  position: fixed;
+  top: 0;
+  right: -300px;
+  height: 100%;
+  width: 300px;
+  background-color: #f8f9fa;
+  transition: right 0.3s ease;
+}
+.login-form-container.show {
+  right: 0;
+}
+
+.navbar-collapse {
+  transition: all 0.5s; /* Dodaj animację do rozwijania się nawigacji */
+}
+
+.navbar-toggler:focus {
+  box-shadow: none; /* Wyłącz cień po kliknięciu na przycisku togglera */
+}
+
+
+@media screen and (min-width:992px){
+  .navbar {
+    padding: 0;
+  }
+  
+  .navbar .navbar-nav .nav-link {
+    padding: 1em;
+  }
+
+  .navbar .navbar-nav .nav-item {
+    margin: 0 1em;
+  }
+}
+
+.navbar .navbar-nav .nav-item {
+  position: relative;
+}
+
+.navbar .navbar-nav .nav-item::after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin:0 auto;
+  content: "";
+  background-color: #cee5d0;
+  width: 0; /* Początkowo szerokość wynosi 0, aby nie było widoczne */
+  height: 4px; /* Wysokość paska */
+  transition: width 0.3s ease; /* Dodaj animację */
+}
+
+.navbar .navbar-nav .nav-item:hover::after {
+  width: 100%; /* Po najechaniu myszą szerokość zmienia się na 100% */
+}
+@media (max-width: 768px) {
+  .summary-scrollable {
+    overflow: auto;
+    max-height: 100px;
+  }
+}

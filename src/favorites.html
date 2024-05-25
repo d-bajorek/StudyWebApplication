@@ -4,8 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Projekt WSB</title>
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/img/favicon-16x16.png">
 
-    <link rel="stylesheet" href="/dist/main.css" />
+    <!-- <link rel="stylesheet" href="./css/favorites.css"> -->
 
     <link
       rel="stylesheet"
@@ -60,23 +61,7 @@
                 <!-- ADD FAV START-->
                 <div class="collapse navbar-collapse" id="navbarNav">
                   <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <!-- NAV SeARCH START-->
-                    <li class="nav-item">
-                      <form class="d-flex">
-                        <input
-                          class="form-control me-2"
-                          type="search"
-                          placeholder="Search"
-                          aria-label="Search"
-                        />
-                        <button
-                          class="btn btn-link link-secondary"
-                          type="submit"
-                        >
-                          <i class="fas fa-search"></i>
-                        </button>
-                      </form>
-                    </li>
+                  
                     <!-- TOGGLE LOGIN BTN START-->
                     <li class="nav-item">
                       <a href="main.html" class="nav-link px-2 link-secondary">
@@ -95,24 +80,25 @@
                         ><i class="fa-solid fa-store"> Store</i></a
                       >
                     </li>
+                    <!-- LOGIN MODAL START-->
                     <li class="nav-item">
                       <button
-                        @click="showLoginModal = true"
-                        class="nav-link px-2 link-secondary"
                         type="button"
+                        class="nav-link px-2 link-secondary"
                         data-bs-toggle="modal"
                         data-bs-target="#loginModal"
+                        data-bs-dismiss="modal"
                       >
                         <i class="fas fa-user"> LOGIN</i>
                       </button>
 
                       <div
-                        class="modal"
+                        class="modal fade"
                         id="loginModal"
                         tabindex="-1"
                         aria-labelledby="loginModalLabel"
                         aria-hidden="true"
-                        v-if="showLoginModal"
+                        data-bs-backdrop="false"
                       >
                         <div class="modal-dialog">
                           <div class="modal-content">
@@ -123,43 +109,54 @@
                               <button
                                 type="button"
                                 class="btn-close"
-                                data-bs-dismiss="modal"
                                 aria-label="Close"
+                                data-bs-dismiss="modal"
+                                @click="clearForm"
                               ></button>
                             </div>
                             <div class="modal-body">
-                              <form>
+                              <form autocomplete="off" >
                                 <div class="mb-3">
-                                  <label for="inputEmail" class="form-label"
-                                    >Email address</label
-                                  >
+                                  <label for="inputEmail" class="form-label">Email address</label>
                                   <input
                                     type="email"
                                     class="form-control"
+                                    v-model="email"
                                     id="inputEmail"
                                     placeholder="name@example.com"
+                                    :class="{ 'is-invalid': submitted && !emailValid }"
+                                    autocomplete="username"
+                                    required
                                   />
+                                  <div class="invalid-feedback" v-if="submitted && !emailValid">
+                                    {{ emailErrorMessage }}
+                                  </div>
                                 </div>
                                 <div class="mb-3">
-                                  <label for="inputPassword" class="form-label"
-                                    >Password</label
-                                  >
+                                  <label for="inputPassword" class="form-label">Password</label>
                                   <input
                                     type="password"
                                     class="form-control"
+                                    v-model="password"
                                     id="inputPassword"
                                     placeholder="Password"
+                                    :class="{ 'is-invalid': submitted && !passwordValid}"
+                                    autocomplete="current-password"
+                                    minlength="8"
+                                    required
                                   />
+                                  <div class="invalid-feedback" v-if="submitted && !passwordValid">
+                                    {{ passwordErrorMessage }}
+                                  </div>
                                 </div>
-                                <button type="submit" class="btn btn-secondary">
-                                  Sign in
-                                </button>
+                                <button type="button" class="btn btn-secondary" @click="login">Sign in</button>
                               </form>
                             </div>
                           </div>
                         </div>
                       </div>
                     </li>
+<!-- LOGIN MODAL END-->
                   </ul>
                   <!-- BASKET ICON START -->
                   <div class="empty-basket">
@@ -195,28 +192,27 @@
 
       <!-- favorites.html -->
       
-        <div class="container mt-5">
-          <h1 class="mb-4">Favorite movies</h1>
-          <div
-            v-if="favorites.length === 0"
-            class="alert alert-info"
-            role="alert"
-          >
-            No favorite films. Add some!
-          </div>
-          <div class="card" v-for="favorite in favorites" :key="favorite.id">
-            <div class="card-body">
-              <h5 class="card-title">{{ favorite.name }}</h5>
-              <p class="card-text" v-html="favorite.summary"></p>
-              <button
-                @click="removeFromFavorites(favorite.id)"
-                class="btn btn-danger"
-              >
-                Remove from favorites
-              </button>
+      <div class="container mt-5">
+        <h1 class="mb-4">Favorite movies</h1>
+        <div v-if="favorites.length === 0" class="alert alert-info" role="alert">
+          No favorite films. Add some!
+        </div>
+        <div class="row">
+          <div v-for="favorite in favorites" :key="favorite.id" class="col-md-6 mb-4">
+            <div class="card">
+              <div class="card-body">
+                <img :src="favorite.image.medium" class="d-block mx-auto" :alt="favorite.name" />
+                <h5 class="card-title">{{ favorite.name }}</h5>
+                <p class="card-text summary-scrollable" v-html="favorite.summary"></p>
+                <button @click="removeFromFavorites(favorite.id)" class="btn btn-danger">
+                  Remove from favorites
+                </button>
+              </div>
             </div>
           </div>
         </div>
+      </div>
+      
       
       <!----------------------->
       <!-- TOP TEN FILMS START-->
@@ -238,7 +234,7 @@
                 <!-- Add to Favorites button -->
                 <div class="d-grid gap-2 mt-2">
                   <button
-                    class="btn btn-outline-primary"
+                    class="btn btn-outline-secondary"
                     @click="addToFavorites(show)"
                   >
                     Add to Favorites
@@ -250,6 +246,7 @@
         </div>
       </div>
       <!-- TOP TEN FILMS END-->
+      
       <!------------Footer START------------>
       <div class="container">
         <footer
@@ -260,20 +257,27 @@
           </div>
           <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
             <li class="ms-3">
-              <i class="fab fa-facebook"></i>
+              <a href="https://www.facebook.com/" target="_blank" class="social-icon-link">
+                <i class="fab fa-facebook social-icon" style="color: #6c757d;"></i>
+              </a>
             </li>
             <li class="ms-3">
-              <i class="fab fa-twitter"></i>
+              <a href="https://twitter.com/" target="_blank" class="social-icon-link">
+                <i class="fab fa-twitter social-icon" style="color: #6c757d;"></i>
+              </a>
             </li>
             <li class="ms-3">
-              <i class="fab fa-instagram"></i>
+              <a href="https://www.instagram.com/" target="_blank" class="social-icon-link">
+                <i class="fab fa-instagram social-icon" style="color: #6c757d;"></i>
+              </a>
             </li>
           </ul>
         </footer>
-        <!-- FOOTER END -->
+      </div>
+      <!-- FOOTER END -->
       </div>
     </div>
-    <script src="./main.js"></script>
-    <script src="./favorites.js"></script>
+    <!-- <script src="./main.js"></script>
+    <script src="./favorites.js"></script> -->
   </body>
 </html>

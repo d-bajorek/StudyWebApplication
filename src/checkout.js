@@ -1,4 +1,4 @@
-import "./css/store.css";
+import "./css/koszyk.css"
 
 const app = Vue.createApp({
   data() {
@@ -12,9 +12,18 @@ const app = Vue.createApp({
         topTenShows: [],
         images: [],
         cart: [], // Tablica koszyka, logika z main.js
-        
-      showConfirmation: false,
-      itemIdToRemove: null,
+        formData: {
+          firstName: '',
+          lastName: '',
+          email: '',
+          password: '',
+          address: '',
+          address2: '',
+          city: '',
+          country: '',
+          agree: false
+        },
+        errors: {},
       };
   },
   created() {
@@ -86,24 +95,10 @@ const app = Vue.createApp({
         }
         
     },
-    showPopup(itemId) {
-      this.itemIdToRemove = itemId;
-      this.showConfirmation = true;
-    },
-    cancelRemove() {
-      this.showConfirmation = false;
-      this.itemIdToRemove = null;
-      // Ukrycie modala przy kliknięciu przycisku "Cancel"
-      $("#removeFromCartModal").modal("hide");
-    },
-    removeFromCart(showId) {
-      this.cart = this.cart.filter(item => item.id !== showId);
-      localStorage.setItem("cart", JSON.stringify(this.cart));
-      // Ukrycie modala po usunięciu przedmiotu z koszyka
-      $("#removeFromCartModal").modal("hide");
-      this.updateTotalPrice();
-      
-    },
+      removeFromCart(showId) {
+        this.cart = this.cart.filter(item => item.id !== showId);
+        localStorage.setItem("cart", JSON.stringify(this.cart));
+      },
 
       login() {
       
@@ -158,9 +153,114 @@ const app = Vue.createApp({
     const inputPassword = document.getElementById('inputPassword');
     inputEmail.classList.remove('is-invalid', 'is-valid');
     inputPassword.classList.remove('is-invalid', 'is-valid');
+  
   },
+  submitForm() {
+    this.errors = {};
 
+    if (!this.formData.firstName) {
+      this.errors.firstName = 'Please enter your first name';
+    }
+    if (!this.formData.lastName) {
+      this.errors.lastName = 'Please enter your last name';
+    }
+    if (!this.formData.email) {
+      this.errors.email = 'Please enter your email address';
+    } else if (!/\S+@\S+\.\S+/.test(this.formData.email)) {
+      this.errors.email = 'Please enter a valid email address';
+    }
+    if (!this.formData.password) {
+      this.errors.password = 'Please provide a password';
+    } else if (this.formData.password.length < 5) {
+      this.errors.password = 'Your password must be at least 5 characters long';
+    }
+    if (!this.formData.address) {
+      this.errors.address = 'Please enter your address';
+    }
+    if (!this.formData.city) {
+      this.errors.city = 'Please enter your city';
+    }
+    if (!this.formData.country) {
+      this.errors.country = 'Please select your country';
+    }
+    if (!this.formData.agree) {
+      this.errors.agree = 'Please accept the terms & conditions';
+    }
+
+    // If there are no errors, you can proceed with form submission
+    if (Object.keys(this.errors).length === 0) {
+      // Proceed with form submission
+      console.log('Form submitted successfully');
+    }
+  },
   }
 });
 
 app.mount('#app');
+
+$(document).ready(function () {
+  // Inicjalizacja walidacji formularza
+  $("form").validate({
+    rules: {
+      inputFirstName: "required",
+      inputLastName: "required",
+      inputEmail4: {
+        required: true,
+        email: true,
+      },
+      inputPassword4: {
+        required: true,
+        minlength: 5,
+      },
+      inputAddress: "required",
+      inputCity: "required",
+      inputState: "required",
+      gridCheck: "required",
+    },
+    messages: {
+      inputFirstName: "Please enter your first name",
+      inputLastName: "Please enter your last name",
+      inputEmail4: {
+        required: "Please enter your email address",
+        email: "Please enter a valid email address",
+      },
+      inputPassword4: {
+        required: "Please provide a password",
+        minlength: "Your password must be at least 5 characters long",
+      },
+      inputAddress: "Please enter your address",
+      inputCity: "Please enter your city",
+      inputState: "Please select your country",
+      gridCheck: "Please accept the terms & conditions",
+    },
+    errorElement: "em",
+    errorPlacement: function (error, element) {
+      // Dodawanie klasy bootstrapowej do błędu
+      error.addClass("invalid-feedback");
+      // Dodawanie błędu po elemencie formularza
+      error.insertAfter(element);
+    },
+    highlight: function (element, errorClass, validClass) {
+      // Zmiana wyglądu pola przy błędzie
+      $(element).addClass("is-invalid").removeClass("is-valid");
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      // Zmiana wyglądu pola po poprawnej walidacji
+      $(element).addClass("is-valid").removeClass("is-invalid");
+    },
+  });
+});
+/////////////////////////////////////////////////////////////
+const selectElement = document.querySelector("select");
+const table = document.querySelector("table");
+
+// // Lista krajów:
+// fetch("https://restcountries.com/v2/all")
+//   .then((response) => response.json())
+//   .then((data) => {
+//     data.forEach((country) => {
+//       const option = document.createElement("option");
+//       option.text = country.name;
+//       selectElement.add(option);
+//     });
+//   });
