@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Projekt WSB</title>
     <link rel="icon" type="image/png" sizes="16x16" href="./assets/img/favicon-16x16.png">
-
-    <!-- <link rel="stylesheet" href="./css/favorites.css"> -->
-
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -16,7 +13,6 @@
     <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
-
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -29,7 +25,6 @@
       crossorigin="anonymous"
     ></script>
   </head>
-
   <body>
     <div id="app">
       <!-- NAVBAR START-->
@@ -37,7 +32,6 @@
         <header class="p-3 mb-3 border-bottom fixed-top" style="background-color: #94b49f;">
           <div class="container-fluid">
             <nav class="navbar navbar-expand-lg navbar-light">
-              
                 <a href="./main.html"
                   ><img
                     class="bi me-2"
@@ -61,7 +55,6 @@
                 <!-- ADD FAV START-->
                 <div class="collapse navbar-collapse" id="navbarNav">
                   <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  
                     <!-- TOGGLE LOGIN BTN START-->
                     <li class="nav-item">
                       <a href="main.html" class="nav-link px-2 link-secondary">
@@ -91,7 +84,6 @@
                       >
                         <i class="fas fa-user"> LOGIN</i>
                       </button>
-
                       <div
                         class="modal fade"
                         id="loginModal"
@@ -156,7 +148,7 @@
                         </div>
                       </div>
                     </li>
-<!-- LOGIN MODAL END-->
+                    <!-- LOGIN MODAL END-->
                   </ul>
                   <!-- BASKET ICON START -->
                   <div class="empty-basket">
@@ -183,15 +175,10 @@
                   </div>
                   <!-- BASKET ICON END -->
                 </div>
-            
             </nav>
           </div>
         </header>
       </div>
-      <!----------------------->
-
-      <!-- favorites.html -->
-      
       <div class="container mt-5">
         <h1 class="mb-4">Favorite movies</h1>
         <div v-if="favorites.length === 0" class="alert alert-info" role="alert">
@@ -220,45 +207,40 @@
           </table>
         </div>
       </div>
-      
-      <!----------------------->
       <!-- TOP TEN FILMS START-->
-<div class="container">
-  <h4 class="mb-4 text-center">TOP 10 MOVIES</h4>
-  <div class="row row-cols-2 row-cols-md-5 mb-4" id="topTen">
-    
-    <!-- Pętla dla każdego filmu -->
-    <div
-      v-for="show in topTenShows"
-      :key="show.id"
-      class="col mb-4"
-    >
-      <!-- Karta dla pojedynczego filmu -->
-      <div class="movie-content">
-        <img :src="show.image.medium"
-        class="card-img-top rounded" alt="Movie Poster" />
-        <div class="movie-info">
-          <h5>{{ show.name }}</h5>
-          <span>Rating: {{ show.rating.average }}</span>
-          <br />
-          <span>Genres: {{ show.genres.join(', ') }}</span>
-          <!-- Add to Favorites button -->
-          <div class="d-grid gap-2 mt-2">
-            <button
-              class="button btn btn-secondary"
-              @click="addToFavorites(show)"
-            >
-              Add to Favorites
-            </button>
+      <div class="container">
+        <h4 class="mb-4 text-center">TOP 10 MOVIES</h4>
+        <div class="row row-cols-2 row-cols-md-5 mb-4" id="topTen">
+          <!-- Pętla dla każdego filmu -->
+          <div
+            v-for="show in topTenShows"
+            :key="show.id"
+            class="col mb-4"
+          >
+            <!-- Karta dla pojedynczego filmu -->
+            <div class="movie-content">
+              <img :src="show.image.medium"
+              class="card-img-top rounded" alt="Movie Poster" />
+              <div class="movie-info">
+                <h5>{{ show.name }}</h5>
+                <span>Rating: {{ show.rating.average }}</span>
+                <br />
+                <span>Genres: {{ show.genres.join(', ') }}</span>
+                <!-- Add to Favorites button -->
+                <div class="d-grid gap-2 mt-2">
+                  <button
+                    class="button btn btn-secondary"
+                    @click="addToFavorites(show)"
+                  >
+                    Add to Favorites
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
-<!-- TOP TEN FILMS END-->
-
-      
+      <!-- TOP TEN FILMS END-->
       <!------------Footer START------------>
       <div class="container">
         <footer

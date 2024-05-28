@@ -35,12 +35,10 @@ const app = Vue.createApp({
       const hasPrice = this.cart.every(
         (item) => item.hasOwnProperty("price") && !isNaN(item.price)
       );
-
       if (!hasPrice) {
         console.error("Some items in the cart do not have a valid price.");
         return "N/A";
       }
-
       // Obliczanie całkowitej ceny na podstawie sumy cen filmów w koszyku
       const total = this.cart.reduce(
         (total, item) => total + parseFloat(item.price),
@@ -137,11 +135,9 @@ const app = Vue.createApp({
     },
   }
 });
-
 app.mount('#app');
 
 /////////////////////////////////////////////////////////////
-
 
 // // Lista krajów:
 // fetch("https://restcountries.com/v2/all")

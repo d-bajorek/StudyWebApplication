@@ -67,12 +67,6 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-// import axios from 'axios';
-
-// fetch("https://api.tvmaze.com/shows").then((response) =>
-//   response.json().then((response2) => console.log(response2))
-// );
-
 
 var app = Vue.createApp({
   data: function data() {
@@ -96,24 +90,23 @@ var app = Vue.createApp({
       filteredAllShows: [],
       // Tablica dla filtrowanych filmów
       originalGenres: [],
-      // Dodajemy właściwość przechowującą oryginalną listę kategorii filmów
+      // Dodanie właściwości przechowującą oryginalną listę kategorii filmów
       displayedGenres: [],
       // Lista wyświetlanych kategorii filmów
       showDetails: null,
-      // Dodajemy właściwość do przechowywania szczegółowych informacji o wybranym show
-      // reszta danych pozostaje bez zmian
+      // Właściwość do przechowywania szczegółowych informacji o wybranym show
       showCast: [],
-      // Dodajemy pole przechowujące informacje o obsadzie
+      // Pole przechowujące informacje o obsadzie
       showCartAnimation: false,
       showAlreadyInCartAlert: null,
-      // Dodajemy właściwość do przechowywania informacji o wyświetleniu komunikatu "Film znajduje się już w koszyku!"
+      // Właściwość do przechowywania informacji o wyświetleniu komunikatu "Film znajduje się już w koszyku!"
       email: '',
       password: '',
       submitted: false,
       emailValid: true,
-      // Dodajemy właściwość do przechowywania informacji o poprawności adresu email
+      // Właściwość do przechowywania informacji o poprawności adresu email
       passwordValid: true,
-      // Dodajemy właściwość do przechowywania informacji o poprawności hasła
+      // Właściwość do przechowywania informacji o poprawności hasła
       passwordErrorMessage: '',
       languages: ["English", "French", "German", "Spanish", "Italian", "Japanese", "Turkish", "Korean", "Other"],
       newMovie: {
@@ -121,7 +114,7 @@ var app = Vue.createApp({
         status: "",
         language: "",
         genres: [],
-        image: null // Dodajemy pole image
+        image: null
       }
     };
   },
@@ -183,11 +176,11 @@ var app = Vue.createApp({
     // Sprawdzenie, czy istnieją dane w localStorage
     var storedShows = localStorage.getItem("allShows");
     if (storedShows) {
-      // Jeśli tak, parsujemy je i aktualizujemy listę allShows
+      // Jeśli tak, parse i aktualizacja listy allShows
       this.allShows = JSON.parse(storedShows);
       this.originalAllShows = _toConsumableArray(this.allShows);
     } else {
-      // W przeciwnym razie inicjalizujemy listę na podstawie danych z API
+      // W przeciwnym razie inicjalizacja listy na podstawie danych z API
       this.fetchAllShows();
     }
     var favoritesFromStorage = localStorage.getItem("favorites");
@@ -199,7 +192,7 @@ var app = Vue.createApp({
       this.cart = JSON.parse(cartFromStorage);
     }
 
-    // Wczytaj listę filmów z localStorage do allShows
+    // Wczytanie listy filmów z localStorage do allShows
     var allShowsFromStorage = localStorage.getItem("allShows");
     if (allShowsFromStorage) {
       this.allShows = JSON.parse(allShowsFromStorage);
@@ -264,7 +257,7 @@ var app = Vue.createApp({
         }, 600); // Długość trwania animacji w milisekundach
       }
     },
-    // Dodajemy metodę do usuwania filmów z ulubionych
+    // Dodanie metody do usuwania filmów z ulubionych
     removeFromFavorites: function removeFromFavorites(showId) {
       this.favorites = this.favorites.filter(function (show) {
         return show.id !== showId;
@@ -291,18 +284,18 @@ var app = Vue.createApp({
 
         // Zapisanie koszyka w localStorage
         localStorage.setItem("cart", JSON.stringify(this.cart));
-        // Pokaż animację koszyka
-        // Pokaż animację koszyka tylko dla dodanego produktu
+        // Pokaznie animacji koszyka
+        // Pokazanie animacji koszyka tylko dla dodanego produktu
         this.showCartAnimation = show.id;
         setTimeout(function () {
           _this4.showCartAnimation = false;
-        }, 1000); // Ukryj animację po 3 sekundach
+        }, 1000); // Ukrycie animacji po 3 sekundach
       } else {
-        // Wyświetl komunikat, że film znajduje się już w koszyku
+        // Wyświetlenie komunikatu, że film znajduje się już w koszyku
         this.showAlreadyInCartAlert = true;
         setTimeout(function () {
           _this4.showAlreadyInCartAlert = null;
-        }, 1000); // Ukryj komunikat po 1 sekundzie
+        }, 1000); // Ukrycie komunikat po 1 sekundzie
       }
     },
     removeFromCart: function removeFromCart(showId) {
@@ -319,7 +312,7 @@ var app = Vue.createApp({
       this.selectedCategory = "All";
       this.displayedGenres = ["All"].concat(_toConsumableArray(this.originalGenres));
     },
-    // Dodajemy funkcję sortowania
+    // Dodanie funkcji sortowania
     sortShows: function sortShows(option) {
       var sortedShows = _toConsumableArray(this.originalAllShows);
       switch (option) {
@@ -348,22 +341,22 @@ var app = Vue.createApp({
           sortedShows = _toConsumableArray(this.allShows);
           break;
       }
-      // Przypisujemy posortowane filmy do filteredShows
+      // Przypisanie posortowanych filmów do filteredShows
       this.originalAllShows = sortedShows;
     },
     resetSort: function resetSort() {
-      // Resetujemy sortowanie do domyślnego
+      // Resetowanie sortowania do domyślnego
       this.originalAllShows = _toConsumableArray(this.allShows);
     },
     // Metoda do pobierania szczegółowych informacji o wybranym show
-    // W metodzie fetchShowDetails sprawdź, czy isNew dla danego filmu wynosi false przed próbą pobrania szczegółów z API
+    // Metoda fetchShowDetails sprawdza, czy isNew dla danego filmu wynosi false przed próbą pobrania szczegółów z API
     fetchShowDetails: function fetchShowDetails(showId) {
       var _this5 = this;
       var show = this.allShows.find(function (show) {
         return show.id === showId;
       });
       if (show && !show.isNew) {
-        // Wywołaj funkcję pobierającą szczegóły tylko jeśli film nie jest nowy
+        // Wywołanie funkcji pobierającej szczegóły tylko jeśli film nie jest nowy
         axios.get("https://api.tvmaze.com/shows/".concat(showId)).then(function (response) {
           // Wyświetlanie szczegółowych informacji w modalu
           _this5.showDetailsModal(response.data);
@@ -372,13 +365,13 @@ var app = Vue.createApp({
           console.error("Error fetching show details:", error);
         });
       } else {
-        // Obsłuż przypadek, gdy film jest nowy
+        // Przypadek, gdy film jest nowy
         console.log("This is a newly added movie, no need to fetch details from API.");
       }
     },
     // Metoda wyświetlająca modal z danymi o show
     showDetailsModal: function showDetailsModal(showData) {
-      // Ustawianie danych showDetails, które wykorzystamy do wyświetlenia w modalu
+      // Ustawianie danych showDetails, które wykorzytane będą do wyświetlenia w modalu
       this.showDetails = showData;
       // Pokazanie modala
       $("#showDetailsModal").modal("show");
@@ -393,18 +386,15 @@ var app = Vue.createApp({
     },
     login: function login() {
       this.submitted = true;
-
       // Resetowanie komunikatów o błędach
       this.passwordErrorMessage = '';
       this.emailErrorMessage = '';
-
       // Walidacja adresu email
       if (!this.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.email)) {
         this.emailValid = false;
       } else {
         this.emailValid = true;
       }
-
       // Walidacja hasła
       if (!this.password || this.password.length < 8) {
         this.passwordErrorMessage = 'Password must be at least 8 characters long.';
@@ -413,7 +403,6 @@ var app = Vue.createApp({
       } else {
         this.passwordValid = true;
       }
-
       // Sprawdzenie, czy oba pola spełniają kryteria walidacji
       if (this.emailValid && this.passwordValid) {
         // Tutaj można dodać logikę logowania
@@ -443,49 +432,42 @@ var app = Vue.createApp({
     addNewMovie: function addNewMovie() {
       var _this7 = this;
       console.log("New movie data:", this.newMovie);
-
-      // Sprawdzamy, czy film o takiej samej nazwie już istnieje
+      // Sprawdzenie, czy film o takiej samej nazwie już istnieje
       var existingMovie = this.allShows.find(function (movie) {
         return movie.name === _this7.newMovie.name;
       });
       if (existingMovie) {
-        // Jeśli film już istnieje, wyświetlamy odpowiedni komunikat
+        // Jeśli film już istnieje, wyświetlenie odpowiedniego komunikatu
         alert("This show already exists on the list!");
-        return; // Przerywamy działanie metody, aby nie dodawać duplikatu filmu
+        return; // Przerwanie działania metody, aby nie dodawać duplikatu filmu
       }
-
-      // Dodajemy domyślny obraz, jeśli użytkownik nie wprowadził obrazu
+      // Dodanie domyślnego obrazu, jeśli użytkownik nie wprowadził obrazu
       if (!this.newMovie.image) {
         this.newMovie.image = {
-          medium: '/assets/img/place-holder.png' // Zmieniamy ścieżkę obrazu na place-holder.svg
+          medium: '/assets/img/place-holder.png' // Zmiana ścieżki obrazu na place-holder.svg
         };
       }
-
       // Ustawienie pola isNew na true dla nowo dodanych filmów
       this.newMovie.isNew = true;
-
-      // Dodajemy nowy film do listy wszystkich filmów
+      // Dodawanie nowego filmu do listy wszystkich filmów
       this.allShows.push(_objectSpread({}, this.newMovie));
       this.originalAllShows = _toConsumableArray(this.allShows); // Aktualizacja originalAllShows
-
       // Zapisujemy zaktualizowaną listę filmów do localStorage
       localStorage.setItem("allShows", JSON.stringify(this.allShows));
-
       // Aktualizacja filteredShows po dodaniu nowego filmu
       this.filteredAllShows = _toConsumableArray(this.allShows);
       this.clearAddMovie();
-
       // Zamykanie modalu po jego wyczyszczeniu
       $('#addMovieModal').modal('hide');
     },
     validateAndAddMovie: function validateAndAddMovie() {
       if (!this.newMovie.name || !this.newMovie.genres.length || !this.newMovie.status || !this.newMovie.language) {
-        // Wyświetl komunikat błędu jeśli jakieś pole jest puste
+        // Wyświetlenie komunikatu błędu jeśli jakieś pole jest puste
         alert("Please fill in all fields");
         return;
       }
 
-      // Dodaj nowy film do listy jeśli wszystkie pola są wypełnione
+      // Dodanie nowego filmu do listy jeśli wszystkie pola są wypełnione
       this.addNewMovie();
     },
     clearAddMovie: function clearAddMovie() {
@@ -503,4 +485,4 @@ app.mount("#app");
 
 /******/ })()
 ;
-//# sourceMappingURL=main.826dbada7ac0d97d5ac0.bundle.js.map
+//# sourceMappingURL=main.8a473c489f12ea831407.bundle.js.map

@@ -74,15 +74,14 @@ var app = Vue.createApp({
       password: '',
       submitted: false,
       emailValid: true,
-      // Dodajemy właściwość do przechowywania informacji o poprawności adresu email
+      // Dodanie właściwości do przechowywania informacji o poprawności adresu email
       passwordValid: true,
-      // Dodajemy właściwość do przechowywania informacji o poprawności hasła
+      // Dodanie właściwości do przechowywania informacji o poprawności hasła
       passwordErrorMessage: '',
       topTenShows: [],
       images: [],
       cart: [],
       // Tablica koszyka, logika z main.js
-
       showConfirmation: false,
       itemIdToRemove: null
     };
@@ -187,18 +186,15 @@ var app = Vue.createApp({
     },
     login: function login() {
       this.submitted = true;
-
       // Resetowanie komunikatów o błędach
       this.passwordErrorMessage = '';
       this.emailErrorMessage = '';
-
       // Walidacja adresu email
       if (!this.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.email)) {
         this.emailValid = false;
       } else {
         this.emailValid = true;
       }
-
       // Walidacja hasła
       if (!this.password || this.password.length < 8) {
         this.passwordErrorMessage = 'Password must be at least 8 characters long.';
@@ -207,10 +203,8 @@ var app = Vue.createApp({
       } else {
         this.passwordValid = true;
       }
-
       // Sprawdzenie, czy oba pola spełniają kryteria walidacji
       if (this.emailValid && this.passwordValid) {
-        // Tutaj można dodać logikę logowania
         console.log('Logged in with:', this.email, this.password);
         // Wyświetlenie komunikatu o pomyślnym zalogowaniu
         alert('Successfully logged in!');
@@ -241,4 +235,4 @@ app.mount('#app');
 
 /******/ })()
 ;
-//# sourceMappingURL=store.7e396ea3517fc11cb81a.bundle.js.map
+//# sourceMappingURL=store.a6daad904e225d7fbefa.bundle.js.map

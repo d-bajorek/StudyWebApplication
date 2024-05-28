@@ -71,14 +71,14 @@ var app = Vue.createApp({
       cart: [],
       showCartAnimation: false,
       showAlreadyInCartAlert: null,
-      // Dodajemy właściwość do przechowywania informacji o wyświetleniu komunikatu "Film znajduje się już w koszyku!"
+      // Dodanie właściwości do przechowywania informacji o wyświetleniu komunikatu "Film znajduje się już w koszyku!"
       email: '',
       password: '',
       submitted: false,
       emailValid: true,
-      // Dodajemy właściwość do przechowywania informacji o poprawności adresu email
+      // Dodanie właściwości do przechowywania informacji o poprawności adresu email
       passwordValid: true,
-      // Dodajemy właściwość do przechowywania informacji o poprawności hasła
+      // Dodannie właściwości do przechowywania informacji o poprawności hasła
       passwordErrorMessage: ''
     };
   },
@@ -92,7 +92,6 @@ var app = Vue.createApp({
         console.error("Some items in the cart do not have a valid price.");
         return "N/A";
       }
-
       // Obliczanie całkowitej ceny na podstawie sumy cen filmów w koszyku
       var total = this.cart.reduce(function (total, item) {
         return total + parseFloat(item.price);
@@ -141,7 +140,6 @@ var app = Vue.createApp({
         this.favorites.push(show);
         // Zapisanie ulubionych w localStorage
         localStorage.setItem("favorites", JSON.stringify(this.favorites));
-
         // Dodanie animacji do ikony serduszka
         var heartIcon = document.querySelector(".fa-heart");
         if (heartIcon) {
@@ -153,7 +151,6 @@ var app = Vue.createApp({
         // Dodanie animacji do przycisku
         var button = event.target;
         button.classList.add('animate');
-
         // Usunięcie animacji po zakończeniu animacji
         setTimeout(function () {
           button.classList.remove('animate');
@@ -171,7 +168,6 @@ var app = Vue.createApp({
     var exists = this.cart.some(function (item) {
       return item.id === show.id;
     });
-
     // Domyślna cena dla filmu, gdy cena nie jest dostępna w danych z API
     var defaultPrice = 5.99;
     if (!exists) {
@@ -185,18 +181,18 @@ var app = Vue.createApp({
 
       // Zapisanie koszyka w localStorage
       localStorage.setItem("cart", JSON.stringify(this.cart));
-      // Pokaż animację koszyka
-      // Pokaż animację koszyka tylko dla dodanego produktu
+      // Pokazanie aniamcji koszyka
+      // Pokazanie animacji koszyka tylko dla dodanego produktu
       this.showCartAnimation = show.id;
       setTimeout(function () {
         _this2.showCartAnimation = false;
-      }, 1000); // Ukryj animację po 3 sekundach
+      }, 1000); // Ukrycie animacji po 3 sekundach
     } else {
-      // Wyświetl komunikat, że film znajduje się już w koszyku
+      // Wyświetlenie komunikatu, że film znajduje się już w koszyku
       this.showAlreadyInCartAlert = true;
       setTimeout(function () {
         _this2.showAlreadyInCartAlert = null;
-      }, 1000); // Ukryj komunikat po 1 sekundzie
+      }, 1000); // Ukrycie komunikatu po 1 sekundzie
     }
   }), "removeFromCart", function removeFromCart(showId) {
     this.cart = this.cart.filter(function (item) {
@@ -205,18 +201,15 @@ var app = Vue.createApp({
     localStorage.setItem("cart", JSON.stringify(this.cart));
   }), "login", function login() {
     this.submitted = true;
-
     // Resetowanie komunikatów o błędach
     this.passwordErrorMessage = '';
     this.emailErrorMessage = '';
-
     // Walidacja adresu email
     if (!this.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.email)) {
       this.emailValid = false;
     } else {
       this.emailValid = true;
     }
-
     // Walidacja hasła
     if (!this.password || this.password.length < 8) {
       this.passwordErrorMessage = 'Password must be at least 8 characters long.';
@@ -225,10 +218,8 @@ var app = Vue.createApp({
     } else {
       this.passwordValid = true;
     }
-
     // Sprawdzenie, czy oba pola spełniają kryteria walidacji
     if (this.emailValid && this.passwordValid) {
-      // Tutaj można dodać logikę logowania
       console.log('Logged in with:', this.email, this.password);
       // Wyświetlenie komunikatu o pomyślnym zalogowaniu
       alert('Successfully logged in!');
@@ -263,4 +254,4 @@ app.mount("#app");
 
 /******/ })()
 ;
-//# sourceMappingURL=favorites.1e1c3b5b5db578ab27f0.bundle.js.map
+//# sourceMappingURL=favorites.d486e3b588974513b466.bundle.js.map

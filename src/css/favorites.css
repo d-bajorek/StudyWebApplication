@@ -18,7 +18,6 @@ body .autoprefixer {
   user-select: none;
 }
 
-/* Dodatkowe niestandardowe style */
 .login-form-container {
   position: fixed;
   top: 0;
@@ -31,16 +30,12 @@ body .autoprefixer {
 .login-form-container.show {
   right: 0;
 }
-
 .navbar-collapse {
-  transition: all 0.5s; /* Dodaj animację do rozwijania się nawigacji */
+  transition: all 0.5s; /* Dodanie animacji do rozwijania się nawigacji */
 }
-
 .navbar-toggler:focus {
-  box-shadow: none; /* Wyłącz cień po kliknięciu na przycisku togglera */
+  box-shadow: none; /* Wyłączenie cienia po kliknięciu na przycisku togglera */
 }
-
-
 @media screen and (min-width:992px){
   .navbar {
     padding: 0;
@@ -54,11 +49,9 @@ body .autoprefixer {
     margin: 0 1em;
   }
 }
-
 .navbar .navbar-nav .nav-item {
   position: relative;
 }
-
 .navbar .navbar-nav .nav-item::after {
   position: absolute;
   bottom: 0;
@@ -69,9 +62,8 @@ body .autoprefixer {
   background-color: #cee5d0;
   width: 0; /* Początkowo szerokość wynosi 0, aby nie było widoczne */
   height: 4px; /* Wysokość paska */
-  transition: width 0.3s ease; /* Dodaj animację */
+  transition: width 0.3s ease; /* Dodanie animacji */
 }
-
 .navbar .navbar-nav .nav-item:hover::after {
   width: 100%; /* Po najechaniu myszą szerokość zmienia się na 100% */
 }
@@ -81,7 +73,6 @@ body .autoprefixer {
     max-height: 100px;
   }
 }
-
 .button{
   position: relative;
   padding: 9px 21px;
@@ -95,11 +86,9 @@ body .autoprefixer {
   transition: transform 0.2s ease;
   box-shadow: 0 5px rgba(0,0,0,0.1);
 }
-
 .button:active{
   transform: scale(0.96);
 }
-
 .button::before,
 .button::after{
   content:"";
@@ -111,7 +100,6 @@ body .autoprefixer {
   z-index: -1;
   background-repeat: no-repeat;
 }
-
 .button.animate::before{
   top: -70%;
   background-image: radial-gradient(circle, #ecb390 20%, transparent 20%),
@@ -177,7 +165,6 @@ body .autoprefixer {
   transition: transform 0.2s ease;
   box-shadow: 0 5px rgba(0, 0, 0, 0.1);
 }
-
 /* Dodatkowe niestandardowe style */
 .table.table-hover {
   background: none; /* Ustawienie tła dla tabeli */

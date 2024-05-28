@@ -6,15 +6,14 @@ const app = Vue.createApp({
         email: '',
         password: '',
         submitted: false,
-        emailValid: true, // Dodajemy właściwość do przechowywania informacji o poprawności adresu email
-        passwordValid: true, // Dodajemy właściwość do przechowywania informacji o poprawności hasła
+        emailValid: true, // Dodanie właściwości do przechowywania informacji o poprawności adresu email
+        passwordValid: true, // Dodanie właściwości do przechowywania informacji o poprawności hasła
         passwordErrorMessage: '',
         topTenShows: [],
         images: [],
         cart: [], // Tablica koszyka, logika z main.js
-        
-      showConfirmation: false,
-      itemIdToRemove: null,
+        showConfirmation: false,
+        itemIdToRemove: null,
       };
   },
   created() {
@@ -104,63 +103,50 @@ const app = Vue.createApp({
       this.updateTotalPrice();
       
     },
-
-      login() {
-      
-        this.submitted = true;
-        
-        // Resetowanie komunikatów o błędach
-        this.passwordErrorMessage = '';
-        this.emailErrorMessage = ''; 
-        
-      
-        // Walidacja adresu email
-        if (!this.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.email)) {
-          this.emailValid = false;
-        } else {
-          this.emailValid = true;
-        }
-      
-        // Walidacja hasła
-  if (!this.password || this.password.length < 8) {
-    this.passwordErrorMessage = 'Password must be at least 8 characters long.';
-    this.passwordValid = false;
-    inputPassword.classList.remove('is-valid'); // Usunięcie klasy is-valid
-  } else {
-    this.passwordValid = true;
-  }
-  
-      
-        // Sprawdzenie, czy oba pola spełniają kryteria walidacji
-        if (this.emailValid && this.passwordValid) {
-          // Tutaj można dodać logikę logowania
-          console.log('Logged in with:', this.email, this.password);
-          // Wyświetlenie komunikatu o pomyślnym zalogowaniu
-          alert('Successfully logged in!');
-          // Zamykanie modalu po wyświetleniu komunikatu
-          $("#loginModal").modal("hide");
-          this.clearForm();
-         
-          
-        }
+    login() {
+      this.submitted = true;
+      // Resetowanie komunikatów o błędach
+      this.passwordErrorMessage = '';
+      this.emailErrorMessage = ''; 
+      // Walidacja adresu email
+      if (!this.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.email)) {
+        this.emailValid = false;
+      } else {
+        this.emailValid = true;
+      }
+      // Walidacja hasła
+      if (!this.password || this.password.length < 8) {
+        this.passwordErrorMessage = 'Password must be at least 8 characters long.';
+        this.passwordValid = false;
+        inputPassword.classList.remove('is-valid'); // Usunięcie klasy is-valid
+      } else {
+        this.passwordValid = true;
+      }
+      // Sprawdzenie, czy oba pola spełniają kryteria walidacji
+      if (this.emailValid && this.passwordValid) {
+        console.log('Logged in with:', this.email, this.password);
+        // Wyświetlenie komunikatu o pomyślnym zalogowaniu
+        alert('Successfully logged in!');
+        // Zamykanie modalu po wyświetleniu komunikatu
+        $("#loginModal").modal("hide");
+        this.clearForm();  
+      }
       },
       clearForm() {
-    // Czyszczenie danych formularza
-    this.email = '';
-    this.password = '';
-    this.submitted = false;
-    this.emailValid = true;
-    this.passwordValid = true;
-    this.passwordErrorMessage = '';
-    this.emailErrorMessage = '';
-    // Usunięcie klas is-invalid i is-valid
-    const inputEmail = document.getElementById('inputEmail');
-    const inputPassword = document.getElementById('inputPassword');
-    inputEmail.classList.remove('is-invalid', 'is-valid');
-    inputPassword.classList.remove('is-invalid', 'is-valid');
-  },
-
+      // Czyszczenie danych formularza
+      this.email = '';
+      this.password = '';
+      this.submitted = false;
+      this.emailValid = true;
+      this.passwordValid = true;
+      this.passwordErrorMessage = '';
+      this.emailErrorMessage = '';
+      // Usunięcie klas is-invalid i is-valid
+      const inputEmail = document.getElementById('inputEmail');
+      const inputPassword = document.getElementById('inputPassword');
+      inputEmail.classList.remove('is-invalid', 'is-valid');
+      inputPassword.classList.remove('is-invalid', 'is-valid');
+      },
   }
 });
-
 app.mount('#app');

@@ -14,7 +14,6 @@ body .change {
   background-color: #ecb390;
   padding: 10px;
 }
-
 .h1-style {
   font-size: 4vw;
   /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
@@ -22,7 +21,6 @@ body .change {
   -webkit-text-stroke: 3px #94b49f;
   position: relative;
 }
-
 .h1-style::before {
   content: "Top 10 highest-rated series";
   position: absolute;
@@ -34,44 +32,33 @@ body .change {
   border-right: 8px solid #ecb390;
   transition: width 1s ease-in-out;
 }
-
 .h1-style:hover::before {
   width: 100%;
   filter: drop-shadow(0 0 25px #94b49f);
 }
-
-
-
 body .autoprefixer {
   user-select: none;
 }
-
 .navbar-collapse {
-  transition: all 0.5s; /* Dodaj animację do rozwijania się nawigacji */
+  transition: all 0.5s; /* Dodanie animacji do rozwijania się nawigacji */
 }
-
 .navbar-toggler:focus {
-  box-shadow: none; /* Wyłącz cień po kliknięciu na przycisku togglera */
+  box-shadow: none; /* Włączenie cienia po kliknięciu na przycisku togglera */
 }
-
 @media screen and (min-width:992px){
   .navbar {
     padding: 0;
   }
-  
   .navbar .navbar-nav .nav-link {
     padding: 1em;
   }
-
   .navbar .navbar-nav .nav-item {
     margin: 0 1em;
   }
 }
-
 .navbar .navbar-nav .nav-item {
   position: relative;
 }
-
 .navbar .navbar-nav .nav-item::after {
   position: absolute;
   bottom: 0;
@@ -82,13 +69,11 @@ body .autoprefixer {
   background-color: #cee5d0;
   width: 0; /* Początkowo szerokość wynosi 0, aby nie było widoczne */
   height: 4px; /* Wysokość paska */
-  transition: width 0.3s ease; /* Dodaj animację */
+  transition: width 0.3s ease; /* Dodanie animacji */
 }
-
 .navbar .navbar-nav .nav-item:hover::after {
   width: 100%; /* Po najechaniu myszą szerokość zmienia się na 100% */
 }
-
 .input-group{
   display: flex;
   justify-content: center;
@@ -96,7 +81,6 @@ body .autoprefixer {
   min-width:  250px;
   height: 50px;
 }
-
 .form-select{
   border: none;
   appearance: none;
@@ -104,72 +88,6 @@ body .autoprefixer {
   width: 100%;
   background-color:#94b49f ;
 }
-
-/* .popup_box {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 5px;
-  user-select: none;
-  width: 400px;
-  background: #f2f2f2;
-  text-align: center;
-  align-items: center;
-  padding: 40px;
-  border: 1px solid #b3b3b3;
-  box-shadow: 0px 5px 10px rgba(0,0,0.2);
-  z-index: 9999;
-}
-
-.popup_box i {
-  font-size: 60px;
-  color: #ecb390;
-  border: 5px solid;
-  padding: 20px 40px;
-  border-radius: 50%;
-  margin: -10px 0 20px 0;
-}
-
-.popup_box .btns {
-  margin: 40px 0 0 0;
-}
-
-.btns .btn1,
-.btns .btn2 {
-  background: #999999;
-  color: white;
-  font-size: 18px;
-  padding: 10px 13px;
-  border: 1px solid #808080;
-  border-radius: 5px;
-}
-
-.btns .btn2 {
-  background: #d61010;
-  margin-left: 20px;
-  border: 1px solid #3c0404;
-}
-
-.btn1:hover {
-  transition: .5s;
-  background: #3e3e43;
-}
-
-.btn2:hover {
-  transition: .5s;
-  background: #e60000;
-} */
-
-/* .movie-content {
-  transition: transform 0.3s ease-in-out;
-} */
-
-/* Animacja po najechaniu myszką */
-/* .movie-content:hover {
-  transform: scale(1.05);
-} */
-
 @media screen and (max-width: 768px) {
   .input-group {
     min-width: 200px;
@@ -188,7 +106,6 @@ body .autoprefixer {
     padding: 0 15px 0 10px;
   }
 }
-
 .carousel-control-prev-icon, .carousel-control-next-icon {
   height: 50px;
   width: 50px;

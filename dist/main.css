@@ -19,8 +19,6 @@ body .autoprefixer {
      -moz-user-select: none;
           user-select: none;
 }
-
-/* Dodatkowe niestandardowe style */
 .login-form-container {
   position: fixed;
   top: 0;
@@ -33,7 +31,6 @@ body .autoprefixer {
 .login-form-container.show {
   right: 0;
 }
-
 .pagination.pagination-sm.pagination-secondary .page-item .page-link {
   color: #6c757d;
   /* Kolor tekstu nieaktywnych stron */
@@ -42,20 +39,16 @@ body .autoprefixer {
   background-color: transparent;
   /* Przezroczyste tło dla nieaktywnych stron */
 }
-
 .pagination.pagination-sm.pagination-secondary .page-item.active .page-link {
   background-color: #6c757d;
   border-color: #6c757d;
 }
-
 .pagination.pagination-sm.pagination-secondary .page-link {
   color: #6c757d;
 }
-
 .pagination.pagination-sm.pagination-secondary .page-link:hover {
   color: #343a40;
 }
-
 .pagination.pagination-sm.pagination-secondary .page-item.active .page-link {
   color: #fff;
   /* Kolor tekstu aktywnej strony */
@@ -64,33 +57,26 @@ body .autoprefixer {
   border-color: #343a40;
   /* Kolor obramowania aktywnej strony */
 }
-
 .navbar-collapse {
-  transition: all 0.5s; /* Dodaj animację do rozwijania się nawigacji */
+  transition: all 0.5s; /* Dodanie animacji do rozwijania się nawigacji */
 }
-
 .navbar-toggler:focus {
-  box-shadow: none; /* Wyłącz cień po kliknięciu na przycisku togglera */
+  box-shadow: none; /* Wyłączenie cienia po kliknięciu na przycisku togglera */
 }
-
 @media screen and (min-width:992px){
   .navbar {
     padding: 0;
   }
-  
   .navbar .navbar-nav .nav-link {
     padding: 1em;
   }
-
   .navbar .navbar-nav .nav-item {
     margin: 0 1em;
   }
 }
-
 .navbar .navbar-nav .nav-item {
   position: relative;
 }
-
 .navbar .navbar-nav .nav-item::after {
   position: absolute;
   bottom: 0;
@@ -101,22 +87,19 @@ body .autoprefixer {
   background-color: #cee5d0;
   width: 0; /* Początkowo szerokość wynosi 0, aby nie było widoczne */
   height: 4px; /* Wysokość paska */
-  transition: width 0.3s ease; /* Dodaj animację */
+  transition: width 0.3s ease; /* Dodanie animacji */
 }
-
 .navbar .navbar-nav .nav-item:hover::after {
   width: 100%; /* Po najechaniu myszą szerokość zmienia się na 100% */
 }
-
 .navbar .navbar-nav .nav-item.active::after {
   width: 100%;
   /* Po najechaniu myszą szerokość zmienia się na 100% */
   background-color: yellow;
-  /* Dodaj dowolny kolor dla aktywnej strony */
+  /* Dodanie dowolnego koloru dla aktywnej strony */
   transition: width 0.3s ease, background-color 0.3s ease;
-  /* Dodaj animację */
+  /* Dodanie animację */
 }
-
 
 /* .movie-content {
   transition: transform 0.3s ease-in-out;
@@ -126,7 +109,6 @@ body .autoprefixer {
 /* .movie-content:hover {
   transform: scale(1.05);
 } */
-
 .button{
   position: relative;
   padding: 9px 21px;
@@ -140,11 +122,9 @@ body .autoprefixer {
   transition: transform 0.2s ease;
   box-shadow: 0 5px rgba(0,0,0,0.1);
 }
-
 .button:active{
   transform: scale(0.96);
 }
-
 .button::before,
 .button::after{
   content:"";
@@ -156,7 +136,6 @@ body .autoprefixer {
   z-index: -1;
   background-repeat: no-repeat;
 }
-
 .button.animate::before{
   top: -70%;
   background-image: radial-gradient(circle, #ecb390 20%, transparent 20%),

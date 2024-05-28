@@ -109,7 +109,6 @@ var app = Vue.createApp({
         console.error("Some items in the cart do not have a valid price.");
         return "N/A";
       }
-
       // Obliczanie całkowitej ceny na podstawie sumy cen filmów w koszyku
       var total = this.cart.reduce(function (total, item) {
         return total + parseFloat(item.price);
@@ -230,4 +229,4 @@ app.mount('#app');
 
 /******/ })()
 ;
-//# sourceMappingURL=checkout.d07f419d5bb764e75142.bundle.js.map
+//# sourceMappingURL=checkout.2a0363a74fe42d5df01e.bundle.js.map
