@@ -197,55 +197,67 @@
         <div v-if="favorites.length === 0" class="alert alert-info" role="alert">
           No favorite films. Add some!
         </div>
-        <div class="row">
-          <div v-for="favorite in favorites" :key="favorite.id" class="col-md-6 mb-4">
-            <div class="card">
-              <div class="card-body">
-                <img :src="favorite.image.medium" class="d-block mx-auto" :alt="favorite.name" />
-                <h5 class="card-title">{{ favorite.name }}</h5>
-                <p class="card-text summary-scrollable" v-html="favorite.summary"></p>
-                <button @click="removeFromFavorites(favorite.id)" class="btn btn-danger">
-                  Remove from favorites
-                </button>
-              </div>
-            </div>
-          </div>
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Summary</th>
+                <th>URL</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="favorite in favorites" :key="favorite.id">
+                <td><img :src="favorite.image.medium" :alt="favorite.name" class="img-fluid" style= "max-width: 100px;" /></td>
+                <td>{{ favorite.name }}</td>
+                <td v-html="favorite.summary" style="background: none;"></td>
+                <td><a :href="favorite.url" target="_blank" class="link-gray">{{ favorite.url }}</a></td>
+                <td><button @click="removeFromFavorites(favorite.id)" class="btn btn-danger">Remove</button></td>
+              </tr>              
+            </tbody>
+          </table>
         </div>
       </div>
-      
       
       <!----------------------->
       <!-- TOP TEN FILMS START-->
-      <div class="container">
-        <div class="row mb-4" id="topTen">
-          <h4>TOP 10 MOVIES</h4>
-          <div
-            v-for="show in topTenShows"
-            :key="show.id"
-            class="col-sm-6 col-md-4 col-lg-3 mb-4"
-          >
-            <div class="movie-content">
-              <img :src="show.image.medium" alt="Movie Poster" />
-              <div class="movie-info">
-                <h5>{{ show.name }}</h5>
-                <span>Rating: {{ show.rating.average }}</span>
-                <br />
-                <span>Genres: {{ show.genres.join(', ') }}</span>
-                <!-- Add to Favorites button -->
-                <div class="d-grid gap-2 mt-2">
-                  <button
-                    class="btn btn-outline-secondary"
-                    @click="addToFavorites(show)"
-                  >
-                    Add to Favorites
-                  </button>
-                </div>
-              </div>
-            </div>
+<div class="container">
+  <h4 class="mb-4 text-center">TOP 10 MOVIES</h4>
+  <div class="row row-cols-2 row-cols-md-5 mb-4" id="topTen">
+    
+    <!-- Pętla dla każdego filmu -->
+    <div
+      v-for="show in topTenShows"
+      :key="show.id"
+      class="col mb-4"
+    >
+      <!-- Karta dla pojedynczego filmu -->
+      <div class="movie-content">
+        <img :src="show.image.medium"
+        class="card-img-top rounded" alt="Movie Poster" />
+        <div class="movie-info">
+          <h5>{{ show.name }}</h5>
+          <span>Rating: {{ show.rating.average }}</span>
+          <br />
+          <span>Genres: {{ show.genres.join(', ') }}</span>
+          <!-- Add to Favorites button -->
+          <div class="d-grid gap-2 mt-2">
+            <button
+              class="button btn btn-secondary"
+              @click="addToFavorites(show)"
+            >
+              Add to Favorites
+            </button>
           </div>
         </div>
       </div>
-      <!-- TOP TEN FILMS END-->
+    </div>
+  </div>
+</div>
+<!-- TOP TEN FILMS END-->
+
       
       <!------------Footer START------------>
       <div class="container">

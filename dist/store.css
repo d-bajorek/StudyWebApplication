@@ -193,4 +193,14 @@ body .autoprefixer {
   }
 }
 
+.carousel-control-prev-icon, .carousel-control-next-icon {
+  height: 50px;
+  width: 50px;
+  outline: #fcf8e8;
+  background-color: #ecb390;
+  background-size: 100%, 100%;
+  border-radius: 50%;
+  border: 1px solid #fcf8e8;
+}
+
 /*# sourceMappingURL=store.css.map*/

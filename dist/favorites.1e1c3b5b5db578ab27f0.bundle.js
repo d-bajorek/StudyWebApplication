@@ -141,11 +141,7 @@ var app = Vue.createApp({
         this.favorites.push(show);
         // Zapisanie ulubionych w localStorage
         localStorage.setItem("favorites", JSON.stringify(this.favorites));
-        // Zaktualizowanie licznika na serduszku
-        var countElement = document.querySelector(".count span");
-        if (countElement) {
-          countElement.textContent = parseInt(countElement.textContent || 0) + 1;
-        }
+
         // Dodanie animacji do ikony serduszka
         var heartIcon = document.querySelector(".fa-heart");
         if (heartIcon) {
@@ -154,6 +150,14 @@ var app = Vue.createApp({
             heartIcon.classList.remove("animate__animated", "animate__heartBeat");
           }, 10000); // Usunięcie animacji po 10 sekundzie
         }
+        // Dodanie animacji do przycisku
+        var button = event.target;
+        button.classList.add('animate');
+
+        // Usunięcie animacji po zakończeniu animacji
+        setTimeout(function () {
+          button.classList.remove('animate');
+        }, 600); // Długość trwania animacji w milisekundach
       }
     }
   }, "removeFromFavorites", function removeFromFavorites(showId) {
@@ -259,4 +263,4 @@ app.mount("#app");
 
 /******/ })()
 ;
-//# sourceMappingURL=favorites.cec7a1e25ac0bfef9dfb.bundle.js.map
+//# sourceMappingURL=favorites.1e1c3b5b5db578ab27f0.bundle.js.map

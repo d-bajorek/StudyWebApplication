@@ -1,8 +1,8 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
-/******/ 	var __webpack_modules__ = ([
-/* 0 */,
-/* 1 */
+/******/ 	var __webpack_modules__ = ({
+
+/***/ 3:
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
@@ -10,7 +10,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /***/ })
-/******/ 	]);
+
+/******/ 	});
 /************************************************************************/
 /******/ 	// The module cache
 /******/ 	var __webpack_module_cache__ = {};
@@ -53,7 +54,7 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _css_store_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var _css_checkout_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(3);
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
@@ -71,20 +72,24 @@ var app = Vue.createApp({
   data: function data() {
     return {
       email: '',
-      password: '',
       submitted: false,
       emailValid: true,
-      // Dodajemy właściwość do przechowywania informacji o poprawności adresu email
-      passwordValid: true,
-      // Dodajemy właściwość do przechowywania informacji o poprawności hasła
-      passwordErrorMessage: '',
+      // Właściwość do przechowywania informacji o poprawności adresu email
       topTenShows: [],
       images: [],
       cart: [],
       // Tablica koszyka, logika z main.js
-
-      showConfirmation: false,
-      itemIdToRemove: null
+      formData: {
+        firstName: '',
+        lastName: '',
+        email: '',
+        address: '',
+        address2: '',
+        city: '',
+        country: '',
+        agree: false
+      },
+      errors: {}
     };
   },
   created: function created() {
@@ -160,79 +165,69 @@ var app = Vue.createApp({
         localStorage.setItem("cart", JSON.stringify(this.cart));
       }
     },
-    showPopup: function showPopup(itemId) {
-      this.itemIdToRemove = itemId;
-      this.showConfirmation = true;
-    },
-    cancelRemove: function cancelRemove() {
-      this.showConfirmation = false;
-      this.itemIdToRemove = null;
-      // Ukrycie modala przy kliknięciu przycisku "Cancel"
-      $("#removeFromCartModal").modal("hide");
-    },
     removeFromCart: function removeFromCart(showId) {
       this.cart = this.cart.filter(function (item) {
         return item.id !== showId;
       });
       localStorage.setItem("cart", JSON.stringify(this.cart));
-      // Ukrycie modala po usunięciu przedmiotu z koszyka
-      $("#removeFromCartModal").modal("hide");
-      this.updateTotalPrice();
     },
-    login: function login() {
-      this.submitted = true;
-
-      // Resetowanie komunikatów o błędach
-      this.passwordErrorMessage = '';
-      this.emailErrorMessage = '';
-
-      // Walidacja adresu email
-      if (!this.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.email)) {
-        this.emailValid = false;
-      } else {
-        this.emailValid = true;
+    validateForm: function validateForm() {
+      this.errors = {};
+      if (!this.formData.firstName) {
+        this.errors.firstName = 'Please enter your first name';
       }
-
-      // Walidacja hasła
-      if (!this.password || this.password.length < 8) {
-        this.passwordErrorMessage = 'Password must be at least 8 characters long.';
-        this.passwordValid = false;
-        inputPassword.classList.remove('is-valid'); // Usunięcie klasy is-valid
-      } else {
-        this.passwordValid = true;
+      if (!this.formData.lastName) {
+        this.errors.lastName = 'Please enter your last name';
       }
-
-      // Sprawdzenie, czy oba pola spełniają kryteria walidacji
-      if (this.emailValid && this.passwordValid) {
-        // Tutaj można dodać logikę logowania
-        console.log('Logged in with:', this.email, this.password);
-        // Wyświetlenie komunikatu o pomyślnym zalogowaniu
-        alert('Successfully logged in!');
-        // Zamykanie modalu po wyświetleniu komunikatu
-        $("#loginModal").modal("hide");
-        this.clearForm();
+      if (!this.formData.email) {
+        this.errors.email = 'Please enter your email address';
+      } else if (!/\S+@\S+\.\S+/.test(this.formData.email)) {
+        this.errors.email = 'Please enter a valid email address';
+      }
+      if (!this.formData.address) {
+        this.errors.address = 'Please enter your address';
+      }
+      if (!this.formData.city) {
+        this.errors.city = 'Please enter your city';
+      }
+      if (!this.formData.country) {
+        this.errors.country = 'Please select your country';
+      }
+      if (!this.formData.agree) {
+        this.errors.agree = 'Please accept the terms & conditions';
       }
     },
-    clearForm: function clearForm() {
-      // Czyszczenie danych formularza
-      this.email = '';
-      this.password = '';
-      this.submitted = false;
-      this.emailValid = true;
-      this.passwordValid = true;
-      this.passwordErrorMessage = '';
-      this.emailErrorMessage = '';
-      // Usunięcie klas is-invalid i is-valid
-      var inputEmail = document.getElementById('inputEmail');
-      var inputPassword = document.getElementById('inputPassword');
-      inputEmail.classList.remove('is-invalid', 'is-valid');
-      inputPassword.classList.remove('is-invalid', 'is-valid');
+    submitForm: function submitForm() {
+      this.validateForm();
+      console.log('Errors after validation:', this.errors);
+
+      // If there are no errors, you can proceed with form submission
+      if (Object.keys(this.errors).length === 0) {
+        alert('Order complete!');
+        // Proceed with form submission
+        console.log('Form submitted successfully');
+      } else {
+        console.log('Form submission blocked due to errors.');
+      }
     }
   }
 });
 app.mount('#app');
+
+/////////////////////////////////////////////////////////////
+
+// // Lista krajów:
+// fetch("https://restcountries.com/v2/all")
+//   .then((response) => response.json())
+//   .then((data) => {
+//     data.forEach((country) => {
+//       const option = document.createElement("option");
+//       option.text = country.name;
+//       selectElement.add(option);
+//     });
+//   });
 })();
 
 /******/ })()
 ;
-//# sourceMappingURL=store.875b53aa6bd506217df9.bundle.js.map
+//# sourceMappingURL=checkout.d07f419d5bb764e75142.bundle.js.map

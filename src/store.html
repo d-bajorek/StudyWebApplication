@@ -202,7 +202,7 @@
                   </p>
                 </div>
                 <div class="d-flex flex-column flex-md-row align-items-start align-items-md-center">
-                  <select v-model="item.price" class="form-select w-auto mb-3 mb-md-0 me-md-3">
+                  <select v-model="item.price" @change="updateItemPrice(item, item.price)" class="form-select w-auto mb-3 mb-md-0 me-md-3">
                     <option disabled value="">Rental periods</option>
                     <option value="5.99">48 hours ($5.99)</option>
                     <option value="14.99">7 days ($14.99)</option>
@@ -334,7 +334,7 @@
               data-bs-slide="prev"
             >
               <span
-                class="carousel-control-prev-icon"
+                class="carousel-control-prev-icon text-dark"
                 aria-hidden="true"
               ></span>
               <span class="visually-hidden">Previous</span>
@@ -346,7 +346,7 @@
               data-bs-slide="next"
             >
               <span
-                class="carousel-control-next-icon"
+                class="carousel-control-next-icon text-dark"
                 aria-hidden="true"
               ></span>
               <span class="visually-hidden">Next</span>

@@ -245,11 +245,7 @@ var app = Vue.createApp({
         this.favorites.push(show);
         // Zapisanie ulubionych w localStorage
         localStorage.setItem("favorites", JSON.stringify(this.favorites));
-        // Zaktualizowanie licznika na serduszku
-        var countElement = document.querySelector(".count span");
-        if (countElement) {
-          countElement.textContent = parseInt(countElement.textContent || 0) + 1;
-        }
+
         // Dodanie animacji do ikony serduszka
         var heartIcon = document.querySelector(".fa-heart");
         if (heartIcon) {
@@ -507,4 +503,4 @@ app.mount("#app");
 
 /******/ })()
 ;
-//# sourceMappingURL=main.4278059c6952070d09cd.bundle.js.map
+//# sourceMappingURL=main.826dbada7ac0d97d5ac0.bundle.js.map

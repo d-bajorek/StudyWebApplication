@@ -75,12 +75,7 @@ const app = Vue.createApp({
         this.favorites.push(show);
         // Zapisanie ulubionych w localStorage
         localStorage.setItem("favorites", JSON.stringify(this.favorites));
-        // Zaktualizowanie licznika na serduszku
-        const countElement = document.querySelector(".count span");
-        if (countElement) {
-          countElement.textContent =
-            parseInt(countElement.textContent || 0) + 1;
-        }
+        
         // Dodanie animacji do ikony serduszka
         const heartIcon = document.querySelector(".fa-heart");
         if (heartIcon) {
@@ -92,6 +87,14 @@ const app = Vue.createApp({
             );
           }, 10000); // Usunięcie animacji po 10 sekundzie
         }
+        // Dodanie animacji do przycisku
+      const button = event.target;
+      button.classList.add('animate');
+
+      // Usunięcie animacji po zakończeniu animacji
+      setTimeout(() => {
+        button.classList.remove('animate');
+      }, 600); // Długość trwania animacji w milisekundach
       }
     },
     // Dodajemy metodę do usuwania filmów z ulubionych

@@ -26,23 +26,11 @@ const app = Vue.createApp({
   },
   computed: {
     totalPrice() {
-        // Sprawdzenie, czy wszystkie filmy w koszyku posiadają właściwość price
-        const hasPrice = this.cart.every(
-          (item) => item.hasOwnProperty("price") && !isNaN(item.price)
-        );
-  
-        if (!hasPrice) {
-          console.error("Some items in the cart do not have a valid price.");
-          return "N/A";
-        }
-  
-        // Obliczanie całkowitej ceny na podstawie sumy cen filmów w koszyku
-        const total = this.cart.reduce(
-          (total, item) => total + parseFloat(item.price),
-          0
-        );
-        return total.toFixed(2);
-      },
+      return this.cart.reduce(
+        (total, item) => total + parseFloat(item.price || 0),
+        0
+      ).toFixed(2);
+    },
   },
   methods: {
       fetchTopTenShows() {
@@ -83,8 +71,20 @@ const app = Vue.createApp({
             this.cart.push(showWithPrice);
             // Zapisanie koszyka w localStorage
             localStorage.setItem("cart", JSON.stringify(this.cart));
+            this.updateTotalPrice();
         }
-        
+    },
+    updateItemPrice(show, newPrice) {
+      const item = this.cart.find(item => item.id === show.id);
+      if (item) {
+        item.price = newPrice;
+        localStorage.setItem("cart", JSON.stringify(this.cart));
+        this.updateTotalPrice();
+      }
+    },
+    updateTotalPrice() {
+      const total = this.cart.reduce((total, item) => total + parseFloat(item.price || 0), 0);
+      localStorage.setItem("totalPrice", total.toFixed(2));
     },
     showPopup(itemId) {
       this.itemIdToRemove = itemId;

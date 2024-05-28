@@ -495,7 +495,7 @@
                   @click="fetchShowDetails(show.id)"
                   style="cursor: pointer"
                 />
-                <div class="movie-info">
+                <div class="movie-info text-center d-flex flex-column align-items-center">
                   <h5
                     @click="fetchShowDetails(show.id)"
                     style="cursor: pointer"
@@ -521,7 +521,7 @@
   <!-- Buy or rent button start -->
   <div class="col">
     <div class="d-grid gap-2">
-      <button v-if="!show.isNew" class="btn btn-outline-secondary" @click="addToCart(show)">
+      <button v-if="!show.isNew" class="button-secondary" @click="addToCart(show)">
         Buy or Rent
       </button>
     </div>

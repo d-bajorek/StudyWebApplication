@@ -15,9 +15,7 @@ body .change {
   padding: 10px;
 }
 body .autoprefixer {
-  -webkit-user-select: none;
-     -moz-user-select: none;
-          user-select: none;
+  user-select: none;
 }
 
 .button-secondary {
@@ -33,5 +31,3 @@ body .autoprefixer {
   transition: transform 0.2s ease;
   box-shadow: 0 5px rgba(0, 0, 0, 0.1);
 }
-
-/*# sourceMappingURL=checkout.css.map*/
